@@ -1,0 +1,5 @@
+The system shall consistently display up to 60 frames per second without any frames dropping.
+
+The system shall save the players’ scores after every game and display on a leaderboard.
+
+The system shall have no more than a ten millisecond delay for when a button is pressed. 
