@@ -1,0 +1,9 @@
+Juan Ramirez
+CSC 307
+Functional Requirements
+
+1. The system shall provide functions that allow the user to change/upgrade their weapons.
+
+2. The system shall provide game modes with varying time limits ranging from five to thirty minute games.
+
+3. The system shall provide a cross-platform online multiplayer option.
