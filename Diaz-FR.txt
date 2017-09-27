@@ -6,3 +6,5 @@ Functional Requirements
 2. The System shall double or triple game speed when prompted.
 
 3. The System shall release the next wave of enemies when prompted.
+
+*relocate: If the enemy is below the first half of the turret the enemy will be pushed backwards, if they are below the second half they will be pushed forward.
