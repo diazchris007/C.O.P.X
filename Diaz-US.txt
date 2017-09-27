@@ -1,0 +1,8 @@
+Christian Diaz
+User Stories
+
+1. As a user, I want to drop turrets on top of enemies, altering their pathing, so that I can catch any stragglers back into my maze.
+
+2. As a user, I want to fast forward(2x or 3x) the gameplay, so that I don't have to wiat for weak enemies to finish a level.
+
+3. As a user, I want to be able to stack turrets, so that there is more ways to beat a level.

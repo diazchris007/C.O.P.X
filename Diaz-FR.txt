@@ -1,0 +1,8 @@
+Christian Diaz
+Functional Requirements
+
+1. The System shall relocate* enemies when a turret is dropped above them.
+
+2. The System shall double or triple game speed when prompted.
+
+3. The System shall release the next wave of enemies when prompted.
