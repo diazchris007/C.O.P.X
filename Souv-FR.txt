@@ -6,5 +6,5 @@ The system shall provide the amount of time remaining for each game.
 
 The system shall provide a game mode that has unlimited amount of time.
 
-The system shall the system shall provide the user’s progress on user-command.
+The system shall provide the user’s progress on user-command.
 
