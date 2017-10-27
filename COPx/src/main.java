@@ -1,5 +1,6 @@
 import javafx.application.Application;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -26,7 +27,24 @@ public class main extends Application {
 	Label lblLoading;
 	
 	Button btnClear;
-
+	EventHandler<ActionEvent> changeScreens = new EventHandler<ActionEvent>(){
+		// handles all events
+		public void handle(ActionEvent e) {
+			
+			if (e.getSource() == settingBtn) {
+				stage.setScene(settingScene);
+				return;
+			}
+			if (e.getSource() == btnStartGameBtn) {
+				stage.setScene(startGameScene);
+				return;
+			}
+			if (e.getSource() == exitBtn_PlayGame) {
+				stage.setScene(startScene);
+				return;
+			}
+		}
+	};
 
 	public static void main( String[] args) {
 		launch(args);
@@ -46,29 +64,14 @@ public class main extends Application {
 	// sets handler
 	public void attachCode() {
 	   //have each button run BTNCODE when clicked
-	   settingBtn.setOnAction(e -> btncode(e));
-	   btnStartGameBtn.setOnAction(e -> btncode(e));
-	   exitBtn_PlayGame.setOnAction(e-> btncode(e));
+	   settingBtn.setOnAction(changeScreens);
+	   btnStartGameBtn.setOnAction(changeScreens);
+	   exitBtn_PlayGame.setOnAction(changeScreens);
 
-	   btnClear.setOnAction(e -> btncode(e));
+	   btnClear.setOnAction(changeScreens);
 	}
 	
-	// handles all events
-	public void btncode(ActionEvent e) {
-		
-		if (e.getSource() == settingBtn) {
-			stage.setScene(settingScene);
-			return;
-		}
-		if (e.getSource() == btnStartGameBtn) {
-			stage.setScene(startGameScene);
-			return;
-		}
-		if (e.getSource() == exitBtn_PlayGame) {
-			stage.setScene(startScene);
-			return;
-		}
-	}
+	
 	
 	@Override 
 	public void start(Stage stagep) throws Exception {
