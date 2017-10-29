@@ -1,0 +1,5 @@
+As a player I want the game to be easy to use , so that I don’t break my head trying to learn how use the application.
+
+As a customer I want the game to have a free trial period, so that I don’t regret spending my money on a game I’m not going to play.
+
+As a player I want the game to be supported by mobile devices, so I can play the game any time and anywhere.

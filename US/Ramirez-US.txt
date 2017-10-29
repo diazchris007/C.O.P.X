@@ -1,0 +1,9 @@
+Juan Ramirez
+CSC 307
+User Stories
+
+1. As a user, I want to be able to switch and upgrade my weapons midway through a battle, so that I can defeat the higher level monsters coming through the map.
+
+2. As a user, I want a game mode with a user specified time limit, so that I can play when I have only a specific amount of time free.
+
+3. As a user, I would like to have multiplayer functionality, so that I can get to know real people through the game.

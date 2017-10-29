@@ -1,0 +1,11 @@
+1.
+   As a casual user, I want the multiplayer mode to have a chat box, 
+   so that I can strategize with the other player.
+2.
+   As an avid user, I want a leaderboard which displays my rank relative 
+   to other users, so that I can tell when I have beaten everyone else.
+3.
+   As a user, I want to save my progress, so I dont have to start from 
+   the beginning if I lose. 
+
+

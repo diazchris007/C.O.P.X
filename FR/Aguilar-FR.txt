@@ -1,0 +1,3 @@
+The system shall have instructions when the tan button in pressed.
+The system shall have a free trial period.
+The system shall be supported by mobile devices.

@@ -5,7 +5,7 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+//import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
@@ -95,7 +95,7 @@ public class main extends Application {
 		grid1.setVgap(10);
 
 		
-		Image logo = new Image("File:images/COPX_logo.png");
+		Image logo = new Image("File:./images/COPX_logo.png");
 		ImageView pic = new ImageView();
 		pic.setFitWidth(260);
 		pic.setFitHeight(130);
