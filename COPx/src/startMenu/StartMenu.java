@@ -17,15 +17,18 @@ public class StartMenu extends Application {
 	Button settingBtn;
 	Button btnStartGameBtn;
 	Button exitBtn_PlayGame;
+	Button leaderboardBtn;
 	Scene settingScene;
 	Scene startGameScene;
 	Scene startScene;
+	Scene leaderboardScene;
 	Stage stage;
 	
 	
 	
 	Label lbl_Setting;
 	Label lblLoading;
+	Label lblRegions;
 	
 	Button btnClear;
 	EventHandler<ActionEvent> changeScreens = new EventHandler<ActionEvent>(){
@@ -44,6 +47,10 @@ public class StartMenu extends Application {
 				stage.setScene(startScene);
 				return;
 			}
+			if (e.getSource() == leaderboardBtn) {
+				stage.setScene(leaderboardScene);
+				return;
+			}
 		}
 	};
 
@@ -54,12 +61,13 @@ public class StartMenu extends Application {
 	private void setWidths() {
 	   settingBtn.setPrefWidth(70);
 	   btnStartGameBtn.setPrefWidth(150);
-	   
+	   leaderboardBtn.setPrefWidth(150);
 	   exitBtn_PlayGame.setPrefWidth(150);
 		
 	   btnClear.setPrefWidth(150);
 	   lblLoading.setPrefWidth(150);
 	   lbl_Setting.setPrefWidth(150);
+	   lblRegions.setPrefWidth(150);
 	}
 	 
 	// sets handler
@@ -68,7 +76,7 @@ public class StartMenu extends Application {
 	   settingBtn.setOnAction(changeScreens);
 	   btnStartGameBtn.setOnAction(changeScreens);
 	   exitBtn_PlayGame.setOnAction(changeScreens);
-
+	   leaderboardBtn.setOnAction(changeScreens);
 	   btnClear.setOnAction(changeScreens);
 	}
 	
@@ -77,7 +85,11 @@ public class StartMenu extends Application {
 	@Override 
 	public void start(Stage stagep) throws Exception {
 		stage = stagep;
+		btnStartGameBtn = new Button("Start Game");
+		settingBtn = new Button("Settings");
+		exitBtn_PlayGame = new Button("Back to Start Screen");
 		btnClear = new Button("Clear");
+		leaderboardBtn = new Button("View Leaderboard");
 		
 		lblLoading = new Label("Loading...");
 		lblLoading.setAlignment(Pos.CENTER);
@@ -85,9 +97,8 @@ public class StartMenu extends Application {
 		lbl_Setting = new Label("Settings:");
 		lbl_Setting.setAlignment(Pos.CENTER);
 
-		settingBtn = new Button("Settings");
-		btnStartGameBtn = new Button("Start Game");
-		exitBtn_PlayGame = new Button("Back to Start Screen");
+		lblRegions = new Label("Regions");
+		lblRegions.setAlignment(Pos.CENTER);
 		
 		GridPane startSceneGrid = new GridPane();
 		startSceneGrid.setAlignment(Pos.CENTER);
@@ -95,7 +106,6 @@ public class StartMenu extends Application {
 		startSceneGrid.setHgap(10);
 		startSceneGrid.setVgap(10);
 
-		
 		Image logo = new Image("File:./../images/COPX_logo.png");
 		ImageView pic = new ImageView();
 		pic.setFitWidth(260);
@@ -106,8 +116,7 @@ public class StartMenu extends Application {
 		
 		startSceneGrid.add(settingBtn, 1, 1);
 		startSceneGrid.add(btnStartGameBtn, 0,1);
-
-
+		startSceneGrid.add(leaderboardBtn, 2, 1);
 		
 		GridPane settingSceneGrid = new GridPane(); 
 		settingSceneGrid.setAlignment(Pos.CENTER);
@@ -117,7 +126,6 @@ public class StartMenu extends Application {
 		
 		settingSceneGrid.add(lbl_Setting, 0, 0);
 		settingSceneGrid.add(btnClear , 0,1);
-
 		
 		GridPane startGameSceneGrid = new GridPane(); 
 		startGameSceneGrid.setAlignment(Pos.CENTER);
@@ -130,6 +138,14 @@ public class StartMenu extends Application {
 		startGameSceneGrid.add(lblLoading, 0, 0);
 		startGameSceneGrid.add(exitBtn_PlayGame, 0, 1);
 
+		GridPane leaderboardSceneGrid = new GridPane();
+		leaderboardSceneGrid.setAlignment(Pos.CENTER);
+		
+		leaderboardSceneGrid.setHgap(10);
+		leaderboardSceneGrid.setVgap(10);
+		
+		leaderboardSceneGrid.add(lblRegions, 0, 0);
+		leaderboardSceneGrid.add(exitBtn_PlayGame, 0, 1);
 
 		setWidths();
 		attachCode();
@@ -137,6 +153,7 @@ public class StartMenu extends Application {
 		startScene = new Scene(startSceneGrid, 1000, 800);
 		settingScene = new Scene(settingSceneGrid, 1000, 800);
 		startGameScene = new Scene(startGameSceneGrid, 1000, 800);
+		leaderboardScene = new Scene(leaderboardSceneGrid, 1000, 800);
 		 
 		stage.setScene(startScene);
 		stage.setTitle("COPX");
