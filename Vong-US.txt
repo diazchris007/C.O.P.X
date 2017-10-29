@@ -1,5 +1,0 @@
-As a user, I want to be able to pause the game, so that if I have to stop playing or something were to go wrong with the game, I can have all of my progress saved.
-
-As a user, I want to play without the need of internet connection, so that I am able to play as long as it is downloaded
-
-As a user, I would like for the in-game commands to be synched with the buttons, so that when I am playing, their is no delay for when a command used. 
