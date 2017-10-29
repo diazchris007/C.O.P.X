@@ -1,3 +1,4 @@
+package startMenu;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -12,7 +13,7 @@ import javafx.stage.Stage;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
-public class startMenu extends Application {
+public class StartMenu extends Application {
 	Button settingBtn;
 	Button btnStartGameBtn;
 	Button exitBtn_PlayGame;
@@ -88,11 +89,11 @@ public class startMenu extends Application {
 		btnStartGameBtn = new Button("Start Game");
 		exitBtn_PlayGame = new Button("Back to Start Screen");
 		
-		GridPane grid1 = new GridPane();
-		grid1.setAlignment(Pos.CENTER);
+		GridPane startSceneGrid = new GridPane();
+		startSceneGrid.setAlignment(Pos.CENTER);
 		
-		grid1.setHgap(10);
-		grid1.setVgap(10);
+		startSceneGrid.setHgap(10);
+		startSceneGrid.setVgap(10);
 
 		
 		Image logo = new Image("File:./../images/COPX_logo.png");
@@ -100,42 +101,42 @@ public class startMenu extends Application {
 		pic.setFitWidth(260);
 		pic.setFitHeight(130);
 		pic.setImage(logo);
-		grid1.add(pic, 0,0, 4, 1 );
 		
-		grid1.add(settingBtn, 1, 1);
-		grid1.add(btnStartGameBtn, 0,1);
+		startSceneGrid.add(pic, 0,0, 4, 1 );
+		
+		startSceneGrid.add(settingBtn, 1, 1);
+		startSceneGrid.add(btnStartGameBtn, 0,1);
 
 
 		
-		GridPane grid2 = new GridPane(); 
-		grid2.setAlignment(Pos.CENTER);
+		GridPane settingSceneGrid = new GridPane(); 
+		settingSceneGrid.setAlignment(Pos.CENTER);
 		
-		grid2.setHgap(10);
-		grid2.setVgap(10);
+		settingSceneGrid.setHgap(10);
+		settingSceneGrid.setVgap(10);
 		
-		grid2.add(lbl_Setting, 0, 0);
-		grid2.add(btnClear , 0,1);
+		settingSceneGrid.add(lbl_Setting, 0, 0);
+		settingSceneGrid.add(btnClear , 0,1);
 
 		
-		GridPane grid3 = new GridPane(); 
-		grid3.setAlignment(Pos.CENTER);
+		GridPane startGameSceneGrid = new GridPane(); 
+		startGameSceneGrid.setAlignment(Pos.CENTER);
 		
-		grid3.setHgap(10);
-		grid3.setVgap(10);
-
+		startGameSceneGrid.setHgap(10);
+		startGameSceneGrid.setVgap(10);
 		
 		// elements can only be added to one grid at a time
-		//grid3.add(pic, 0,0);
-		grid3.add(lblLoading, 0, 0);
-		grid3.add(exitBtn_PlayGame, 0, 1);
+		//startGameSceneGrid.add(pic, 0,0);
+		startGameSceneGrid.add(lblLoading, 0, 0);
+		startGameSceneGrid.add(exitBtn_PlayGame, 0, 1);
 
 
 		setWidths();
 		attachCode();
 		
-		startScene = new Scene(grid1, 1000, 800);
-		settingScene = new Scene(grid2, 1000, 800);
-		startGameScene = new Scene(grid3, 1000, 800);
+		startScene = new Scene(startSceneGrid, 1000, 800);
+		settingScene = new Scene(settingSceneGrid, 1000, 800);
+		startGameScene = new Scene(startGameSceneGrid, 1000, 800);
 		 
 		stage.setScene(startScene);
 		stage.setTitle("COPX");
