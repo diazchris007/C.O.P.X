@@ -12,7 +12,7 @@ import javafx.stage.Stage;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
-public class main extends Application {
+public class startMenu extends Application {
 	Button settingBtn;
 	Button btnStartGameBtn;
 	Button exitBtn_PlayGame;
@@ -95,7 +95,7 @@ public class main extends Application {
 		grid1.setVgap(10);
 
 		
-		Image logo = new Image("File:./images/COPX_logo.png");
+		Image logo = new Image("File:./../images/COPX_logo.png");
 		ImageView pic = new ImageView();
 		pic.setFitWidth(260);
 		pic.setFitHeight(130);
