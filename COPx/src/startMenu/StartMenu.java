@@ -24,11 +24,16 @@ public class StartMenu extends Application {
 	Scene leaderboardScene;
 	Stage stage;
 	
-	
+	Scene storeScene;
+	Button storeBtn;
+	GridPane storeGrid;
 	
 	Label lbl_Setting;
 	Label lblLoading;
+	Label storeTitleLbl;
+
 	Label lblRegions;
+
 	
 	Button btnClear;
 	EventHandler<ActionEvent> changeScreens = new EventHandler<ActionEvent>(){
@@ -47,6 +52,11 @@ public class StartMenu extends Application {
 				stage.setScene(startScene);
 				return;
 			}
+			if (e.getSource() == storeBtn) {
+				stage.setScene(storeScene);
+				return;
+			}
+
 			if (e.getSource() == leaderboardBtn) {
 				stage.setScene(leaderboardScene);
 				return;
@@ -61,12 +71,18 @@ public class StartMenu extends Application {
 	private void setWidths() {
 	   settingBtn.setPrefWidth(70);
 	   btnStartGameBtn.setPrefWidth(150);
+	   storeBtn.setPrefWidth(150);
+
 	   leaderboardBtn.setPrefWidth(150);
+
 	   exitBtn_PlayGame.setPrefWidth(150);
 		
 	   btnClear.setPrefWidth(150);
 	   lblLoading.setPrefWidth(150);
 	   lbl_Setting.setPrefWidth(150);
+
+	   storeTitleLbl.setPrefWidth(150);
+
 	   lblRegions.setPrefWidth(150);
 	}
 	 
@@ -76,6 +92,10 @@ public class StartMenu extends Application {
 	   settingBtn.setOnAction(changeScreens);
 	   btnStartGameBtn.setOnAction(changeScreens);
 	   exitBtn_PlayGame.setOnAction(changeScreens);
+	   storeBtn.setOnAction(changeScreens);
+
+
+
 	   leaderboardBtn.setOnAction(changeScreens);
 	   btnClear.setOnAction(changeScreens);
 	}
@@ -96,9 +116,14 @@ public class StartMenu extends Application {
 		
 		lbl_Setting = new Label("Settings:");
 		lbl_Setting.setAlignment(Pos.CENTER);
+		
+		storeTitleLbl = new Label("Welcome to the store");
+		storeTitleLbl.setAlignment(Pos.CENTER);
 
 		lblRegions = new Label("Regions");
 		lblRegions.setAlignment(Pos.CENTER);
+		
+		storeBtn = new Button("Store");
 		
 		GridPane startSceneGrid = new GridPane();
 		startSceneGrid.setAlignment(Pos.CENTER);
@@ -116,6 +141,11 @@ public class StartMenu extends Application {
 		
 		startSceneGrid.add(settingBtn, 1, 1);
 		startSceneGrid.add(btnStartGameBtn, 0,1);
+		startSceneGrid.add(storeBtn, 0, 2);
+
+
+
+
 		startSceneGrid.add(leaderboardBtn, 2, 1);
 		
 		GridPane settingSceneGrid = new GridPane(); 
@@ -138,6 +168,10 @@ public class StartMenu extends Application {
 		startGameSceneGrid.add(lblLoading, 0, 0);
 		startGameSceneGrid.add(exitBtn_PlayGame, 0, 1);
 
+		storeGrid = new GridPane();
+		storeGrid.add(storeTitleLbl, 0, 0);
+		
+		
 		GridPane leaderboardSceneGrid = new GridPane();
 		leaderboardSceneGrid.setAlignment(Pos.CENTER);
 		
@@ -147,12 +181,17 @@ public class StartMenu extends Application {
 		leaderboardSceneGrid.add(lblRegions, 0, 0);
 		leaderboardSceneGrid.add(exitBtn_PlayGame, 0, 1);
 
+
 		setWidths();
 		attachCode();
 		
 		startScene = new Scene(startSceneGrid, 1000, 800);
 		settingScene = new Scene(settingSceneGrid, 1000, 800);
 		startGameScene = new Scene(startGameSceneGrid, 1000, 800);
+
+		storeScene = new Scene(storeGrid, 1000, 800); 
+		
+
 		leaderboardScene = new Scene(leaderboardSceneGrid, 1000, 800);
 		 
 		stage.setScene(startScene);
