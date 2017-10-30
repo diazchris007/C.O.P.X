@@ -15,11 +15,13 @@ import javafx.scene.image.ImageView;
 
 public class StartMenu extends Application {
 	Button settingBtn;
-	Button btnStartGameBtn;
+	Button startGameBtn;
 	Button exitBtn_PlayGame;
 	Button leaderboardBtn;
 	Scene settingScene;
+	GridPane settingSceneGrid;
 	Scene startGameScene;
+	GridPane startSceneGrid;
 	Scene startScene;
 	Scene leaderboardScene;
 	Stage stage;
@@ -52,7 +54,7 @@ public class StartMenu extends Application {
 				stage.setScene(settingScene);
 				return;
 			}
-			if (e.getSource() == btnStartGameBtn) {
+			if (e.getSource() == startGameBtn) {
 				stage.setScene(startGameScene);
 				return;
 			}
@@ -78,21 +80,19 @@ public class StartMenu extends Application {
 	
 	private void setWidths() {
 	   settingBtn.setPrefWidth(70);
-	   btnStartGameBtn.setPrefWidth(150);
-	   storeBtn.setPrefWidth(150);
+	   startGameBtn.setPrefWidth(150);
 
-	   leaderboardBtn.setPrefWidth(150);
-
-	   exitBtn_PlayGame.setPrefWidth(150);
-		
 	   btnClear.setPrefWidth(150);
 	   lblLoading.setPrefWidth(150);
 	   lbl_Setting.setPrefWidth(150);
 
-	   storeTitleLbl.setPrefWidth(450);
+	   leaderboardBtn.setPrefWidth(150);
 
 	   lblRegions.setPrefWidth(150);
-	   
+	   exitBtn_PlayGame.setPrefWidth(150);
+
+	  // store
+	   storeBtn.setPrefWidth(150);
 	   
 	   buyGun.setPrefWidth(150);
 	   buyGun.setPrefHeight(80);
@@ -100,42 +100,119 @@ public class StartMenu extends Application {
 	   buySheild.setPrefHeight(80);
 	   buyItem.setPrefWidth(150);
 	   buyItem.setPrefHeight(80);
+	   storeTitleLbl.setPrefWidth(450);
+
 	}
 	 
 	// sets handler
 	public void attachCode() {
 	   //have each button run BTNCODE when clicked
 	   settingBtn.setOnAction(changeScreens);
-	   btnStartGameBtn.setOnAction(changeScreens);
+	   startGameBtn.setOnAction(changeScreens);
 	   exitBtn_PlayGame.setOnAction(changeScreens);
 	   storeBtn.setOnAction(changeScreens);
-
-
 
 	   leaderboardBtn.setOnAction(changeScreens);
 	   btnClear.setOnAction(changeScreens);
 	}
 	
+	public void setUpStorePage() {
+		Image gun = new Image("File:./../images/gunIcon.png");
+		ImageView gunIM = new ImageView();
+		gunIM.setFitWidth(50);
+		gunIM.setFitHeight(40);
+		gunIM.setImage(gun);
+		
+		Image shield = new Image("File:./../images/shieldIcon.png");
+		ImageView shieldIM = new ImageView();
+		shieldIM.setFitWidth(50);
+		shieldIM.setFitHeight(40);
+		shieldIM.setImage(shield);
+		
+		buyGun = new Button("Buy Gun", gunIM);
+		buySheild = new Button("Buy Shield", shieldIM);
+		buyItem = new Button("Buy Item");
+		
+		storeGrid = new GridPane();
+		storeGrid.setAlignment(Pos.CENTER);
+		storeGrid.setHgap(10);
+		storeGrid.setVgap(10);
+		
+		storeGrid.add(storeTitleLbl, 0, 0, 3, 1);
+		
+		storeGrid.add(buyGun, 0, 1);
+		storeGrid.add(buySheild, 1, 1);
+		storeGrid.add(buyItem, 2, 1);
+		
+		storeScene = new Scene(storeGrid, 1000, 800); 
+	}
 	
+	public void setUpStartScreen() {
+		startGameBtn = new Button("Start Game");
+
+		
+		leaderboardBtn = new Button("View Leaderboard");
+
+		settingBtn = new Button("Settings");
+
+		
+		startSceneGrid = new GridPane();
+		startSceneGrid.setAlignment(Pos.CENTER);
+		
+		startSceneGrid.setHgap(10);
+		startSceneGrid.setVgap(10);
+
+		Image logo = new Image("File:./../images/COPX_logo.png");
+		ImageView pic = new ImageView();
+		pic.setFitWidth(260);
+		pic.setFitHeight(130);
+		pic.setImage(logo);
+		startSceneGrid.add(pic, 0,0, 4, 1 );
+		
+		startSceneGrid.add(settingBtn, 1, 1);
+		startSceneGrid.add(startGameBtn, 0,1);
+		startSceneGrid.add(storeBtn, 0, 2);
+
+		startSceneGrid.add(leaderboardBtn, 2, 1);
+		
+		startScene = new Scene(startSceneGrid, 1000, 800);
+
+	}
+	
+	public void setUpSettingPage() {
+		lbl_Setting = new Label("Settings:");
+		lbl_Setting.setAlignment(Pos.CENTER);
+		
+		settingSceneGrid = new GridPane(); 
+		settingSceneGrid.setAlignment(Pos.CENTER);
+		
+		settingSceneGrid.setHgap(10);
+		settingSceneGrid.setVgap(10);
+		
+		settingSceneGrid.add(lbl_Setting, 0, 0);
+		settingSceneGrid.add(exitBtn_PlayGame, 0,1);
+		
+		settingScene = new Scene(settingSceneGrid, 1000, 800);
+
+	}
 	
 	@Override 
 	public void start(Stage stagep) throws Exception {
 		stage = stagep;
-		btnStartGameBtn = new Button("Start Game");
-		settingBtn = new Button("Settings");
+		
+		
 		exitBtn_PlayGame = new Button("Back to Start Screen");
 		btnClear = new Button("Clear");
-		leaderboardBtn = new Button("View Leaderboard");
 		
 		lblLoading = new Label("Loading...");
 		lblLoading.setAlignment(Pos.CENTER);
 		
-		lbl_Setting = new Label("Settings:");
-		lbl_Setting.setAlignment(Pos.CENTER);
+
 		
 		storeTitleLbl = new Label("Welcome to the store");
 		storeTitleLbl.setAlignment(Pos.CENTER);
-
+		storeBtn = new Button("Store");
+		
 		lblRegions = new Label("Select Region Below");
 		lblRegions.setAlignment(Pos.CENTER);
 		
@@ -148,61 +225,16 @@ public class StartMenu extends Application {
 		lblAsia = new Label("Asia");
 		lblAsia.setAlignment(Pos.CENTER);
 		
-		storeBtn = new Button("Store");
-		
-		
-//		Image imageOk = new Image(getClass().getResourceAsStream("ok.png"));
-//		Button button3 = new Button("Accept", new ImageView(imageOk));
-//		
-//		Image logo = new Image("File:./../images/COPX_logo.png");
-		
-		//Image gun = new Image(getClass().getResourceAsStream("gunIcon.png"));
-		Image gun = new Image("File:./../images/gunIcon.png");
-		ImageView gunIM = new ImageView();
-		gunIM.setFitWidth(50);
-		gunIM.setFitHeight(40);
-		gunIM.setImage(gun);
-		
-		//Image shield = new Image(getClass().getResourceAsStream("ok.png"));
-		Image shield = new Image("File:./../images/shieldIcon.png");
-		ImageView shieldIM = new ImageView();
-		shieldIM.setFitWidth(50);
-		shieldIM.setFitHeight(40);
-		shieldIM.setImage(shield);
-		
-		buyGun = new Button("Buy Gun", gunIM);
-		buySheild = new Button("Buy Shield", shieldIM);
-		buyItem = new Button("Buy Item");
 
 		
-		GridPane startSceneGrid = new GridPane();
-		startSceneGrid.setAlignment(Pos.CENTER);
 		
-		startSceneGrid.setHgap(10);
-		startSceneGrid.setVgap(10);
+		setUpStartScreen();
 
-		Image logo = new Image("File:./../images/COPX_logo.png");
-		ImageView pic = new ImageView();
-		pic.setFitWidth(260);
-		pic.setFitHeight(130);
-		pic.setImage(logo);
-		
-		startSceneGrid.add(pic, 0,0, 4, 1 );
-		
-		startSceneGrid.add(settingBtn, 1, 1);
-		startSceneGrid.add(btnStartGameBtn, 0,1);
-		startSceneGrid.add(storeBtn, 0, 2);
+		setUpSettingPage();
 
-		startSceneGrid.add(leaderboardBtn, 2, 1);
+
 		
-		GridPane settingSceneGrid = new GridPane(); 
-		settingSceneGrid.setAlignment(Pos.CENTER);
 		
-		settingSceneGrid.setHgap(10);
-		settingSceneGrid.setVgap(10);
-		
-		settingSceneGrid.add(lbl_Setting, 0, 0);
-		settingSceneGrid.add(exitBtn_PlayGame, 0,1);
 		
 		GridPane startGameSceneGrid = new GridPane(); 
 		startGameSceneGrid.setAlignment(Pos.CENTER);
@@ -215,17 +247,8 @@ public class StartMenu extends Application {
 		startGameSceneGrid.add(lblLoading, 0, 0);
 		startGameSceneGrid.add(exitBtn_PlayGame, 0, 1);
 
-		storeGrid = new GridPane();
-		storeGrid.setAlignment(Pos.CENTER);
-		storeGrid.setHgap(10);
-		storeGrid.setVgap(10);
 		
-		storeGrid.add(storeTitleLbl, 0, 0, 3, 1);
-		
-		storeGrid.add(buyGun, 0, 1);
-		storeGrid.add(buySheild, 1, 1);
-		storeGrid.add(buyItem, 2, 1);
-
+		setUpStorePage();
 		
 		GridPane leaderboardSceneGrid = new GridPane();
 		leaderboardSceneGrid.setAlignment(Pos.CENTER);
@@ -243,11 +266,9 @@ public class StartMenu extends Application {
 		setWidths();
 		attachCode();
 		
-		startScene = new Scene(startSceneGrid, 1000, 800);
-		settingScene = new Scene(settingSceneGrid, 1000, 800);
 		startGameScene = new Scene(startGameSceneGrid, 1000, 800);
 
-		storeScene = new Scene(storeGrid, 1000, 800); 
+		
 		
 
 		leaderboardScene = new Scene(leaderboardSceneGrid, 1000, 800);
