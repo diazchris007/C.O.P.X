@@ -28,6 +28,11 @@ public class StartMenu extends Application {
 	Button storeBtn;
 	GridPane storeGrid;
 	
+	Button buyGun;
+	Button buySheild;
+	Button buyItem;
+
+	
 	Label lbl_Setting;
 	Label lblLoading;
 	Label storeTitleLbl;
@@ -81,9 +86,17 @@ public class StartMenu extends Application {
 	   lblLoading.setPrefWidth(150);
 	   lbl_Setting.setPrefWidth(150);
 
-	   storeTitleLbl.setPrefWidth(150);
+	   storeTitleLbl.setPrefWidth(450);
 
 	   lblRegions.setPrefWidth(150);
+	   
+	   
+	   buyGun.setPrefWidth(150);
+	   buyGun.setPrefHeight(80);
+	   buySheild.setPrefWidth(150);
+	   buySheild.setPrefHeight(80);
+	   buyItem.setPrefWidth(150);
+	   buyItem.setPrefHeight(80);
 	}
 	 
 	// sets handler
@@ -124,6 +137,31 @@ public class StartMenu extends Application {
 		lblRegions.setAlignment(Pos.CENTER);
 		
 		storeBtn = new Button("Store");
+		
+		
+//		Image imageOk = new Image(getClass().getResourceAsStream("ok.png"));
+//		Button button3 = new Button("Accept", new ImageView(imageOk));
+//		
+//		Image logo = new Image("File:./../images/COPX_logo.png");
+		
+		//Image gun = new Image(getClass().getResourceAsStream("gunIcon.png"));
+		Image gun = new Image("File:./../images/gunIcon.png");
+		ImageView gunIM = new ImageView();
+		gunIM.setFitWidth(50);
+		gunIM.setFitHeight(40);
+		gunIM.setImage(gun);
+		
+		//Image shield = new Image(getClass().getResourceAsStream("ok.png"));
+		Image shield = new Image("File:./../images/shieldIcon.png");
+		ImageView shieldIM = new ImageView();
+		shieldIM.setFitWidth(50);
+		shieldIM.setFitHeight(40);
+		shieldIM.setImage(shield);
+		
+		buyGun = new Button("Buy Gun", gunIM);
+		buySheild = new Button("Buy Shield", shieldIM);
+		buyItem = new Button("Buy Item");
+
 		
 		GridPane startSceneGrid = new GridPane();
 		startSceneGrid.setAlignment(Pos.CENTER);
@@ -169,8 +207,16 @@ public class StartMenu extends Application {
 		startGameSceneGrid.add(exitBtn_PlayGame, 0, 1);
 
 		storeGrid = new GridPane();
-		storeGrid.add(storeTitleLbl, 0, 0);
+		storeGrid.setAlignment(Pos.CENTER);
+		storeGrid.setHgap(10);
+		storeGrid.setVgap(10);
 		
+		storeGrid.add(storeTitleLbl, 0, 0, 3, 1);
+		
+		storeGrid.add(buyGun, 0, 1);
+		storeGrid.add(buySheild, 1, 1);
+		storeGrid.add(buyItem, 2, 1);
+
 		
 		GridPane leaderboardSceneGrid = new GridPane();
 		leaderboardSceneGrid.setAlignment(Pos.CENTER);
