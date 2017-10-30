@@ -43,6 +43,9 @@ public class StartMenu extends Application {
 	Label lblAmerica;
 	Label lblEurope;
 	Label lblAsia;
+	
+	GridPane leaderboardSceneGrid;
+	GridPane startGameSceneGrid;
 
 	
 	Button btnClear;
@@ -116,6 +119,39 @@ public class StartMenu extends Application {
 	   btnClear.setOnAction(changeScreens);
 	}
 	
+	public void setUpGameStage() {
+		startGameSceneGrid = new GridPane(); 
+		startGameSceneGrid.setAlignment(Pos.CENTER);
+		
+		startGameSceneGrid.setHgap(10);
+		startGameSceneGrid.setVgap(10);
+		
+		// elements can only be added to one grid at a time
+		//startGameSceneGrid.add(pic, 0,0);
+		startGameSceneGrid.add(lblLoading, 0, 0);
+		startGameSceneGrid.add(exitBtn_PlayGame, 0, 1);
+		
+		startGameScene = new Scene(startGameSceneGrid, 1000, 800);
+		
+	}
+	
+	public void setUpLeaderboardStage() {
+		leaderboardSceneGrid = new GridPane();
+		leaderboardSceneGrid.setAlignment(Pos.CENTER);
+		
+		leaderboardSceneGrid.setHgap(10);
+		leaderboardSceneGrid.setVgap(10);
+		
+		leaderboardSceneGrid.add(lblRegions, 0, 0);
+		leaderboardSceneGrid.add(lblAmerica, 2, 2);
+		leaderboardSceneGrid.add(lblEurope, 4, 2);
+		leaderboardSceneGrid.add(lblAsia, 6, 2);
+		leaderboardSceneGrid.add(exitBtn_PlayGame, 0, 25);
+		
+		leaderboardScene = new Scene(leaderboardSceneGrid, 1000, 800);
+		
+	}
+	
 	public void setUpStorePage() {
 		Image gun = new Image("File:./../images/gunIcon.png");
 		ImageView gunIM = new ImageView();
@@ -145,6 +181,7 @@ public class StartMenu extends Application {
 		storeGrid.add(buyItem, 2, 1);
 		
 		storeScene = new Scene(storeGrid, 1000, 800); 
+		
 	}
 	
 	public void setUpStartScreen() {
@@ -200,15 +237,12 @@ public class StartMenu extends Application {
 	public void start(Stage stagep) throws Exception {
 		stage = stagep;
 		
-		
 		exitBtn_PlayGame = new Button("Back to Start Screen");
 		btnClear = new Button("Clear");
 		
 		lblLoading = new Label("Loading...");
 		lblLoading.setAlignment(Pos.CENTER);
-		
 
-		
 		storeTitleLbl = new Label("Welcome to the store");
 		storeTitleLbl.setAlignment(Pos.CENTER);
 		storeBtn = new Button("Store");
@@ -225,53 +259,14 @@ public class StartMenu extends Application {
 		lblAsia = new Label("Asia");
 		lblAsia.setAlignment(Pos.CENTER);
 		
-
-		
-		
 		setUpStartScreen();
-
 		setUpSettingPage();
-
-
-		
-		
-		
-		GridPane startGameSceneGrid = new GridPane(); 
-		startGameSceneGrid.setAlignment(Pos.CENTER);
-		
-		startGameSceneGrid.setHgap(10);
-		startGameSceneGrid.setVgap(10);
-		
-		// elements can only be added to one grid at a time
-		//startGameSceneGrid.add(pic, 0,0);
-		startGameSceneGrid.add(lblLoading, 0, 0);
-		startGameSceneGrid.add(exitBtn_PlayGame, 0, 1);
-
-		
+		setUpGameStage();
 		setUpStorePage();
-		
-		GridPane leaderboardSceneGrid = new GridPane();
-		leaderboardSceneGrid.setAlignment(Pos.CENTER);
-		
-		leaderboardSceneGrid.setHgap(10);
-		leaderboardSceneGrid.setVgap(10);
-		
-		leaderboardSceneGrid.add(lblRegions, 0, 0);
-		leaderboardSceneGrid.add(lblAmerica, 2, 2);
-		leaderboardSceneGrid.add(lblEurope, 4, 2);
-		leaderboardSceneGrid.add(lblAsia, 6, 2);
-		leaderboardSceneGrid.add(exitBtn_PlayGame, 0, 25);
-
+		setUpLeaderboardStage();
 
 		setWidths();
 		attachCode();
-		
-		startGameScene = new Scene(startGameSceneGrid, 1000, 800);
-
-		
-		
-
-		leaderboardScene = new Scene(leaderboardSceneGrid, 1000, 800);
 		 
 		stage.setScene(startScene);
 		stage.setTitle("COPX");
