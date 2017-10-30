@@ -2,5 +2,5 @@ projectKey=COPX-sonar
 serverUrl=http://localhost:9000
 serverVersion=6.5.0.27846
 dashboardUrl=http://localhost:9000/dashboard/index/COPX-sonar
-ceTaskId=AV9qZLEg9NtZOxHkOroA
-ceTaskUrl=http://localhost:9000/api/ce/task?id=AV9qZLEg9NtZOxHkOroA
+ceTaskId=AV9q50jo9NtZOxHkOroC
+ceTaskUrl=http://localhost:9000/api/ce/task?id=AV9q50jo9NtZOxHkOroC

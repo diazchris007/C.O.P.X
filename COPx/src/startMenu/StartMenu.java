@@ -48,7 +48,6 @@ public class StartMenu extends Application {
 	GridPane startGameSceneGrid;
 
 	
-	Button btnClear;
 	EventHandler<ActionEvent> changeScreens = new EventHandler<ActionEvent>(){
 		// handles all events
 		public void handle(ActionEvent e) {
@@ -85,7 +84,6 @@ public class StartMenu extends Application {
 	   settingBtn.setPrefWidth(70);
 	   startGameBtn.setPrefWidth(150);
 
-	   btnClear.setPrefWidth(150);
 	   lblLoading.setPrefWidth(150);
 	   lbl_Setting.setPrefWidth(150);
 
@@ -116,7 +114,6 @@ public class StartMenu extends Application {
 	   storeBtn.setOnAction(changeScreens);
 
 	   leaderboardBtn.setOnAction(changeScreens);
-	   btnClear.setOnAction(changeScreens);
 	}
 	
 	public void setUpGameStage() {
@@ -259,7 +256,6 @@ public class StartMenu extends Application {
 		stage = stagep;
 		
 		exitBtn_PlayGame = new Button("Back to Start Screen");
-		btnClear = new Button("Clear");
 		
 		setUpStartScreen();
 		setUpSettingPage();
