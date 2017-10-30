@@ -38,6 +38,9 @@ public class StartMenu extends Application {
 	Label storeTitleLbl;
 
 	Label lblRegions;
+	Label lblAmerica;
+	Label lblEurope;
+	Label lblAsia;
 
 	
 	Button btnClear;
@@ -133,8 +136,17 @@ public class StartMenu extends Application {
 		storeTitleLbl = new Label("Welcome to the store");
 		storeTitleLbl.setAlignment(Pos.CENTER);
 
-		lblRegions = new Label("Regions");
+		lblRegions = new Label("Select Region Below");
 		lblRegions.setAlignment(Pos.CENTER);
+		
+		lblAmerica = new Label("America");
+		lblAmerica.setAlignment(Pos.CENTER);
+		
+		lblEurope = new Label("Europe");
+		lblEurope.setAlignment(Pos.CENTER);
+		
+		lblAsia = new Label("Asia");
+		lblAsia.setAlignment(Pos.CENTER);
 		
 		storeBtn = new Button("Store");
 		
@@ -181,9 +193,6 @@ public class StartMenu extends Application {
 		startSceneGrid.add(btnStartGameBtn, 0,1);
 		startSceneGrid.add(storeBtn, 0, 2);
 
-
-
-
 		startSceneGrid.add(leaderboardBtn, 2, 1);
 		
 		GridPane settingSceneGrid = new GridPane(); 
@@ -193,7 +202,7 @@ public class StartMenu extends Application {
 		settingSceneGrid.setVgap(10);
 		
 		settingSceneGrid.add(lbl_Setting, 0, 0);
-		settingSceneGrid.add(btnClear , 0,1);
+		settingSceneGrid.add(exitBtn_PlayGame, 0,1);
 		
 		GridPane startGameSceneGrid = new GridPane(); 
 		startGameSceneGrid.setAlignment(Pos.CENTER);
@@ -225,7 +234,10 @@ public class StartMenu extends Application {
 		leaderboardSceneGrid.setVgap(10);
 		
 		leaderboardSceneGrid.add(lblRegions, 0, 0);
-		leaderboardSceneGrid.add(exitBtn_PlayGame, 0, 1);
+		leaderboardSceneGrid.add(lblAmerica, 2, 2);
+		leaderboardSceneGrid.add(lblEurope, 4, 2);
+		leaderboardSceneGrid.add(lblAsia, 6, 2);
+		leaderboardSceneGrid.add(exitBtn_PlayGame, 0, 25);
 
 
 		setWidths();
