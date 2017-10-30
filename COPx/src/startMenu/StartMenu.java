@@ -120,6 +120,9 @@ public class StartMenu extends Application {
 	}
 	
 	public void setUpGameStage() {
+		lblLoading = new Label("Loading...");
+		lblLoading.setAlignment(Pos.CENTER);
+		
 		startGameSceneGrid = new GridPane(); 
 		startGameSceneGrid.setAlignment(Pos.CENTER);
 		
@@ -136,6 +139,18 @@ public class StartMenu extends Application {
 	}
 	
 	public void setUpLeaderboardStage() {
+		lblRegions = new Label("Select Region Below");
+		lblRegions.setAlignment(Pos.CENTER);
+		
+		lblAmerica = new Label("America");
+		lblAmerica.setAlignment(Pos.CENTER);
+		
+		lblEurope = new Label("Europe");
+		lblEurope.setAlignment(Pos.CENTER);
+		
+		lblAsia = new Label("Asia");
+		lblAsia.setAlignment(Pos.CENTER);
+		
 		leaderboardSceneGrid = new GridPane();
 		leaderboardSceneGrid.setAlignment(Pos.CENTER);
 		
@@ -153,6 +168,9 @@ public class StartMenu extends Application {
 	}
 	
 	public void setUpStorePage() {
+		storeTitleLbl = new Label("Welcome to the store");
+		storeTitleLbl.setAlignment(Pos.CENTER);
+		
 		Image gun = new Image("File:./../images/gunIcon.png");
 		ImageView gunIM = new ImageView();
 		gunIM.setFitWidth(50);
@@ -185,6 +203,9 @@ public class StartMenu extends Application {
 	}
 	
 	public void setUpStartScreen() {
+
+		storeBtn = new Button("Store");
+		
 		startGameBtn = new Button("Start Game");
 
 		
@@ -239,25 +260,6 @@ public class StartMenu extends Application {
 		
 		exitBtn_PlayGame = new Button("Back to Start Screen");
 		btnClear = new Button("Clear");
-		
-		lblLoading = new Label("Loading...");
-		lblLoading.setAlignment(Pos.CENTER);
-
-		storeTitleLbl = new Label("Welcome to the store");
-		storeTitleLbl.setAlignment(Pos.CENTER);
-		storeBtn = new Button("Store");
-		
-		lblRegions = new Label("Select Region Below");
-		lblRegions.setAlignment(Pos.CENTER);
-		
-		lblAmerica = new Label("America");
-		lblAmerica.setAlignment(Pos.CENTER);
-		
-		lblEurope = new Label("Europe");
-		lblEurope.setAlignment(Pos.CENTER);
-		
-		lblAsia = new Label("Asia");
-		lblAsia.setAlignment(Pos.CENTER);
 		
 		setUpStartScreen();
 		setUpSettingPage();
