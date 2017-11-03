@@ -58,6 +58,7 @@ public class StartMenu extends Application {
 			}
 			if (e.getSource() == startGameBtn) {
 				stage.setScene(startGameScene);
+				
 				return;
 			}
 			if (e.getSource() == exitBtn_PlayGame) {
@@ -116,22 +117,23 @@ public class StartMenu extends Application {
 	   leaderboardBtn.setOnAction(changeScreens);
 	}
 	
-	public void setUpGameStage() {
+	public void setUpGameStage() throws Exception {
 		lblLoading = new Label("Loading...");
 		lblLoading.setAlignment(Pos.CENTER);
 		
-		startGameSceneGrid = new GridPane(); 
-		startGameSceneGrid.setAlignment(Pos.CENTER);
+		//startGameSceneGrid = new GridPane(); 
+		//startGameSceneGrid.setAlignment(Pos.CENTER);
 		
-		startGameSceneGrid.setHgap(10);
-		startGameSceneGrid.setVgap(10);
+		//startGameSceneGrid.setHgap(10);
+		//startGameSceneGrid.setVgap(10);
 		
 		// elements can only be added to one grid at a time
 		//startGameSceneGrid.add(pic, 0,0);
-		startGameSceneGrid.add(lblLoading, 0, 0);
-		startGameSceneGrid.add(exitBtn_PlayGame, 0, 1);
-		
-		startGameScene = new Scene(startGameSceneGrid, 1000, 800);
+		//startGameSceneGrid.add(lblLoading, 0, 0);
+		///startGameSceneGrid.add(exitBtn_PlayGame, 0, 1);
+		GameDisplay d = new GameDisplay();
+		startGameScene = new Scene(d);
+		d.setupInput(startGameScene);
 		
 	}
 	
