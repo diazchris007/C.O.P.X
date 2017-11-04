@@ -36,7 +36,7 @@ public class StartMenu extends Application {
 
 	
 	Label lbl_Setting;
-	Label lblLoading;
+	
 	Label storeTitleLbl;
 
 	Label lblRegions;
@@ -85,7 +85,6 @@ public class StartMenu extends Application {
 	   settingBtn.setPrefWidth(70);
 	   startGameBtn.setPrefWidth(150);
 
-	   lblLoading.setPrefWidth(150);
 	   lbl_Setting.setPrefWidth(150);
 
 	   leaderboardBtn.setPrefWidth(150);
@@ -108,7 +107,7 @@ public class StartMenu extends Application {
 	 
 	// sets handler
 	public void attachCode() {
-	   //have each button run BTNCODE when clicked
+	   //have each button run changeScreens when clicked
 	   settingBtn.setOnAction(changeScreens);
 	   startGameBtn.setOnAction(changeScreens);
 	   exitBtn_PlayGame.setOnAction(changeScreens);
@@ -118,19 +117,6 @@ public class StartMenu extends Application {
 	}
 	
 	public void setUpGameStage() throws Exception {
-		lblLoading = new Label("Loading...");
-		lblLoading.setAlignment(Pos.CENTER);
-		
-		//startGameSceneGrid = new GridPane(); 
-		//startGameSceneGrid.setAlignment(Pos.CENTER);
-		
-		//startGameSceneGrid.setHgap(10);
-		//startGameSceneGrid.setVgap(10);
-		
-		// elements can only be added to one grid at a time
-		//startGameSceneGrid.add(pic, 0,0);
-		//startGameSceneGrid.add(lblLoading, 0, 0);
-		///startGameSceneGrid.add(exitBtn_PlayGame, 0, 1);
 		GameDisplay d = new GameDisplay();
 		startGameScene = new Scene(d);
 		d.setupInput(startGameScene);

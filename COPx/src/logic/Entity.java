@@ -1,5 +1,7 @@
 package logic;
 
+import javafx.scene.image.Image;
+
 public abstract class Entity {
 	protected String name;
 	protected int health;
@@ -40,5 +42,7 @@ public abstract class Entity {
 	public void setLocation(Location location) {
 		this.location = location;
 	}
+	public abstract Image getImg();
+	
 	
 }
