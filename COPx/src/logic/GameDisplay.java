@@ -21,7 +21,7 @@ public class GameDisplay extends Pane{
     private Player player;
     private Board board;
     private Cell currentCell, nextCell;
-    private int x, y; 
+    private int x, y;
     
     
 	

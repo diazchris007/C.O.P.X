@@ -1,4 +1,5 @@
 package logic;
+
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -14,39 +15,41 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
 public class StartMenu extends Application {
+	/* buttons */
 	Button settingBtn;
 	Button startGameBtn;
-	Button exitBtn_PlayGame;
+	Button leaderboardExitBtn;
+	Button settingsExitBtn;
+	Button storeExitBtn;
+//	Button startGameExitBtn;
 	Button leaderboardBtn;
+	Button storeBtn;
+	Button buyGun;
+	Button buyShield;
+	Button buyItem;
+	
+	/* scenes */
 	Scene settingScene;
-	GridPane settingSceneGrid;
 	Scene startGameScene;
-	GridPane startSceneGrid;
 	Scene startScene;
 	Scene leaderboardScene;
+	Scene storeScene;
 	Stage stage;
 	
-	Scene storeScene;
-	Button storeBtn;
+	/* grid panes */
+	GridPane settingSceneGrid;
 	GridPane storeGrid;
+	GridPane startSceneGrid;
+	GridPane leaderboardSceneGrid;
+//	GridPane startGameSceneGrid;
 	
-	Button buyGun;
-	Button buySheild;
-	Button buyItem;
-
-	
+	/* labels */
 	Label lbl_Setting;
-	
 	Label storeTitleLbl;
-
 	Label lblRegions;
 	Label lblAmerica;
 	Label lblEurope;
 	Label lblAsia;
-	
-	GridPane leaderboardSceneGrid;
-	GridPane startGameSceneGrid;
-
 	
 	EventHandler<ActionEvent> changeScreens = new EventHandler<ActionEvent>(){
 		// handles all events
@@ -61,7 +64,10 @@ public class StartMenu extends Application {
 				
 				return;
 			}
-			if (e.getSource() == exitBtn_PlayGame) {
+			if (e.getSource() == leaderboardExitBtn ||
+					e.getSource() == settingsExitBtn ||
+					e.getSource() == storeExitBtn) {
+//					e.getSource() == startGameExitBtn) {
 				stage.setScene(startScene);
 				return;
 			}
@@ -90,15 +96,18 @@ public class StartMenu extends Application {
 	   leaderboardBtn.setPrefWidth(150);
 
 	   lblRegions.setPrefWidth(150);
-	   exitBtn_PlayGame.setPrefWidth(150);
+	   leaderboardExitBtn.setPrefWidth(150);
+	   settingsExitBtn.setPrefWidth(150);
+	   storeExitBtn.setPrefWidth(150);
+//	   startGameExitBtn.setPrefWidth(150);
 
 	  // store
 	   storeBtn.setPrefWidth(150);
 	   
 	   buyGun.setPrefWidth(150);
 	   buyGun.setPrefHeight(80);
-	   buySheild.setPrefWidth(150);
-	   buySheild.setPrefHeight(80);
+	   buyShield.setPrefWidth(150);
+	   buyShield.setPrefHeight(80);
 	   buyItem.setPrefWidth(150);
 	   buyItem.setPrefHeight(80);
 	   storeTitleLbl.setPrefWidth(450);
@@ -110,17 +119,18 @@ public class StartMenu extends Application {
 	   //have each button run changeScreens when clicked
 	   settingBtn.setOnAction(changeScreens);
 	   startGameBtn.setOnAction(changeScreens);
-	   exitBtn_PlayGame.setOnAction(changeScreens);
+	   leaderboardExitBtn.setOnAction(changeScreens);
+	   settingsExitBtn.setOnAction(changeScreens);
+	   storeExitBtn.setOnAction(changeScreens);
+//	   startGameExitBtn.setOnAction(changeScreens);
 	   storeBtn.setOnAction(changeScreens);
-
 	   leaderboardBtn.setOnAction(changeScreens);
 	}
 	
 	public void setUpGameStage() throws Exception {
-		GameDisplay d = new GameDisplay();
-		startGameScene = new Scene(d);
-		d.setupInput(startGameScene);
-		
+		GameDisplay gameDisplay = new GameDisplay();
+		startGameScene = new Scene(gameDisplay);
+		gameDisplay.setupInput(startGameScene);
 	}
 	
 	public void setUpLeaderboardStage() {
@@ -146,7 +156,7 @@ public class StartMenu extends Application {
 		leaderboardSceneGrid.add(lblAmerica, 2, 2);
 		leaderboardSceneGrid.add(lblEurope, 4, 2);
 		leaderboardSceneGrid.add(lblAsia, 6, 2);
-		leaderboardSceneGrid.add(exitBtn_PlayGame, 0, 25);
+		leaderboardSceneGrid.add(leaderboardExitBtn, 0, 25);
 		
 		leaderboardScene = new Scene(leaderboardSceneGrid, 1000, 800);
 		
@@ -169,8 +179,9 @@ public class StartMenu extends Application {
 		shieldIM.setImage(shield);
 		
 		buyGun = new Button("Buy Gun", gunIM);
-		buySheild = new Button("Buy Shield", shieldIM);
+		buyShield = new Button("Buy Shield", shieldIM);
 		buyItem = new Button("Buy Item");
+		storeExitBtn = new Button("Back to Start Screen");
 		
 		storeGrid = new GridPane();
 		storeGrid.setAlignment(Pos.CENTER);
@@ -180,26 +191,22 @@ public class StartMenu extends Application {
 		storeGrid.add(storeTitleLbl, 0, 0, 3, 1);
 		
 		storeGrid.add(buyGun, 0, 1);
-		storeGrid.add(buySheild, 1, 1);
+		storeGrid.add(buyShield, 1, 1);
 		storeGrid.add(buyItem, 2, 1);
+		storeGrid.add(storeExitBtn, 1, 4);
 		
 		storeScene = new Scene(storeGrid, 1000, 800); 
-		
 	}
 	
 	public void setUpStartScreen() {
 
 		storeBtn = new Button("Store");
-		
 		startGameBtn = new Button("Start Game");
-
-		
 		leaderboardBtn = new Button("View Leaderboard");
-
 		settingBtn = new Button("Settings");
 
-		
 		startSceneGrid = new GridPane();
+		
 		startSceneGrid.setAlignment(Pos.CENTER);
 		
 		startSceneGrid.setHgap(10);
@@ -210,16 +217,14 @@ public class StartMenu extends Application {
 		pic.setFitWidth(260);
 		pic.setFitHeight(130);
 		pic.setImage(logo);
-		startSceneGrid.add(pic, 0,0, 4, 1 );
 		
+		startSceneGrid.add(pic, 0,0, 4, 1 );
 		startSceneGrid.add(settingBtn, 1, 1);
 		startSceneGrid.add(startGameBtn, 0,1);
 		startSceneGrid.add(storeBtn, 0, 2);
-
 		startSceneGrid.add(leaderboardBtn, 2, 1);
 		
 		startScene = new Scene(startSceneGrid, 1000, 800);
-
 	}
 	
 	public void setUpSettingPage() {
@@ -233,17 +238,17 @@ public class StartMenu extends Application {
 		settingSceneGrid.setVgap(10);
 		
 		settingSceneGrid.add(lbl_Setting, 0, 0);
-		settingSceneGrid.add(exitBtn_PlayGame, 0,1);
+		settingSceneGrid.add(settingsExitBtn, 0,1);
 		
 		settingScene = new Scene(settingSceneGrid, 1000, 800);
-
 	}
 	
 	@Override 
 	public void start(Stage stagep) throws Exception {
 		stage = stagep;
 		
-		exitBtn_PlayGame = new Button("Back to Start Screen");
+		leaderboardExitBtn = new Button("Back to Start Screen");
+		settingsExitBtn = new Button("Back to Start Screen");
 		
 		setUpStartScreen();
 		setUpSettingPage();
@@ -257,6 +262,5 @@ public class StartMenu extends Application {
 		stage.setScene(startScene);
 		stage.setTitle("COPX");
 		stage.show();
-
 	}
 }
