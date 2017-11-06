@@ -1,5 +1,7 @@
 package logic;
 
+import java.io.File;
+
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -9,6 +11,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 //import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.stage.Stage;
 
 import javafx.scene.image.Image;
@@ -63,6 +67,8 @@ public class StartMenu extends Application {
 	Label lblSetting;
 	Label storeTitleLbl;
 	Label lblRegions;
+	
+	Profile profile;
 	
 	EventHandler<ActionEvent> changeScreens = new EventHandler<ActionEvent>() {
 		// handles all events
@@ -182,7 +188,9 @@ public class StartMenu extends Application {
 	}
 	
 	public void setUpGameStage() throws Exception {
-		GameDisplay gameDisplay = new GameDisplay();
+		profile = new Profile();
+		
+		GameDisplay gameDisplay = new GameDisplay(profile.getLoadout(0));
 		startGameScene = new Scene(gameDisplay);
 		gameDisplay.setupInput(startGameScene);
 	}
@@ -349,8 +357,18 @@ public class StartMenu extends Application {
 		settingScene = new Scene(settingSceneGrid, 1000, 800);
 	}
 	
+	public void playMusic(String musicFile) {
+		Media sound = new Media(new File(musicFile).toURI().toString());
+		MediaPlayer mediaPlayer = new MediaPlayer(sound);
+		mediaPlayer.play();
+	}
+	
 	@Override 
 	public void start(Stage stagep) throws Exception {
+//		String musicFile = "./../music/GearworksFactory.mp3";     // For example
+		playMusic("./../music/GearworksFactory.mp3");
+
+		
 		stage = stagep;
 		
 		setUpStartScreen();
