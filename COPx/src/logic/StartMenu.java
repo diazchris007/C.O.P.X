@@ -15,8 +15,9 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
 public class StartMenu extends Application {
-	/* buttons */
+	// buttons
 	Button settingBtn;
+	Button wrenchBtn;
 	Button startGameBtn;
 	Button leaderboardExitBtn;
 	Button settingsExitBtn;
@@ -27,31 +28,43 @@ public class StartMenu extends Application {
 	Button buyGun;
 	Button buyShield;
 	Button buyItem;
+	Button americasRegion;
+	Button europeRegion;
+	Button asiaRegion;
+	Button oceaniaRegion;
+	Button africaRegion;
+	Button accountBtn;
+	Button tbd1Btn;
+	Button tbd2Btn;
 	
-	/* scenes */
+	// scenes
 	Scene settingScene;
 	Scene startGameScene;
 	Scene startScene;
 	Scene leaderboardScene;
 	Scene storeScene;
+	Scene americasScene;
+	Scene europeScene;
+	Scene asiaScene;
+	Scene oceaniaScene;
+	Scene africaScene;
+	
+	// stage
 	Stage stage;
 	
-	/* grid panes */
+	// grid panes
 	GridPane settingSceneGrid;
 	GridPane storeGrid;
 	GridPane startSceneGrid;
 	GridPane leaderboardSceneGrid;
 //	GridPane startGameSceneGrid;
 	
-	/* labels */
-	Label lbl_Setting;
+	// labels
+	Label lblSetting;
 	Label storeTitleLbl;
 	Label lblRegions;
-	Label lblAmerica;
-	Label lblEurope;
-	Label lblAsia;
 	
-	EventHandler<ActionEvent> changeScreens = new EventHandler<ActionEvent>(){
+	EventHandler<ActionEvent> changeScreens = new EventHandler<ActionEvent>() {
 		// handles all events
 		public void handle(ActionEvent e) {
 			
@@ -82,28 +95,61 @@ public class StartMenu extends Application {
 			}
 		}
 	};
+	
+	/*
+	 ********************* 
+	 ********TO-DO******** 
+	 *********************
+	EventHandler<ActionEvent> changeLeaderboardRegions = new EventHandler<ActionEvent>() {
+		// handles all events
+		public void handle(ActionEvent e) {
+			if (e.getSource() == americasRegion) {
+				stage.setScene(americasScene);
+				return;
+			}
+			if (e.getSource() == africaRegion) {
+				stage.setScene(africaScene);
+				
+				return;
+			}
+			if (e.getSource() == asiaRegion) {
+				stage.setScene(asiaScene);
+				return;
+			}
+			if (e.getSource() == europeRegion) {
+				stage.setScene(europeScene);
+				return;
+			}
+
+			if (e.getSource() == oceaniaRegion) {
+				stage.setScene(oceaniaScene);
+				return;
+			}
+		}
+	}; */
 
 	public static void main( String[] args) {
 		launch(args);
 	}
 	
 	private void setWidths() {
-	   settingBtn.setPrefWidth(70);
 	   startGameBtn.setPrefWidth(150);
 
-	   lbl_Setting.setPrefWidth(150);
-
-	   leaderboardBtn.setPrefWidth(150);
-
+	   // leaderboard
 	   lblRegions.setPrefWidth(150);
+	   leaderboardBtn.setPrefWidth(150);
 	   leaderboardExitBtn.setPrefWidth(150);
+	   
+	   // settings
+	   lblSetting.setPrefWidth(150);
+	   settingBtn.setPrefWidth(150);
 	   settingsExitBtn.setPrefWidth(150);
-	   storeExitBtn.setPrefWidth(150);
+
 //	   startGameExitBtn.setPrefWidth(150);
 
-	  // store
+	   // store
 	   storeBtn.setPrefWidth(150);
-	   
+	   storeExitBtn.setPrefWidth(150);
 	   buyGun.setPrefWidth(150);
 	   buyGun.setPrefHeight(80);
 	   buyShield.setPrefWidth(150);
@@ -111,7 +157,6 @@ public class StartMenu extends Application {
 	   buyItem.setPrefWidth(150);
 	   buyItem.setPrefHeight(80);
 	   storeTitleLbl.setPrefWidth(450);
-
 	}
 	 
 	// sets handler
@@ -125,6 +170,15 @@ public class StartMenu extends Application {
 //	   startGameExitBtn.setOnAction(changeScreens);
 	   storeBtn.setOnAction(changeScreens);
 	   leaderboardBtn.setOnAction(changeScreens);
+	   
+	   // have each button run changeLeaderboardRegion when clicked
+/*
+	   americasRegion.setOnAction(changeLeaderboardRegions);
+	   europeRegion.setOnAction(changeLeaderboardRegions);
+	   asiaRegion.setOnAction(changeLeaderboardRegions);
+	   oceaniaRegion.setOnAction(changeLeaderboardRegions);
+	   africaRegion.setOnAction(changeLeaderboardRegions);
+*/ // IMPLEMENT ... TO-DO
 	}
 	
 	public void setUpGameStage() throws Exception {
@@ -133,33 +187,61 @@ public class StartMenu extends Application {
 		gameDisplay.setupInput(startGameScene);
 	}
 	
-	public void setUpLeaderboardStage() {
+	public void setUpLeaderboardStage() {		
 		lblRegions = new Label("Select Region Below");
 		lblRegions.setAlignment(Pos.CENTER);
 		
-		lblAmerica = new Label("America");
-		lblAmerica.setAlignment(Pos.CENTER);
+		Image americas = new Image("File:./../images/americasRegion.png");
+		ImageView americasIM = new ImageView();
+		americasIM.setFitWidth(75);
+		americasIM.setFitHeight(75);
+		americasIM.setImage(americas);
+
+		Image europe = new Image("File:./../images/europeRegion.png");
+		ImageView europeIM = new ImageView();
+		europeIM.setFitWidth(75);
+		europeIM.setFitHeight(75);
+		europeIM.setImage(europe);
 		
-		lblEurope = new Label("Europe");
-		lblEurope.setAlignment(Pos.CENTER);
+		Image africa = new Image("File:./../images/africaRegion.png");
+		ImageView africaIM = new ImageView();
+		africaIM.setFitWidth(75);
+		africaIM.setFitHeight(75);
+		africaIM.setImage(africa);
 		
-		lblAsia = new Label("Asia");
-		lblAsia.setAlignment(Pos.CENTER);
+		Image asia = new Image("File:./../images/asiaRegion.png");
+		ImageView asiaIM = new ImageView();
+		asiaIM.setFitWidth(100);
+		asiaIM.setFitHeight(75);
+		asiaIM.setImage(asia);
+		
+		Image oceania = new Image("File:./../images/oceaniaRegion.png");
+		ImageView oceaniaIM = new ImageView();
+		oceaniaIM.setFitWidth(75);
+		oceaniaIM.setFitHeight(75);
+		oceaniaIM.setImage(oceania);
+
+		americasRegion = new Button("Americas", americasIM);
+		africaRegion = new Button("Africa", africaIM);
+		europeRegion = new Button("Europe", europeIM);
+		asiaRegion = new Button("Asia", asiaIM);
+		oceaniaRegion = new Button("Oceania", oceaniaIM);
+		leaderboardExitBtn = new Button("Back to Start Screen");
 		
 		leaderboardSceneGrid = new GridPane();
 		leaderboardSceneGrid.setAlignment(Pos.CENTER);
-		
 		leaderboardSceneGrid.setHgap(10);
 		leaderboardSceneGrid.setVgap(10);
 		
-		leaderboardSceneGrid.add(lblRegions, 0, 0);
-		leaderboardSceneGrid.add(lblAmerica, 2, 2);
-		leaderboardSceneGrid.add(lblEurope, 4, 2);
-		leaderboardSceneGrid.add(lblAsia, 6, 2);
-		leaderboardSceneGrid.add(leaderboardExitBtn, 0, 25);
+		leaderboardSceneGrid.add(lblRegions, 2, 0);
+		leaderboardSceneGrid.add(americasRegion, 0, 1);
+		leaderboardSceneGrid.add(europeRegion, 1, 1);
+		leaderboardSceneGrid.add(africaRegion, 2, 1);
+		leaderboardSceneGrid.add(asiaRegion, 3, 1);
+		leaderboardSceneGrid.add(oceaniaRegion, 4, 1);
+		leaderboardSceneGrid.add(leaderboardExitBtn, 2, 5);
 		
 		leaderboardScene = new Scene(leaderboardSceneGrid, 1000, 800);
-		
 	}
 	
 	public void setUpStorePage() {
@@ -189,7 +271,7 @@ public class StartMenu extends Application {
 		storeGrid.setVgap(10);
 		
 		storeGrid.add(storeTitleLbl, 0, 0, 3, 1);
-		
+
 		storeGrid.add(buyGun, 0, 1);
 		storeGrid.add(buyShield, 1, 1);
 		storeGrid.add(buyItem, 2, 1);
@@ -199,7 +281,6 @@ public class StartMenu extends Application {
 	}
 	
 	public void setUpStartScreen() {
-
 		storeBtn = new Button("Store");
 		startGameBtn = new Button("Start Game");
 		leaderboardBtn = new Button("View Leaderboard");
@@ -219,26 +300,51 @@ public class StartMenu extends Application {
 		pic.setImage(logo);
 		
 		startSceneGrid.add(pic, 0,0, 4, 1 );
-		startSceneGrid.add(settingBtn, 1, 1);
-		startSceneGrid.add(startGameBtn, 0,1);
-		startSceneGrid.add(storeBtn, 0, 2);
+		startSceneGrid.add(storeBtn, 1, 1);
+		startSceneGrid.add(startGameBtn, 0, 1);
+		startSceneGrid.add(settingBtn, 1, 2);
 		startSceneGrid.add(leaderboardBtn, 2, 1);
 		
 		startScene = new Scene(startSceneGrid, 1000, 800);
 	}
 	
 	public void setUpSettingPage() {
-		lbl_Setting = new Label("Settings:");
-		lbl_Setting.setAlignment(Pos.CENTER);
+		lblSetting = new Label("Settings");
+		lblSetting.setAlignment(Pos.CENTER);
+		
+		Image account = new Image("File:./../images/account.png");
+		ImageView accountIM = new ImageView();
+		accountIM.setFitWidth(60);
+		accountIM.setFitHeight(60);
+		accountIM.setImage(account);
+		
+		Image tbd1 = new Image("File:./../images/tbd1.png");
+		ImageView tbd1IM = new ImageView();
+		tbd1IM.setFitWidth(60);
+		tbd1IM.setFitHeight(60);
+		tbd1IM.setImage(tbd1);
+		
+		Image tbd2 = new Image("File:./../images/tbd2.png");
+		ImageView tbd2IM = new ImageView();
+		tbd2IM.setFitWidth(60);
+		tbd2IM.setFitHeight(60);
+		tbd2IM.setImage(tbd2);
+		
+		accountBtn = new Button("My Account", accountIM);
+		tbd1Btn = new Button("tbd1", tbd1IM);
+		tbd2Btn = new Button("tbd2", tbd2IM);
+		settingsExitBtn = new Button("Back to Start Screen");
 		
 		settingSceneGrid = new GridPane(); 
 		settingSceneGrid.setAlignment(Pos.CENTER);
-		
 		settingSceneGrid.setHgap(10);
 		settingSceneGrid.setVgap(10);
 		
-		settingSceneGrid.add(lbl_Setting, 0, 0);
-		settingSceneGrid.add(settingsExitBtn, 0,1);
+		settingSceneGrid.add(lblSetting, 1, 0);
+		settingSceneGrid.add(accountBtn, 0, 1);
+		settingSceneGrid.add(tbd1Btn, 1, 1);
+		settingSceneGrid.add(tbd2Btn, 2, 1);
+		settingSceneGrid.add(settingsExitBtn, 1,4);
 		
 		settingScene = new Scene(settingSceneGrid, 1000, 800);
 	}
@@ -246,9 +352,6 @@ public class StartMenu extends Application {
 	@Override 
 	public void start(Stage stagep) throws Exception {
 		stage = stagep;
-		
-		leaderboardExitBtn = new Button("Back to Start Screen");
-		settingsExitBtn = new Button("Back to Start Screen");
 		
 		setUpStartScreen();
 		setUpSettingPage();
