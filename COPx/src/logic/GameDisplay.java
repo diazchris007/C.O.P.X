@@ -1,5 +1,8 @@
 package logic;
 
+import java.util.LinkedList;
+import java.util.List;
+
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
@@ -20,13 +23,14 @@ public class GameDisplay extends Pane{
 	private Cell cells[][]; 
     private Player player;
     private Board board;
+    private List<Tower> towers;
     private Cell currentCell, nextCell;
     private int x, y;
-    
+    private final int numTowers = 4;
     
 	
 	
-	public GameDisplay() throws Exception
+	public GameDisplay(Loadout loadout) throws Exception
 	{
 		cells = new Cell[39][28];
 		for (int i = 0; i < cells.length; i++) {
@@ -34,18 +38,125 @@ public class GameDisplay extends Pane{
             	cells[i][j] = new Cell(new Location(i,j));
         }
         
-		this.player = new Player(cells[0][0]);
+		this.player = new Player(cells[0][0],loadout);
         this.board = new Board(cells);
         
         BorderPane pane = new BorderPane();
         pane.setCenter(board);
-        
-        BackgroundImage myBI= new BackgroundImage(new Image("File:./../images/Map027.png",39 * 30,29*30,false,true),
+        BackgroundImage myBI= new BackgroundImage(new Image("file:./../images/Map027.png",39 * 30,29*30,false,true),
                 BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
                   BackgroundSize.DEFAULT);
+        /*
+        BackgroundImage myBI= new BackgroundImage(new Image("file:\\Users\\Christian\\Desktop\\jio\\stuff\\Workspace\\copx\\C.O.P.X\\trunk\\COPx\\images\\Map027.png",39 * 30,29*30,false,true),
+                BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
+                  BackgroundSize.DEFAULT);
+        */
         pane.setBackground(new Background(myBI));
-        
+        towers = new LinkedList<Tower>();
         this.getChildren().add(pane);
+	}
+	public void placeTower(int slot){
+
+		if(slot >numTowers)
+			return;
+		
+		Direction dir = player.getDirection();
+		Tower towerToPlace = player.getLoadout().getTower(slot).getInstance();
+		int towerCost = towerToPlace.getCost();
+		
+		if(towerCost > player.getBalance())
+			return;
+		
+		player.setBalance(player.getBalance() - towerCost);
+		towers.add(towerToPlace);
+    	currentCell = player.getCurrentCell();
+        nextCell = null;
+        x = currentCell.getLocation().getX();
+        y = currentCell.getLocation().getY();
+        System.out.println("Player at" + x+ ", "+ y);
+ 		
+	   	switch(dir){
+   		case NORTH:
+   	        if (y-1 >= 0){
+   	            nextCell = cells[x][y - 1];
+   	            System.out.println("Placeing tower Above player");
+   	            nextCell.setEntityInCell(towerToPlace);
+   	            towerToPlace.setCurrentCell(nextCell);
+   			}
+   	        
+   	        //index was out of range, wrap around.
+   	        else{
+   	        	System.out.println("Can Not Place Tower There");
+   	        }
+   	        board.draw();
+   			
+   			break;
+   		case NORTHEAST:
+   			System.out.println("Need to be facing North/South/East/West");
+   			break;
+   		case EAST:
+   	        if (x-1 >= 0){
+   	            nextCell = cells[x-1][y];
+   	            System.out.println("Placeing tower Right of the player");
+   	            nextCell.setEntityInCell(towerToPlace);
+   	            towerToPlace.setCurrentCell(nextCell);
+   			}
+   	        //if index was out of range, what do we do now?
+   	        else{
+   	        	//Wrap around
+
+   	        	System.out.println("Can Not Place Tower There");
+   	        }
+
+   	        board.draw();
+   			break;
+   		case SOUTHEAST:
+   			System.out.println("Need to be facing North/South/East/West");
+   			break;
+   		case SOUTH:
+   	        if (y+1 < cells[0].length){
+   	            nextCell = cells[x][y + 1];
+   	            System.out.println("Placeing tower Below player");
+   	            nextCell.setEntityInCell(towerToPlace);
+   	            towerToPlace.setCurrentCell(nextCell);
+   			}
+   	        //if index was out of range, what do we do now?
+   	        else{
+   	        	//Wrap around
+
+   	        	System.out.println("Can Not Place Tower There");
+   	        }
+   	        board.draw();
+   			
+   			break;
+   		case SOUTHWEST:
+   			System.out.println("Need to be facing North/South/East/West");
+   			break;
+   		case WEST:
+   	       if (x+1 < cells.length){
+                nextCell = cells[x+1][y];
+   	            System.out.println("Placeing tower Left of the player");
+   	            nextCell.setEntityInCell(towerToPlace);
+   	            towerToPlace.setCurrentCell(nextCell);
+   			}
+   	        //if index was out of range, what do we do now?
+   	        else{
+   	        	//Wrap around
+
+   	        	System.out.println("Can Not Place Tower There");
+   	        }
+
+  	        board.draw();
+   			break;
+   		case NORTHWEST:
+   			System.out.println("Need to be facing North/South/East/West");
+   			break;
+   			
+   		default:
+   			break;
+   			
+    	}		
+
 	}
 	public void moveDown() {
         
@@ -178,6 +289,14 @@ public class GameDisplay extends Pane{
 	           		case ESCAPE:
 	           			//TODO go to pause scene. . . 
 	           			break;
+	           		case DIGIT1:
+	           			placeTower(0);
+	           		case DIGIT2:
+	           			placeTower(1);
+	           		case DIGIT3:
+	           			placeTower(2);
+	           		case DIGIT4:
+	           			placeTower(3);
 	           		default:
 	           			break;
 	           			
