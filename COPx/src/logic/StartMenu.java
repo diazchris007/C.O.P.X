@@ -154,15 +154,16 @@ public class StartMenu extends Application {
 //	   startGameExitBtn.setPrefWidth(150);
 
 	   // store
+	   
 	   storeBtn.setPrefWidth(150);
-	   storeExitBtn.setPrefWidth(150);
-	   buyGun.setPrefWidth(150);
-	   buyGun.setPrefHeight(80);
-	   buyShield.setPrefWidth(150);
-	   buyShield.setPrefHeight(80);
-	   buyItem.setPrefWidth(150);
-	   buyItem.setPrefHeight(80);
-	   storeTitleLbl.setPrefWidth(450);
+//	   storeExitBtn.setPrefWidth(150);
+//	   buyGun.setPrefWidth(150);
+//	   buyGun.setPrefHeight(80);
+//	   buyShield.setPrefWidth(150);
+//	   buyShield.setPrefHeight(80);
+//	   buyItem.setPrefWidth(150);
+//	   buyItem.setPrefHeight(80);
+//	   storeTitleLbl.setPrefWidth(450);
 	}
 	 
 	// sets handler
@@ -172,7 +173,7 @@ public class StartMenu extends Application {
 	   startGameBtn.setOnAction(changeScreens);
 	   leaderboardExitBtn.setOnAction(changeScreens);
 	   settingsExitBtn.setOnAction(changeScreens);
-	   storeExitBtn.setOnAction(changeScreens);
+//	   storeExitBtn.setOnAction(changeScreens);
 //	   startGameExitBtn.setOnAction(changeScreens);
 	   storeBtn.setOnAction(changeScreens);
 	   leaderboardBtn.setOnAction(changeScreens);
@@ -252,40 +253,10 @@ public class StartMenu extends Application {
 		leaderboardScene = new Scene(leaderboardSceneGrid, 1000, 800);
 	}
 	
-	public void setUpStorePage() {
-		storeTitleLbl = new Label("Welcome to the store");
-		storeTitleLbl.setAlignment(Pos.CENTER);
-		
-		Image gun = new Image("File:./../images/gunIcon.png");
-		ImageView gunIM = new ImageView();
-		gunIM.setFitWidth(50);
-		gunIM.setFitHeight(40);
-		gunIM.setImage(gun);
-		
-		Image shield = new Image("File:./../images/shieldIcon.png");
-		ImageView shieldIM = new ImageView();
-		shieldIM.setFitWidth(50);
-		shieldIM.setFitHeight(40);
-		shieldIM.setImage(shield);
-		
-		buyGun = new Button("Buy Gun", gunIM);
-		buyShield = new Button("Buy Shield", shieldIM);
-		buyItem = new Button("Buy Item");
-		storeExitBtn = new Button("Back to Start Screen");
-		
-		storeGrid = new GridPane();
-		storeGrid.setAlignment(Pos.CENTER);
-		storeGrid.setHgap(10);
-		storeGrid.setVgap(10);
-		
-		storeGrid.add(storeTitleLbl, 0, 0, 3, 1);
-
-		storeGrid.add(buyGun, 0, 1);
-		storeGrid.add(buyShield, 1, 1);
-		storeGrid.add(buyItem, 2, 1);
-		storeGrid.add(storeExitBtn, 1, 4);
-		
-		storeScene = new Scene(storeGrid, 1000, 800); 
+	public void setUpStorePage() {		
+		StoreMenu storeMenu = new StoreMenu(stage, profile); // needs to be after Profile set up
+		storeMenu.attachCode(startScene);
+		storeScene = new Scene(storeMenu, 1000, 800); 
 	}
 	
 	public void setUpStartScreen() {
