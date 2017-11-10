@@ -55,6 +55,10 @@ public class GameDisplay extends Pane{
         towers = new LinkedList<Tower>();
         this.getChildren().add(pane);
 	}
+	public Player getPlayer()
+	{
+		return player;
+	}
 	public void placeTower(int slot){
 
 		if(slot >numTowers)

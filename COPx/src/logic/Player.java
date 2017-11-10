@@ -131,7 +131,7 @@ public class Player extends Entity{
 
 	public void setBalance(int i) {
 		// TODO Auto-generated method stub
-		balance -= i;
+		balance = i;
 		
 	}
     

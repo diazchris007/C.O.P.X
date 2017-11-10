@@ -336,7 +336,7 @@ public class StartMenu extends Application {
 	
 	@Override 
 	public void start(Stage stagep) throws Exception {
-//		String musicFile = "./../music/GearworksFactory.mp3";     // For example
+//		String musicFile = "./music/GearworksFactory.mp3";     // For example
 		playMusic("./../music/GearworksFactory.mp3");
 
 		
