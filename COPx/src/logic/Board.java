@@ -19,6 +19,9 @@ public class Board extends GridPane {
     public Cell[][] getCells(){
         return this.cells;
     }
+    public void setCells(Cell[][] cells) {
+    	this.cells = cells;
+    }
 
     public void draw() {
         

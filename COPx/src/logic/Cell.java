@@ -27,5 +27,11 @@ public class Cell {
 	public Location getIndex() {
 		return location;
 	}
+	public boolean hasEntity() {
+		// TODO Auto-generated method stub
+		if(entityInCell == null)
+			return false;
+		return true;
+	}
 		
 }

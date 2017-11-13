@@ -3,14 +3,13 @@ package logic;
 import javafx.scene.image.Image;
 
 public class Player extends Entity{
-    private Cell currentCell;
     private Image currentimg;
     private Direction dir;
     private Loadout loadout;
     private int balance;
     
     public Player(Cell cell, Loadout loadout){
-    	currentimg = new Image("file:./../images/Player.png");
+    	currentimg = new Image("file:./../images/RightFacing.png");
         this.currentCell = cell;
         cell.setEntityInCell(this);
         this.loadout = loadout;
@@ -30,7 +29,7 @@ public class Player extends Entity{
 		return currentimg;
 	}
 	
-	public void turnCW() {
+	public void turnCCW() {
 
 		//TODO update current image 
     	switch(dir){
@@ -40,6 +39,7 @@ public class Player extends Entity{
    			break;
    		case NORTHEAST:
    			dir = Direction.EAST;
+   	    	currentimg = new Image("file:./../images/RightFacing.png");
    			System.out.println("Facing East");
    			break;
    		case EAST:
@@ -48,6 +48,7 @@ public class Player extends Entity{
    			break;
    		case SOUTHEAST:
    			dir = Direction.SOUTH;
+   	    	currentimg = new Image("file:./../images/RearFacing.png");
    			System.out.println("Facing South");
    			break;
    		case SOUTH:
@@ -56,6 +57,7 @@ public class Player extends Entity{
    			break;
    		case SOUTHWEST:
    			dir = Direction.WEST;
+   	    	currentimg = new Image("file:./../images/LeftFacing.png");
    			System.out.println("Facing West");
    			break;
    		case WEST:
@@ -64,6 +66,7 @@ public class Player extends Entity{
    			break;
    		case NORTHWEST:
    			dir = Direction.NORTH;
+   	    	currentimg = new Image("file:./../images/FrontFacing.png");
    			System.out.println("Facing North");
    			break;
      			
@@ -73,7 +76,7 @@ public class Player extends Entity{
    			
     	}
 	}
-	public void turnCCW(){
+	public void turnCW(){
 		//TODO update current image 
 	   	switch(dir){
    		case NORTH:
@@ -82,6 +85,7 @@ public class Player extends Entity{
    			break;
    		case NORTHEAST:
    			dir = Direction.NORTH;
+   	    	currentimg = new Image("file:./../images/FrontFacing.png");
    			System.out.println("Facing North");
    			break;
    		case EAST:
@@ -90,6 +94,7 @@ public class Player extends Entity{
    			break;
    		case SOUTHEAST:
    			dir = Direction.EAST;
+   	    	currentimg = new Image("file:./../images/RightFacing.png");
    			System.out.println("Facing East");
    			break;
    		case SOUTH:
@@ -98,6 +103,7 @@ public class Player extends Entity{
    			break;
    		case SOUTHWEST:
    			dir = Direction.SOUTH;
+   	    	currentimg = new Image("file:./../images/RearFacing.png");
 
    			System.out.println("Facing South");
    			break;
@@ -107,6 +113,7 @@ public class Player extends Entity{
    			break;
    		case NORTHWEST:
    			dir = Direction.WEST;
+   	    	currentimg = new Image("file:./../images/LeftFacing.png");
    			System.out.println("Facing West");
    			break;
    			
