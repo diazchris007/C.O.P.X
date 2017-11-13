@@ -1,5 +1,7 @@
 package logic;
 
+import java.util.List;
+
 public class Profile {
 	Loadout[] loadouts;
 	private int outsideGameBalance;
@@ -19,6 +21,20 @@ public class Profile {
 		outsideGameBalance = 200;
 		
 		inv = new Inventory();
+	}
+	
+	public Profile(List<String> initialInventory) {
+		loadouts = new Loadout[numLoadouts];
+		for(int i = 0; i < numLoadouts; i++){
+			loadouts[i] = new Loadout();
+			loadouts[i].setTower(0, new RifleTower());
+			loadouts[i].setTower(1, new RifleTower());
+			loadouts[i].setTower(2, new RifleTower());
+			loadouts[i].setTower(3, new RifleTower());
+		}
+		outsideGameBalance = 200;
+		
+		inv = new Inventory(initialInventory);
 	}
 	
 	public int getBalance() {
@@ -42,5 +58,9 @@ public class Profile {
 			System.out.println("You cannot purchase " + item + "! :(");
 			return 1;
 		}
+	}
+	
+	public Inventory getInventory() {
+		return inv;
 	}
 }

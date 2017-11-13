@@ -42,4 +42,13 @@ public class Inventory {
 		return items.size();
 	}
 	
+	public List<String> listItemInventory() {
+		List<String> temp = new ArrayList<String>();
+		for (int i = 0; i < items.size(); i++) {
+			temp.add(items.get(i).getName());
+		}
+		
+		return temp;
+	}
+	
 }
