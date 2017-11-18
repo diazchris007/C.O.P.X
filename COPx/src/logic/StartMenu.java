@@ -41,12 +41,16 @@ public class StartMenu extends Application {
 	Button tbd1Btn;
 	Button tbd2Btn;
 	
+	Button manageLoadoutBtn;
+	//Button manageLoadoutExitBtn;
+	
 	// scenes
 	Scene settingScene;
 	Scene startGameScene;
 	Scene startScene;
 	Scene leaderboardScene;
 	Scene storeScene;
+	Scene manageLoadoutScene;
 	Scene americasScene;
 	Scene europeScene;
 	Scene asiaScene;
@@ -83,9 +87,10 @@ public class StartMenu extends Application {
 				
 				return;
 			}
+		
 			if (e.getSource() == leaderboardExitBtn ||
 					e.getSource() == settingsExitBtn ||
-					e.getSource() == storeExitBtn) {
+					e.getSource() == storeExitBtn ){
 //					e.getSource() == startGameExitBtn) {
 				stage.setScene(startScene);
 				return;
@@ -97,6 +102,11 @@ public class StartMenu extends Application {
 
 			if (e.getSource() == leaderboardBtn) {
 				stage.setScene(leaderboardScene);
+				return;
+			}
+			if (e.getSource() == manageLoadoutBtn)
+			{
+				stage.setScene(manageLoadoutScene);
 				return;
 			}
 		}
@@ -156,6 +166,7 @@ public class StartMenu extends Application {
 	   // store
 	   
 	   storeBtn.setPrefWidth(150);
+	   manageLoadoutBtn.setPrefWidth(150);
 //	   storeExitBtn.setPrefWidth(150);
 //	   buyGun.setPrefWidth(150);
 //	   buyGun.setPrefHeight(80);
@@ -177,6 +188,7 @@ public class StartMenu extends Application {
 //	   startGameExitBtn.setOnAction(changeScreens);
 	   storeBtn.setOnAction(changeScreens);
 	   leaderboardBtn.setOnAction(changeScreens);
+	   manageLoadoutBtn.setOnAction(changeScreens);
 	   
 	   // have each button run changeLeaderboardRegion when clicked
 /*
@@ -258,12 +270,19 @@ public class StartMenu extends Application {
 		storeMenu.attachCode(startScene);
 		storeScene = new Scene(storeMenu, 1000, 800); 
 	}
+	public void setUpManageLoadout(){
+		ManageLoadoutMenu manageLoadoutMenu = new ManageLoadoutMenu(stage, profile);
+		manageLoadoutMenu.attachCode(startScene);
+		manageLoadoutScene = new Scene(manageLoadoutMenu, 1000, 800); 
+		
+	}
 	
 	public void setUpStartScreen() {
 		storeBtn = new Button("Store");
 		startGameBtn = new Button("Start Game");
 		leaderboardBtn = new Button("View Leaderboard");
 		settingBtn = new Button("Settings");
+		manageLoadoutBtn = new Button("Manage Loadout");
 
 		startSceneGrid = new GridPane();
 		
@@ -283,6 +302,7 @@ public class StartMenu extends Application {
 		startSceneGrid.add(startGameBtn, 0, 1);
 		startSceneGrid.add(settingBtn, 1, 2);
 		startSceneGrid.add(leaderboardBtn, 2, 1);
+		startSceneGrid.add(manageLoadoutBtn, 2, 2);
 		
 		startScene = new Scene(startSceneGrid, 1000, 800);
 	}
@@ -337,7 +357,8 @@ public class StartMenu extends Application {
 	@Override 
 	public void start(Stage stagep) throws Exception {
 //		String musicFile = "./music/GearworksFactory.mp3";     // For example
-		playMusic("./music/GearworksFactory.mp3");
+		//playMusic("./music/GearworksFactory.mp3");
+		playMusic("./../music/GearworksFactory.mp3");
 
 		
 		stage = stagep;
@@ -346,6 +367,7 @@ public class StartMenu extends Application {
 		setUpSettingPage();
 		setUpGameStage();
 		setUpStorePage();
+		setUpManageLoadout();
 		setUpLeaderboardStage();
 
 		setWidths();
