@@ -1,6 +1,9 @@
 package logic;
 
+import javafx.scene.control.Label;
+import javafx.scene.control.ProgressBar;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 
 
@@ -19,6 +22,7 @@ public class Board extends GridPane {
     public Cell[][] getCells(){
         return this.cells;
     }
+    
     public void setCells(Cell[][] cells) {
     	this.cells = cells;
     }
@@ -32,15 +36,20 @@ public class Board extends GridPane {
             Cell[] c = cells[i];
         	for(int j = 0; j < c.length; j++)
             {
+        		BorderPane tempPane = new BorderPane();
             	ImageView cell = new ImageView();
             	cell.setFitWidth(CELLWIDTH);
             	cell.setFitHeight(CELLHEIGHT);
-        		
         		if (c[j].getEntityInCell() != null)
 	            {
+        			float healthPercent = c[j].getEntityInCell().getHeathPercent();
+        			ProgressBar pb = new ProgressBar(healthPercent);
+        			pb.setMaxSize(30, 5);
+        			tempPane.setTop(pb);
 	            	cell.setImage(c[j].getEntityInCell().getImg());
 	            }
-	            add(cell, i,j);
+        		tempPane.setCenter(cell);
+	            add(tempPane, i,j);
            	}
         }
     }   

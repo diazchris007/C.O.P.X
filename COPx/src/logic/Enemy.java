@@ -1,6 +1,7 @@
 package logic;
 
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 
 public abstract class Enemy extends Entity {
 	
@@ -8,10 +9,12 @@ public abstract class Enemy extends Entity {
     protected Direction dir;
     protected Entity target;
 
-	public Enemy(Cell startCell,Entity target){
+	public Enemy(int health, Cell startCell,Entity target){
 		currentImage = null;
 		this.currentCell = startCell;
 		this.target = target;
+		maxHealth = health;
+		currentHealth = health;
 	}
 	@Override
 	public Image getImg() {

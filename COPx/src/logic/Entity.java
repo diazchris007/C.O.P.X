@@ -1,12 +1,15 @@
 package logic;
 
-import javafx.scene.image.Image;
+import java.util.ArrayList;
 
-public abstract class Entity {
+import javafx.scene.image.Image;
+import javafx.scene.layout.BorderPane;
+
+public abstract class Entity{
 	protected String name;
-	protected int health;
+	protected int currentHealth;
 	protected Cell currentCell;
-	
+	protected int maxHealth;
 	/**
 	 * @return the name
 	 */
@@ -23,13 +26,13 @@ public abstract class Entity {
 	 * @return the health
 	 */
 	public int getHealth() {
-		return health;
+		return currentHealth;
 	}
 	/**
 	 * @param health the health to set
 	 */
 	public void setHealth(int health) {
-		this.health = health;
+		this.currentHealth = health;
 	}
 	/**
 	 * @return the location
@@ -142,6 +145,27 @@ public abstract class Entity {
         }
         return cells;
     }
+	public float getHeathPercent() {
+		// TODO Auto-generated method stub
+		return currentHealth/maxHealth;
+	}
+	public void attack(Board board) {
+		Cell cells [][] = board.getCells();
+		Location loc = currentCell.getLocation();
+		int x = loc.getX();
+		int y = loc.getY();
+	}
+	public ArrayList<Entity> getNearbyEntities(Board board, int range){
+		ArrayList<Entity> entites = new ArrayList<Entity>();
+		Cell cells [][] = board.getCells();
+		Location loc = currentCell.getLocation();
+		int x = loc.getX();
+		int y = loc.getY();
+		for(int i = 1 ; i < range; i++) {
+			cells[x][y].getEntityInCell();
+		}
+		return entites;
+	}
     
 	
 }

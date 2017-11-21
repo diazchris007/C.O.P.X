@@ -8,6 +8,8 @@ public class RifleTower extends Tower{
 		super();
 		cost = 10;
 		strength = 10;
+		currentHealth = 100;
+		maxHealth = 100;
 		currentImage = new Image("file:./../images/military3_frontFacing.png");
 	}
 
