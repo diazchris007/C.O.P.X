@@ -3,6 +3,7 @@ package logic;
 import java.io.File;
 
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
@@ -14,7 +15,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.stage.Stage;
-
+import javafx.stage.WindowEvent;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
@@ -362,7 +363,16 @@ public class StartMenu extends Application {
 
 		
 		stage = stagep;
-		
+		stagep.setOnCloseRequest(new EventHandler<WindowEvent>(){
+
+			@Override
+			public void handle(WindowEvent arg0) {
+				// TODO Auto-generated method stub
+				Platform.exit();
+				System.exit(0);
+			}
+			
+		});
 		setUpStartScreen();
 		setUpSettingPage();
 		setUpGameStage();
