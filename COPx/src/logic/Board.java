@@ -1,24 +1,32 @@
 package logic;
 
+import javafx.geometry.Insets;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.VBox;
 
 
 public class Board extends GridPane {
     
-    private Cell cells[][];
+    private static Board instance;
+	private Cell cells[][];
     private final int CELLWIDTH = 30;
     private final int CELLHEIGHT = 30;
     
-    public Board(Cell cells[][]) {
-        
-    	this.cells = cells;
-        draw();
+    private Board() {
+    	
     }
-
+    public static Board getInstance()
+    {
+    	if(instance == null)
+    		instance = new Board();
+    	return instance;
+    }
+    
+    
     public Cell[][] getCells(){
         return this.cells;
     }
@@ -36,21 +44,30 @@ public class Board extends GridPane {
             Cell[] c = cells[i];
         	for(int j = 0; j < c.length; j++)
             {
-        		BorderPane tempPane = new BorderPane();
-            	ImageView cell = new ImageView();
-            	cell.setFitWidth(CELLWIDTH);
-            	cell.setFitHeight(CELLHEIGHT);
+        		VBox tempPane = new VBox();
+        		tempPane.setMaxHeight(CELLHEIGHT);
+        		tempPane.setMinHeight(CELLHEIGHT);
+        		tempPane.setMinWidth(CELLWIDTH);
+        		tempPane.setMaxWidth(CELLWIDTH);
+        		tempPane.setPadding(Insets.EMPTY);
+        		tempPane.setSpacing(0);
+            	ImageView entityIcon = new ImageView();
+            	entityIcon.setFitWidth(CELLWIDTH);
+            	entityIcon.setFitHeight(CELLHEIGHT -10);
         		if (c[j].getEntityInCell() != null)
 	            {
         			float healthPercent = c[j].getEntityInCell().getHeathPercent();
         			ProgressBar pb = new ProgressBar(healthPercent);
+        			
         			pb.setMaxSize(30, 5);
-        			tempPane.setTop(pb);
-	            	cell.setImage(c[j].getEntityInCell().getImg());
+        			tempPane.getChildren().add(pb);
+	            	entityIcon.setImage(c[j].getEntityInCell().getImg());
 	            }
-        		tempPane.setCenter(cell);
+        		tempPane.getChildren().add(entityIcon);
 	            add(tempPane, i,j);
+	            
            	}
         }
+        
     }   
 }

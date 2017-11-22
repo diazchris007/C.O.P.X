@@ -38,7 +38,9 @@ public class GameDisplay extends Pane{
             	cells[i][j] = new Cell(new Location(i,j));
         }
 		this.player = new Player(cells[5][5],loadout);
-        this.board = new Board(cells);
+        this.board = Board.getInstance();
+        this.board.setCells(cells);
+        this.board.draw();
         summoner = new Lvl1Summoner(player, board);
         
         BorderPane pane = new BorderPane();
