@@ -10,6 +10,8 @@ public abstract class Entity{
 	protected int currentHealth;
 	protected Cell currentCell;
 	protected int maxHealth;
+	protected Range range;
+	protected int attackDamage;
 	/**
 	 * @return the name
 	 */
@@ -46,6 +48,7 @@ public abstract class Entity{
 	public void setCurrentCell(Cell nextCell) {
 		// TODO Auto-generated method stub
 		this.currentCell = nextCell;
+		range.recalculate(nextCell);
 	}
 	
 	public Cell[][] moveDown(Board board) {
@@ -119,6 +122,7 @@ public abstract class Entity{
         	//System.out.println("Player reached end" + x+ ", "+ y);
             this.setCurrentCell(cells[cells.length -1][y]);
             cells[cells.length -1][y].setEntityInCell(this);
+            
             cells[x][y].clearEntityInCell();
         }
         
@@ -147,7 +151,7 @@ public abstract class Entity{
     }
 	public float getHeathPercent() {
 		// TODO Auto-generated method stub
-		return currentHealth/maxHealth;
+		return (float)currentHealth/(float)maxHealth;
 	}
 	public void attack(Board board) {
 		Cell cells [][] = board.getCells();

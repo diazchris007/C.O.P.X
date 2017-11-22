@@ -76,6 +76,7 @@ public class GameDisplay extends Pane{
 			return;
 		}
 		towers.add(towerToPlace);
+		summoner.addTower(towerToPlace);
     	currentCell = player.getCurrentCell();
         nextCell = null;
         x = currentCell.getLocation().getX();

@@ -57,6 +57,7 @@ public class Board extends GridPane {
         		if (c[j].getEntityInCell() != null)
 	            {
         			float healthPercent = c[j].getEntityInCell().getHeathPercent();
+        			System.out.println(healthPercent);
         			ProgressBar pb = new ProgressBar(healthPercent);
         			
         			pb.setMaxSize(30, 5);

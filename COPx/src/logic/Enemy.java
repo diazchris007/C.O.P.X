@@ -1,5 +1,9 @@
 package logic;
 
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.PriorityQueue;
+
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
@@ -8,13 +12,12 @@ public abstract class Enemy extends Entity {
     protected Image currentImage;
     protected Direction dir;
     protected Entity target;
-
 	public Enemy(int health, Cell startCell,Entity target){
 		currentImage = null;
 		this.currentCell = startCell;
 		this.target = target;
-		maxHealth = health;
-		currentHealth = health;
+		this.maxHealth = health;
+		this.currentHealth = health;
 	}
 	@Override
 	public Image getImg() {
@@ -71,6 +74,54 @@ public abstract class Enemy extends Entity {
 		}
 		
 		return board.getCells();
+	}
+	public ArrayList<Entity> getNearby(){
+		ArrayList<Cell> nearby =range.getNearby();
+		ArrayList<Entity> entities = new ArrayList<Entity>();
+		for(Cell c : nearby){
+			Entity ent = c.getEntityInCell();
+			if(ent.getClass().getSuperclass().equals(Tower.class)){
+				entities.add(ent);
+			}
+			else if(c.getEntityInCell().getClass().equals(Player.class)){
+				entities.add(ent);
+			}
+		}
+		return entities;
+	}
+	public ArrayList<Entity> attack(){
+		ArrayList<Entity> entities = getNearby();
+		ArrayList<Entity> deadEntities = new ArrayList<Entity>();
+		if(entities.size()>0){
+			System.out.println("Entity :" + entities.get(0));
+			PriorityQueue<Entity> queue = new PriorityQueue<>(entities.size(), new Comparator<Entity>(){
+	
+				@Override
+				public int compare(Entity arg0, Entity arg1) {
+					if(arg0.getHeathPercent() > arg1.getHeathPercent())
+						return 1;
+					if(arg0.getHeathPercent() < arg1.getHeathPercent())
+						return -1;
+					return 0;
+					
+				}
+				
+			});
+			
+			for(Entity e : entities){
+				queue.add(e);
+			}
+			if(queue.peek().getHealth() <= attackDamage){
+				Entity ent = queue.poll();
+				deadEntities.add(ent);
+			}
+			else{
+				Entity ent = queue.poll();
+				ent.setHealth(ent.getHealth() - attackDamage);
+				System.out.println(ent.getClass() + " is now at " + ent.getHealth());
+			}
+		}
+		return deadEntities;
 	}
 
 }
