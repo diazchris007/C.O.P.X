@@ -38,7 +38,7 @@ public class TestInGameBalance {
 		} 
 		if(d != null){
 			Player pl = d.getPlayer();
-			int oldbal = pl.getBalance();
+//			int oldbal = pl.getBalance();
 			pl.setBalance(1000);
 			Tower towerToPlace = pl.getLoadout().getTower(1).getInstance();
 			int towerCost = towerToPlace.getCost();

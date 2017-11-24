@@ -30,11 +30,11 @@ public class TestPurchaseItem {
 	public void test() {
 		
 		List<String> real = new ArrayList<String>();
-		real.add("Sword1");
+		real.add("Sword3");
 		real.add("Sword2");
 		
-		List<String> initial =new ArrayList<String>();
-		Profile user = new Profile(initial);
+		List<String> initialItems =new ArrayList<String>();
+		Profile user = new Profile(initialItems, null, null);
 	
 		for (int i = 0; i < real.size(); i++) {
 			user.purchaseItem(real.get(i));

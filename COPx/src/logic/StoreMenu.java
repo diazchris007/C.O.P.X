@@ -20,9 +20,6 @@ public class StoreMenu extends GridPane{
 	Label balanceDisplay;
 	Label msg;
 	
-	Button buyGun;
-	Button buyShield;
-	Button buyItem;
 	Button storeExitBtn;
 	
 	List <Button> buttons;
@@ -34,19 +31,49 @@ public class StoreMenu extends GridPane{
 	
 	Inventory storeInventory;
 	List<String> storeItems;
+	List<String> storeWeapons;
+	List<String> storeTowers;
 	
 	public StoreMenu(Stage pStage, Profile user) {
 		stage = pStage;
 		userAccount = user;
 		
-		storeItems = Arrays.asList("sword1", "sword2", "sword3", "sword4", "sword5", "sword2", "sword3");
-		storeInventory = new Inventory(storeItems);
-		
+		storeItems = Arrays.asList( "shield", "green Potion", "charge Potion", "HP Potion", "Mana potion", "sword5");
+		storeWeapons = Arrays.asList("sword1", "rocket Launcher", "sword2", "staff", "mace", "rifle");
+		storeTowers = Arrays.asList("rifle Tower", "rocket Tower", "Blast Tower", "Heavy Tower", "Swat Tower", "Self Destruct Tower");
+
+		storeInventory = new Inventory(storeItems, storeWeapons, storeTowers);
+
 		buttons = new ArrayList<Button>();
+		String lbl;
+		Image img;
+		ImageView icon;
 		for (int i = 0; i< storeInventory.getItemNum(); i++) {
-			String lbl = "Buy " + storeInventory.getItem(i).getName() + "\n Price: " + storeInventory.getItem(i).getPrice();
-			Image img = storeInventory.getItem(i).getIcon();
-			ImageView icon = new ImageView();
+			lbl = "Buy " + storeInventory.getItem(i).getName() + "\n Price: " + storeInventory.getItem(i).getPrice();
+			img = storeInventory.getItem(i).getIcon();
+			icon = new ImageView();
+			icon.setFitWidth(40);
+			icon.setFitHeight(40);
+			icon.setImage(img);
+			
+			buttons.add( new Button( lbl, icon ));
+		}
+		
+		for (int i = 0; i< storeInventory.getWeaponNum(); i++) {
+			lbl = "Buy " + storeInventory.getWeapon(i).getName() + "\n Price: " + storeInventory.getWeapon(i).getPrice();
+			img = storeInventory.getWeapon(i).getIcon();
+			icon = new ImageView();
+			icon.setFitWidth(40);
+			icon.setFitHeight(40);
+			icon.setImage(img);
+			
+			buttons.add( new Button( lbl, icon ));
+		}
+		
+		for (int i = 0; i< storeInventory.getTowerNum(); i++) {
+			lbl = "Buy " + storeInventory.getTower(i).getName() + "\n Price: " + storeInventory.getTower(i).getPrice();
+			img = storeInventory.getTower(i).getIcon();
+			icon = new ImageView();
 			icon.setFitWidth(40);
 			icon.setFitHeight(40);
 			icon.setImage(img);
@@ -57,27 +84,12 @@ public class StoreMenu extends GridPane{
 		balanceDisplay = new Label ("Current Balance: " + userAccount.getBalance());
 		balanceDisplay.setStyle("-fx-border-color: #000; -fx-padding: 5px;");
 		
-		msg = new Label ("Hello!!");
+		msg = new Label ("Hello!! What would you like to purchase?");
 		msg.setAlignment(Pos.CENTER);
 		
 		storeTitleLbl = new Label("Welcome to the store");
 		storeTitleLbl.setAlignment(Pos.CENTER);
-		
-		Image gun = new Image("File:./../images/gunIcon.png");
-		ImageView gunIM = new ImageView();
-		gunIM.setFitWidth(50);
-		gunIM.setFitHeight(40);
-		gunIM.setImage(gun);
-		
-		Image shield = new Image("File:./../images/shieldIcon.png");
-		ImageView shieldIM = new ImageView();
-		shieldIM.setFitWidth(50);
-		shieldIM.setFitHeight(40);
-		shieldIM.setImage(shield);
-		
-		buyGun = new Button("Buy Gun", gunIM);
-		buyShield = new Button("Buy Shield", shieldIM);
-		buyItem = new Button("Buy Item");
+				
 		storeExitBtn = new Button("Back to Start Screen");
 		
 		this.setWidths();
@@ -90,16 +102,30 @@ public class StoreMenu extends GridPane{
 		this.add(msg, 0, 1, 3, 1);
 		this.add(balanceDisplay, 0, 2, 3, 1);
 		
-		int j=2;
-		for (int i = 0; i < storeInventory.getItemNum(); i++) {
-			if (i %3  == 0)
+		int j=3;
+		int numInv = storeInventory.getInventoryNum();
+		
+		Label itemLbl = new Label("Items:");
+		Label weaponLbl = new Label("Weapons:");
+		Label towerLbl = new Label("Towers:");
+		this.add(itemLbl, 0, 3, 3, 1);
+		
+		for (int i = 0; i < numInv; i++) {
+			if (i %2  == 0)
 				j++;	
 			
-			this.add(buttons.get(i), i%3, j);
+			if (i == storeInventory.getItemNum()) {	
+				j++;
+				this.add(weaponLbl, 0, j++, 3, 1);
+			} else if (i == (storeInventory.getItemNum() + storeInventory.getWeaponNum())) {
+				j++;
+				this.add(towerLbl, 0, j++, 3, 1);
+			}
+			this.add(buttons.get(i), i%2, j);
 		}
-
-		this.add(storeExitBtn, 1,  storeInventory.getItemNum()/3 +6);
 		
+		j+=2;
+		this.add(storeExitBtn, 0,  j);
 	}
 	
 	EventHandler<ActionEvent> changeScreens = new EventHandler<ActionEvent>() {
@@ -109,35 +135,47 @@ public class StoreMenu extends GridPane{
 				stage.setScene(startScene);
 				return;
 			}
-
 		}
 	};
 	
 	EventHandler<ActionEvent> purchaseItem = new EventHandler<ActionEvent>() {
 		// handles all events
 		public void handle(ActionEvent e) {
-			if (e.getSource() == buyGun) {
-				userAccount.purchaseItem("Sword1");
-				balanceDisplay.setText("Current Balance: " + userAccount.getBalance());
-				return;
-			}
-
-			if (e.getSource() == buyShield) {
-				userAccount.purchaseItem("Sword2");
-				balanceDisplay.setText("Current Balance: " + userAccount.getBalance());
-				return;
-			}
-			
 			int stat = -1;
-			for (int i = 0; i < storeInventory.getItemNum(); i++) {
+			for (int i = 0; i < storeInventory.getInventoryNum(); i++) {
 				if (e.getSource() == buttons.get(i)) {
-					stat = userAccount.purchaseItem(  storeInventory.getItem(i).getName() );
-					balanceDisplay.setText("Current Balance: " + userAccount.getBalance());
-					if (stat == 0) // bought
-						msg.setText("You just purchased " + storeInventory.getItem(i).getName());
-					else
-						msg.setText("You did not have enough for " + storeInventory.getItem(i).getName());
-					return;
+					int objectType = storeInventory.getIWT(i);
+					
+					if (objectType == 0 ) {
+						int itemNum = i;
+						stat = userAccount.purchaseItem1(  storeInventory.getItem(itemNum) );
+						balanceDisplay.setText("Current Balance: " + userAccount.getBalance());
+						if (stat == 0) // bought
+							msg.setText("You just purchased " + storeInventory.getItem(itemNum).getName());
+						else
+							msg.setText("You did not have enough for " + storeInventory.getItem(itemNum).getName());
+						return;	
+					} else if (objectType == 1) {
+						int weaponNum = i - storeInventory.getWeaponNum();
+						stat = userAccount.purchaseWeapon(  storeInventory.getWeapon(weaponNum) );
+						balanceDisplay.setText("Current Balance: " + userAccount.getBalance());
+						if (stat == 0) // bought
+							msg.setText("You just purchased " + storeInventory.getWeapon(weaponNum).getName());
+						else
+							msg.setText("You did not have enough for " + storeInventory.getWeapon(weaponNum).getName());
+						return;	
+					} else if (objectType == 2) {
+						int towerNum = i - storeInventory.getWeaponNum() - storeInventory.getItemNum();
+						stat = userAccount.purchaseTower(storeInventory.getTower(towerNum) );
+						balanceDisplay.setText("Current Balance: " + userAccount.getBalance());
+						if (stat == 0) // bought
+							msg.setText("You just purchased " + storeInventory.getTower(towerNum ).getName());
+						else
+							msg.setText("You did not have enough for " + storeInventory.getTower(towerNum).getName());
+						return;	
+					}
+					
+
 				}
 			}	
 		}
@@ -146,28 +184,19 @@ public class StoreMenu extends GridPane{
 	public void attachCode(Scene startScreen) {
 		startScene = startScreen;
 		storeExitBtn.setOnAction(changeScreens);
-		buyGun.setOnAction(purchaseItem);
-		buyShield.setOnAction(purchaseItem);
-		
-	   for (int i =0 ; i < storeInventory.getItemNum(); i++) {
+	   for (int i = 0 ; i < storeInventory.getInventoryNum(); i++) {
 		   buttons.get(i).setOnAction(purchaseItem);
 	   }
 	}
 	
 	private void setWidths() {
 	   storeExitBtn.setPrefWidth(150);
-	   buyGun.setPrefWidth(150);
-	   buyGun.setPrefHeight(80);
-	   buyShield.setPrefWidth(150);
-	   buyShield.setPrefHeight(80);
-	   buyItem.setPrefWidth(150);
-	   buyItem.setPrefHeight(80);
 	   storeTitleLbl.setPrefWidth(470);
 	   balanceDisplay.setPrefWidth(200);
 	   msg.setPrefWidth(470);
 	   
-	   for (int i =0 ; i < storeInventory.getItemNum(); i++) {
-		   buttons.get(i).setPrefWidth(150);
+	   for (int i =0 ; i < storeInventory.getInventoryNum(); i++) {
+		   buttons.get(i).setPrefWidth(240);
 		   buttons.get(i).setPrefHeight(80);
 	   }
 	   

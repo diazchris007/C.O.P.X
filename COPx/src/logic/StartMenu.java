@@ -1,17 +1,25 @@
 package logic;
 
+
 import java.io.File;
 
 import javafx.application.Application;
 import javafx.application.Platform;
+import javafx.beans.InvalidationListener;
+import javafx.beans.Observable;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.ScrollPane.ScrollBarPolicy;
+import javafx.scene.control.Slider;
 //import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Region;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.stage.Stage;
@@ -20,6 +28,9 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
 public class StartMenu extends Application {
+	int dimsW = 1000;
+	int dimsH = 600;
+	
 	// buttons
 	Button settingBtn;
 	Button wrenchBtn;
@@ -84,6 +95,9 @@ public class StartMenu extends Application {
 				return;
 			}
 			if (e.getSource() == startGameBtn) {
+				
+				mediaPlayer.stop();
+				playMusic("./../music/Replicant_Police.mp3");
 				stage.setScene(startGameScene);
 				
 				return;
@@ -162,20 +176,12 @@ public class StartMenu extends Application {
 	   settingBtn.setPrefWidth(150);
 	   settingsExitBtn.setPrefWidth(150);
 
-//	   startGameExitBtn.setPrefWidth(150);
-
 	   // store
-	   
 	   storeBtn.setPrefWidth(150);
+	   
+	   
 	   manageLoadoutBtn.setPrefWidth(150);
-//	   storeExitBtn.setPrefWidth(150);
-//	   buyGun.setPrefWidth(150);
-//	   buyGun.setPrefHeight(80);
-//	   buyShield.setPrefWidth(150);
-//	   buyShield.setPrefHeight(80);
-//	   buyItem.setPrefWidth(150);
-//	   buyItem.setPrefHeight(80);
-//	   storeTitleLbl.setPrefWidth(450);
+
 	}
 	 
 	// sets handler
@@ -185,8 +191,6 @@ public class StartMenu extends Application {
 	   startGameBtn.setOnAction(changeScreens);
 	   leaderboardExitBtn.setOnAction(changeScreens);
 	   settingsExitBtn.setOnAction(changeScreens);
-//	   storeExitBtn.setOnAction(changeScreens);
-//	   startGameExitBtn.setOnAction(changeScreens);
 	   storeBtn.setOnAction(changeScreens);
 	   leaderboardBtn.setOnAction(changeScreens);
 	   manageLoadoutBtn.setOnAction(changeScreens);
@@ -263,19 +267,33 @@ public class StartMenu extends Application {
 		leaderboardSceneGrid.add(oceaniaRegion, 4, 1);
 		leaderboardSceneGrid.add(leaderboardExitBtn, 2, 5);
 		
-		leaderboardScene = new Scene(leaderboardSceneGrid, 1000, 800);
+		leaderboardScene = new Scene(leaderboardSceneGrid, dimsW, dimsH);
 	}
 	
 	public void setUpStorePage() {		
 		StoreMenu storeMenu = new StoreMenu(stage, profile); // needs to be after Profile set up
 		storeMenu.attachCode(startScene);
-		storeScene = new Scene(storeMenu, 1000, 800); 
+		
+		GridPane grid = new GridPane();
+		grid.setAlignment(Pos.CENTER);
+		grid.setHgap(10);
+		grid.setVgap(10);
+		
+		// set up scroll-ability 
+        ScrollPane sp = new ScrollPane();
+        sp.setContent(storeMenu);
+        sp.setFitToWidth(true);
+        sp.setPrefSize(dimsW, dimsH);
+        sp.setHbarPolicy(ScrollBarPolicy.AS_NEEDED);
+        sp.setVbarPolicy(ScrollBarPolicy.AS_NEEDED);
+        
+        grid.add(sp, 0, 1);
+		storeScene = new Scene(grid, dimsW, dimsH);
 	}
 	public void setUpManageLoadout(){
 		ManageLoadoutMenu manageLoadoutMenu = new ManageLoadoutMenu(stage, profile);
 		manageLoadoutMenu.attachCode(startScene);
-		manageLoadoutScene = new Scene(manageLoadoutMenu, 1000, 800); 
-		
+		manageLoadoutScene = new Scene(manageLoadoutMenu, dimsW, dimsH);
 	}
 	
 	public void setUpStartScreen() {
@@ -305,7 +323,7 @@ public class StartMenu extends Application {
 		startSceneGrid.add(leaderboardBtn, 2, 1);
 		startSceneGrid.add(manageLoadoutBtn, 2, 2);
 		
-		startScene = new Scene(startSceneGrid, 1000, 800);
+		startScene = new Scene(startSceneGrid, dimsW, dimsH);
 	}
 	
 	public void setUpSettingPage() {
@@ -346,20 +364,48 @@ public class StartMenu extends Application {
 		settingSceneGrid.add(tbd2Btn, 2, 1);
 		settingSceneGrid.add(settingsExitBtn, 1,4);
 		
-		settingScene = new Scene(settingSceneGrid, 1000, 800);
+		HBox mediaBar = new HBox();
+		// Add the volume label
+		Label volumeLabel = new Label("Vol: ");
+		mediaBar.getChildren().add(volumeLabel);
+		
+		// Add Volume slider
+		Slider volumeSlider = new Slider();        
+		volumeSlider.setPrefWidth(70);
+		volumeSlider.setMaxWidth(Region.USE_PREF_SIZE);
+		volumeSlider.setMinWidth(30);
+		volumeSlider.setValue(80/2);
+		mediaPlayer.setVolume(volumeSlider.getValue() / 100.0);
+		
+		volumeSlider.valueProperty().addListener(new InvalidationListener() {
+			@Override
+			public void invalidated(Observable ov) {
+	    			if (volumeSlider.isValueChanging()) {
+	    				mediaPlayer.setVolume(volumeSlider.getValue() / 100.0);
+	       		}
+	    		}
+		});
+		mediaBar.getChildren().add(volumeSlider);
+		
+		settingSceneGrid.add(mediaBar, 1, 5);
+		
+		settingScene = new Scene(settingSceneGrid, dimsW, dimsH);
 	}
 	
+
+	
+MediaPlayer mediaPlayer;
 	public void playMusic(String musicFile) {
 		Media sound = new Media(new File(musicFile).toURI().toString());
-		MediaPlayer mediaPlayer = new MediaPlayer(sound);
+		mediaPlayer = new MediaPlayer(sound);
 		mediaPlayer.play();
 	}
 	
 	@Override 
 	public void start(Stage stagep) throws Exception {
 //		String musicFile = "./music/GearworksFactory.mp3";     // For example
-		//playMusic("./music/GearworksFactory.mp3");
-		playMusic("./music/GearworksFactory.mp3");
+//		playMusic("./music/GearworksFactory.mp3");
+		playMusic("./../music/GearworksFactory.mp3");
 
 		
 		stage = stagep;
@@ -379,6 +425,7 @@ public class StartMenu extends Application {
 		setUpStorePage();
 		setUpManageLoadout();
 		setUpLeaderboardStage();
+
 
 		setWidths();
 		attachCode();

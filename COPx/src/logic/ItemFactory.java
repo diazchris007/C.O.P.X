@@ -8,17 +8,20 @@ public class ItemFactory {
 			return null;
 		}
 				
-		if (item.equalsIgnoreCase("Sword1")) {
-			return new Sword1();
-		} else if (item.equalsIgnoreCase("Sword2")) {
-			return new Sword2();
-		} else if (item.equalsIgnoreCase("Sword3")) {
-			return new Sword3();
-		} else if (item.equalsIgnoreCase("Sword4")) {
-			return new Sword4();
-		} else if (item.equalsIgnoreCase("Sword5")) {
-			return new Sword5();
+		if (item.equalsIgnoreCase("Sword5")) {
+			return new ItemSword5();
+		} else if (item.equalsIgnoreCase("Shield")) {
+			return new ItemShield();
+		} else if (item.equalsIgnoreCase("Green Potion")) {
+			return new ItemGreenPotion();
+		} else if (item.equalsIgnoreCase("Charge Potion")) {
+			return new ItemChargePotion();
+		} else if (item.equalsIgnoreCase("Hp Potion")) {
+			return new ItemHpPotion();
+		} else if (item.equalsIgnoreCase("Mana potion")) {
+			return new ItemManaPotion();
 		}
+		
 		
 		return null;
 	}

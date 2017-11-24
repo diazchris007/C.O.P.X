@@ -7,10 +7,21 @@ public abstract class Tower extends Entity{
 	Cell currentCell;
 	int strength;
 	int cost;
+	String description;
+	int price;
+	String name;
 	
 	public Tower(){
 		currentImage = null;
 		this.currentCell = null;
+	}
+	
+	public Image getIcon() {
+		return currentImage;
+	}
+	
+	public String getDescription () {
+		return description;
 	}
     
 	public Cell getCurrentCell(){
@@ -33,6 +44,14 @@ public abstract class Tower extends Entity{
 		return cost;
 	}
 
+	public int getPrice() {
+		return price;
+	}
+	
+	public String getName() {
+		return name;
+	}
+	
 	public abstract Tower getInstance();
 
 }

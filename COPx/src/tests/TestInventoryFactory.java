@@ -42,7 +42,7 @@ public class TestInventoryFactory {
 		
 		Inventory inventory = null;
 		try {
-			inventory = new Inventory(test);
+			inventory = new Inventory(test, null, null);
 		} catch (Exception e) {
 			e.printStackTrace();
 		} 

@@ -2,10 +2,20 @@ package logic;
 
 import javafx.scene.image.Image;
 
-public interface Item {
-	int getPrice();
+public abstract class Item {
+	String name;
+	int price;
+	Image icon;
 	
-	String getName();
+	public int getPrice() {
+		return price;
+	}
 	
-	Image getIcon();
+	public String getName() {
+		return name;
+	}
+	
+	public Image getIcon() {
+		return icon;
+	}
 }
