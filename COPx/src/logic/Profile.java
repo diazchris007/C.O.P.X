@@ -21,7 +21,7 @@ public class Profile {
 			loadouts[i].setTower(2, TowerFactory.getTower(towerNames.get(2)));
 			loadouts[i].setTower(3, TowerFactory.getTower(towerNames.get(3)));
 		}
-		outsideGameBalance = 200;
+		outsideGameBalance = 800;
  		inv = new Inventory();
 	}
 	
@@ -38,7 +38,8 @@ public class Profile {
 		
 		inv = new Inventory(initialItems, initialWeapons, initialTowers);
 	}
-	
+
+
 	public int getBalance() {
 		return outsideGameBalance;
 	}

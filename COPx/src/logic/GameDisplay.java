@@ -93,7 +93,7 @@ public class GameDisplay extends Pane{
    	            System.out.println("Placeing tower Above player");
    	            nextCell.setEntityInCell(towerToPlace);
    	            towerToPlace.setCurrentCell(nextCell);
-
+   	            
    	            player.setBalance(player.getBalance() - towerCost);
 
    	            System.out.println("balance: " + player.getBalance() +"\n tower costs: " + towerCost);

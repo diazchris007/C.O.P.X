@@ -1,17 +1,21 @@
 package logic;
 
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.PriorityQueue;
+
 import javafx.scene.image.Image;
 
 public class TowerSwat extends Tower{
 
 	public TowerSwat(){
-		super();
+		super(500, 100);
 		cost = 50;
-		strength = 100;
 		currentImage = new Image("file:./../images/swatTower.png");
 		description = "SwatTower";
 		price = 230;
 		name = "Swat Tower";
+		this.range = new RangeCircular(currentCell,1);
 	}
 
 	@Override
@@ -21,12 +25,43 @@ public class TowerSwat extends Tower{
 		return new TowerSwat();
 	}
 
-	@Override
-	public void attack() {
-		// TODO Auto-generated method stub
-		
-	}
+
+
+	public ArrayList<Entity> attack(){
+		ArrayList<Entity> entities = getNearby();
+		ArrayList<Entity> deadEntities = new ArrayList<Entity>();
+		if(entities.size()>0){
+			System.out.println("Entity :" + entities.get(0));
+			PriorityQueue<Entity> queue = new PriorityQueue<>(entities.size(), new Comparator<Entity>(){
 	
+				@Override
+				public int compare(Entity arg0, Entity arg1) {
+					if(arg0.getHeathPercent() > arg1.getHeathPercent())
+						return 1;
+					if(arg0.getHeathPercent() < arg1.getHeathPercent())
+						return -1;
+					return 0;
+					
+				}
+				
+			});
+			
+			for(Entity e : entities){
+				if(e.getClass() != Player.class)
+					queue.add(e);
+			}
+			if(queue.peek().getHealth() <= attackDamage){
+				Entity ent = queue.poll();
+				deadEntities.add(ent);
+			}
+			else{
+				Entity ent = queue.poll();
+				ent.setHealth(ent.getHealth() - attackDamage);
+				System.out.println(ent.getClass() + " is now at " + ent.getHealth());
+			}
+		}
+		return deadEntities;
+	}
 }
 
 

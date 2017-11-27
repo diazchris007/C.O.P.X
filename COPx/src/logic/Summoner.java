@@ -31,9 +31,13 @@ public abstract class Summoner {
 			public void run() {
 				Platform.runLater(new Runnable() {
 					public void run() {
+						if(enemies.size() == 0){
+							return;
+						}
 						attackAll();
 						moveAll();
 						board.draw();
+						
 					}
 				});
 			}
@@ -53,6 +57,15 @@ public abstract class Summoner {
 						towers.remove(ent);
 						
 					}
+					ent.getCurrentCell().clearEntityInCell();
+				}
+			}
+		}
+		for(Tower t : towers){
+			ArrayList<Entity> dead = t.attack();
+			if(dead.size() > 0 ){
+				for(Entity ent : dead){
+					enemies.remove(ent);
 					ent.getCurrentCell().clearEntityInCell();
 				}
 			}

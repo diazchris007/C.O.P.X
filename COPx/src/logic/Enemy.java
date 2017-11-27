@@ -12,12 +12,11 @@ public abstract class Enemy extends Entity {
     protected Image currentImage;
     protected Direction dir;
     protected Entity target;
-	public Enemy(int health, Cell startCell,Entity target){
+	public Enemy(int health,int attack, Cell startCell,Entity target){
+		super(health, attack);
 		currentImage = null;
 		this.currentCell = startCell;
 		this.target = target;
-		this.maxHealth = health;
-		this.currentHealth = health;
 	}
 	@Override
 	public Image getImg() {

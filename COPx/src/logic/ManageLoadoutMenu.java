@@ -40,12 +40,13 @@ public class ManageLoadoutMenu extends GridPane {
 	
 	Profile userAccount;
 	
-	Inventory storeInventory;
+	Inventory playerInventory;
 	List<String> storeItems;
 	
 	public ManageLoadoutMenu(Stage pStage, Profile user) 
 	{
 		stage = pStage;
+		playerInventory = user.getInventory();
 		
 		menuBtn = new Button("Choose Combo");
 		
@@ -69,8 +70,9 @@ public class ManageLoadoutMenu extends GridPane {
 	
 		
 		ChoiceBox<String> choiceBox1 = new ChoiceBox<String>();
-		choiceBox1.getItems().addAll("Select","U1", "U2", "U3");
+		choiceBox1.getItems().addAll(playerInventory.listWeaponInventory());
 		choiceBox1.setValue("Select");
+		
 		
 		ChoiceBox<String> choiceBox2 = new ChoiceBox<String>();
 		choiceBox2.getItems().addAll("Select", "U1", "U2", "U3");
@@ -133,7 +135,6 @@ public class ManageLoadoutMenu extends GridPane {
 	public void attachCode(Scene startScreen) {
 		startScene = startScreen;
 		manageLoadoutExitBtn.setOnAction(changeScreens);
-	
 	}
 	
 	private void setWidths() {

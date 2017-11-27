@@ -1,5 +1,7 @@
 package logic;
 
+import java.util.ArrayList;
+
 import javafx.scene.image.Image;
 
 public abstract class Tower extends Entity{
@@ -11,7 +13,8 @@ public abstract class Tower extends Entity{
 	int price;
 	String name;
 	
-	public Tower(){
+	public Tower(int health, int attack){
+		super(health, attack);
 		currentImage = null;
 		this.currentCell = null;
 	}
@@ -30,8 +33,9 @@ public abstract class Tower extends Entity{
 	public void setCurrentCell(Cell cell){
 		this.currentCell = cell;
 		cell.setEntityInCell(this);
+		range.recalculate(cell);
 	}
-	public abstract void attack();
+	public abstract ArrayList<Entity> attack();
 	
 	@Override
 	public Image getImg() {
@@ -53,5 +57,15 @@ public abstract class Tower extends Entity{
 	}
 	
 	public abstract Tower getInstance();
-
+	public ArrayList<Entity> getNearby(){
+		ArrayList<Cell> nearby = range.getNearby();
+		ArrayList<Entity> entities = new ArrayList<Entity>();
+		for(Cell c : nearby){
+			Entity ent = c.getEntityInCell();
+			if(ent.getClass().getSuperclass().equals(Enemy.class)){
+				entities.add(ent);
+			}
+		}
+		return entities;
+	}
 }

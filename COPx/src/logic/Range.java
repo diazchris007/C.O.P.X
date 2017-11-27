@@ -8,10 +8,12 @@ public abstract class Range {
 	int currentY;
 	Location loc;
 	public Range(Cell cell, int maxDistance){
-		Location loc = cell.getLocation();
+		if(cell != null){
+			loc = cell.getLocation();
+			this.currentX = loc.getX();
+			this.currentY = loc.getY();
+		}
 		this.maxDistance = maxDistance;
-		this.currentX = loc.getX();
-		this.currentY = loc.getY();
 	}
 	public abstract ArrayList<Cell> getNearby();
 	public void recalculate(Cell nextCell) {

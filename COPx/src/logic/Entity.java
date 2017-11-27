@@ -15,6 +15,11 @@ public abstract class Entity{
 	/**
 	 * @return the name
 	 */
+	public Entity(int health, int attk){
+		this.currentHealth = health;
+		this.maxHealth = health;
+		this.attackDamage = attk;
+	}
 	public String getName() {
 		return name;
 	}
@@ -153,12 +158,6 @@ public abstract class Entity{
 		// TODO Auto-generated method stub
 		return (float)currentHealth/(float)maxHealth;
 	}
-	public void attack(Board board) {
-		Cell cells [][] = board.getCells();
-		Location loc = currentCell.getLocation();
-		int x = loc.getX();
-		int y = loc.getY();
-	}
 	public ArrayList<Entity> getNearbyEntities(Board board, int range){
 		ArrayList<Entity> entites = new ArrayList<Entity>();
 		Cell cells [][] = board.getCells();
@@ -170,6 +169,7 @@ public abstract class Entity{
 		}
 		return entites;
 	}
+
     
 	
 }

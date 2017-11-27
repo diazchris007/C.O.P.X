@@ -9,8 +9,7 @@ public class Player extends Entity{
     private int balance;
     
     public Player(Cell cell, Loadout loadout){
-    	currentHealth = 200;
-    	maxHealth = 200;
+    	super(200, 50);
     	currentimg = new Image("file:./../images/RightFacing.png");
         this.currentCell = cell;
         cell.setEntityInCell(this);
