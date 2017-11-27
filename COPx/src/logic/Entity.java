@@ -3,7 +3,7 @@ package logic;
 import java.util.ArrayList;
 
 import javafx.scene.image.Image;
-import javafx.scene.layout.BorderPane;
+
 
 public abstract class Entity{
 	protected String name;
@@ -47,17 +47,17 @@ public abstract class Entity{
 
 	public abstract Image getImg();
 	public Cell getCurrentCell() {
-		// TODO Auto-generated method stub
+		
 		return currentCell;
 	}
 	public void setCurrentCell(Cell nextCell) {
-		// TODO Auto-generated method stub
+		
 		this.currentCell = nextCell;
 		range.recalculate(nextCell);
 	}
 	
 	public Cell[][] moveDown(Board board) {
-		// TODO Auto-generated method stub
+		
         Cell nextCell = null;
         Cell cells[][];
         cells = board.getCells();
@@ -67,13 +67,15 @@ public abstract class Entity{
         
         //if not at the end of board
         if (y+1 < cells[0].length){
-			cells[x][y].clearEntityInCell();
+			
             nextCell = cells[x][y + 1];
+            if(nextCell.hasEntity()) return cells;
+            cells[x][y].clearEntityInCell();
             System.out.println("moving Entity down");
         	setCurrentCell(nextCell);
             nextCell.setEntityInCell(this);
 		}
-        //if index was out of range, what do we do now?
+        //if index was out of range
         else{
         	//Wrap around
             this.setCurrentCell(cells[x][0]);
@@ -92,8 +94,10 @@ public abstract class Entity{
         System.out.println("Player at" + x+ ", "+ y);
         
         if (y-1 >= 0){
-			cells[x][y].clearEntityInCell();
+			
             nextCell = cells[x][y - 1];
+            if(nextCell.hasEntity()) return cells;
+            cells[x][y].clearEntityInCell();
             System.out.println("moving player up");
         	this.setCurrentCell(nextCell);
             nextCell.setEntityInCell(this);
@@ -116,15 +120,17 @@ public abstract class Entity{
         int y = currentCell.getLocation().getY();
         
         if (x-1 >= 0){
-			cells[x][y].clearEntityInCell();
+			
             nextCell = cells[x-1][y];
+            if(nextCell.hasEntity()) return cells;
+            cells[x][y].clearEntityInCell();
             System.out.println("moving player left");
         	this.setCurrentCell(nextCell);
             nextCell.setEntityInCell(this);
 		}
        //index was out of range
         else{
-        	//System.out.println("Player reached end" + x+ ", "+ y);
+        	
             this.setCurrentCell(cells[cells.length -1][y]);
             cells[cells.length -1][y].setEntityInCell(this);
             
@@ -141,8 +147,10 @@ public abstract class Entity{
         int y = currentCell.getLocation().getY();
         
         if (x+1 < cells.length){
-			cells[x][y].clearEntityInCell();
+			
             nextCell = cells[x+1][y];
+            if(nextCell.hasEntity()) return cells;
+            cells[x][y].clearEntityInCell();
             System.out.println("moving player right");
         	this.setCurrentCell(nextCell);
             nextCell.setEntityInCell(this);
@@ -155,7 +163,6 @@ public abstract class Entity{
         return cells;
     }
 	public float getHeathPercent() {
-		// TODO Auto-generated method stub
 		return (float)currentHealth/(float)maxHealth;
 	}
 	public ArrayList<Entity> getNearbyEntities(Board board, int range){
