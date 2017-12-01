@@ -20,7 +20,7 @@ public class TowerSwat extends Tower{
 
 	@Override
 	public Tower getInstance() {
-		// TODO Auto-generated method stub
+		
 		
 		return new TowerSwat();
 	}
@@ -28,7 +28,7 @@ public class TowerSwat extends Tower{
 
 
 	public ArrayList<Entity> attack(){
-		ArrayList<Entity> entities = getNearby();
+		ArrayList<Entity> entities = (ArrayList<Entity>) getNearby();
 		ArrayList<Entity> deadEntities = new ArrayList<Entity>();
 		if(entities.size()>0){
 			System.out.println("Entity :" + entities.get(0));

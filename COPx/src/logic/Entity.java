@@ -1,6 +1,7 @@
 package logic;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import javafx.scene.image.Image;
 
@@ -59,11 +60,11 @@ public abstract class Entity{
 	public Cell[][] moveDown(Board board) {
 		
         Cell nextCell = null;
-        Cell cells[][];
+        Cell[][] cells;
         cells = board.getCells();
         int x = currentCell.getLocation().getX();
         int y = currentCell.getLocation().getY();
-        System.out.println(name + " at" + x + ", "+ y);
+        
         
         //if not at the end of board
         if (y+1 < cells[0].length){
@@ -71,7 +72,7 @@ public abstract class Entity{
             nextCell = cells[x][y + 1];
             if(nextCell.hasEntity()) return cells;
             cells[x][y].clearEntityInCell();
-            System.out.println("moving Entity down");
+            
         	setCurrentCell(nextCell);
             nextCell.setEntityInCell(this);
 		}
@@ -87,18 +88,18 @@ public abstract class Entity{
 	}
     public Cell[][] moveUp(Board board) {
         Cell nextCell = null;
-        Cell cells[][];
+        Cell[][] cells;
         cells = board.getCells();
         int x = currentCell.getLocation().getX();
         int y = currentCell.getLocation().getY();
-        System.out.println("Player at" + x+ ", "+ y);
+        
         
         if (y-1 >= 0){
 			
             nextCell = cells[x][y - 1];
             if(nextCell.hasEntity()) return cells;
             cells[x][y].clearEntityInCell();
-            System.out.println("moving player up");
+            
         	this.setCurrentCell(nextCell);
             nextCell.setEntityInCell(this);
 		}
@@ -114,7 +115,7 @@ public abstract class Entity{
     
     public Cell[][] moveLeft(Board board) {
         Cell nextCell = null;
-        Cell cells[][];
+        Cell[][] cells;
         cells = board.getCells();
         int x = currentCell.getLocation().getX();
         int y = currentCell.getLocation().getY();
@@ -124,7 +125,7 @@ public abstract class Entity{
             nextCell = cells[x-1][y];
             if(nextCell.hasEntity()) return cells;
             cells[x][y].clearEntityInCell();
-            System.out.println("moving player left");
+            
         	this.setCurrentCell(nextCell);
             nextCell.setEntityInCell(this);
 		}
@@ -141,7 +142,7 @@ public abstract class Entity{
     }
     public Cell[][] moveRight(Board board) {
         Cell nextCell = null;
-        Cell cells[][];
+        Cell[][] cells;
         cells = board.getCells();
         int x = currentCell.getLocation().getX();
         int y = currentCell.getLocation().getY();
@@ -151,7 +152,7 @@ public abstract class Entity{
             nextCell = cells[x+1][y];
             if(nextCell.hasEntity()) return cells;
             cells[x][y].clearEntityInCell();
-            System.out.println("moving player right");
+            
         	this.setCurrentCell(nextCell);
             nextCell.setEntityInCell(this);
 		}
@@ -165,9 +166,9 @@ public abstract class Entity{
 	public float getHeathPercent() {
 		return (float)currentHealth/(float)maxHealth;
 	}
-	public ArrayList<Entity> getNearbyEntities(Board board, int range){
-		ArrayList<Entity> entites = new ArrayList<Entity>();
-		Cell cells [][] = board.getCells();
+	public List<Entity> getNearbyEntities(Board board, int range){
+		ArrayList<Entity> entites = new ArrayList<>();
+		Cell[][] cells = board.getCells();
 		Location loc = currentCell.getLocation();
 		int x = loc.getX();
 		int y = loc.getY();

@@ -1,6 +1,10 @@
 package logic;
 
 public class TowerFactory {
+	private TowerFactory()
+	{
+		
+	}
 	
 	public static Tower getTower(String tower) {
 		

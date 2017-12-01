@@ -1,6 +1,10 @@
 package logic;
 
 public class ItemFactory {
+	private ItemFactory()
+	{
+		
+	}
 
 	public static Item getItem(String item) {
 		

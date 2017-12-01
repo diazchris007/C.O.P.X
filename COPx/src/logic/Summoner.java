@@ -56,27 +56,23 @@ public abstract class Summoner {
 	}
 	public void attackAll(){
 		for(Enemy e : enemies){
-			ArrayList<Entity> dead = e.attack();
-			if(!dead.isEmpty()){
-				for(Entity ent : dead){
+			ArrayList<Entity> dead = (ArrayList<Entity>) e.attack();
+			for(Entity ent : dead){
 					if(ent.getClass().equals(Player.class)){
-						System.out.println("over");
+						paused = true;
 					}
 					else{
 						towers.remove(ent);
 						
 					}
 					ent.getCurrentCell().clearEntityInCell();
-				}
 			}
 		}
 		for(Tower t : towers){
-			ArrayList<Entity> dead = t.attack();
-			if(!dead.isEmpty()){
-				for(Entity ent : dead){
+			ArrayList<Entity> dead = (ArrayList<Entity>) t.attack();
+			for(Entity ent : dead){
 					enemies.remove(ent);
 					ent.getCurrentCell().clearEntityInCell();
-				}
 			}
 		}
 	}

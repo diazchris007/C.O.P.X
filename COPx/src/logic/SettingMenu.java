@@ -9,12 +9,12 @@ import javafx.scene.layout.GridPane;
 public class SettingMenu extends GridPane {
 	
 	public SettingMenu() {           
-        Label lbl_Setting = new Label("Settings with a classs:");
+        Label lblSetting = new Label("Settings with a classs:");
         
- 	    lbl_Setting.setPrefWidth(150);
-		lbl_Setting.setAlignment(Pos.CENTER);
+ 	    lblSetting.setPrefWidth(150);
+		lblSetting.setAlignment(Pos.CENTER);
 			
-		this.add(lbl_Setting, 0, 0);	 
+		this.add(lblSetting, 0, 0);	 
 		
 		this.setAlignment(Pos.CENTER);
 		

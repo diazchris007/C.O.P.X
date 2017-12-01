@@ -44,12 +44,13 @@ public class StoreMenu extends GridPane{
 
 		storeInventory = new Inventory(storeItems, storeWeapons, storeTowers);
 
-		buttons = new ArrayList<Button>();
+		buttons = new ArrayList<>();
 		String lbl;
 		Image img;
 		ImageView icon;
+		String p = "\n Price: ";
 		for (int i = 0; i< storeInventory.getItemNum(); i++) {
-			lbl = "Buy " + storeInventory.getItem(i).getName() + "\n Price: " + storeInventory.getItem(i).getPrice();
+			lbl = "Buy " + storeInventory.getItem(i).getName() + p + storeInventory.getItem(i).getPrice();
 			img = storeInventory.getItem(i).getIcon();
 			icon = new ImageView();
 			icon.setFitWidth(40);
@@ -60,7 +61,7 @@ public class StoreMenu extends GridPane{
 		}
 		
 		for (int i = 0; i< storeInventory.getWeaponNum(); i++) {
-			lbl = "Buy " + storeInventory.getWeapon(i).getName() + "\n Price: " + storeInventory.getWeapon(i).getPrice();
+			lbl = "Buy " + storeInventory.getWeapon(i).getName() + p + storeInventory.getWeapon(i).getPrice();
 			img = storeInventory.getWeapon(i).getIcon();
 			icon = new ImageView();
 			icon.setFitWidth(40);
@@ -71,7 +72,7 @@ public class StoreMenu extends GridPane{
 		}
 		
 		for (int i = 0; i< storeInventory.getTowerNum(); i++) {
-			lbl = "Buy " + storeInventory.getTower(i).getName() + "\n Price: " + storeInventory.getTower(i).getPrice();
+			lbl = "Buy " + storeInventory.getTower(i).getName() + p + storeInventory.getTower(i).getPrice();
 			img = storeInventory.getTower(i).getIcon();
 			icon = new ImageView();
 			icon.setFitWidth(40);
@@ -142,6 +143,9 @@ public class StoreMenu extends GridPane{
 		// handles all events
 		public void handle(ActionEvent e) {
 			int stat = -1;
+			String s1 = "You just purchased ";
+			String s2 = "You did not have enough for ";
+			String s3 = "Current Balance: ";
 			for (int i = 0; i < storeInventory.getInventoryNum(); i++) {
 				if (e.getSource() == buttons.get(i)) {
 					int objectType = storeInventory.getIWT(i);
@@ -149,29 +153,29 @@ public class StoreMenu extends GridPane{
 					if (objectType == 0 ) {
 						int itemNum = i;
 						stat = userAccount.purchaseItem1(  storeInventory.getItem(itemNum) );
-						balanceDisplay.setText("Current Balance: " + userAccount.getBalance());
+						balanceDisplay.setText(s3 + userAccount.getBalance());
 						if (stat == 0) // bought
-							msg.setText("You just purchased " + storeInventory.getItem(itemNum).getName());
+							msg.setText(s1 + storeInventory.getItem(itemNum).getName());
 						else
-							msg.setText("You did not have enough for " + storeInventory.getItem(itemNum).getName());
+							msg.setText(s2 + storeInventory.getItem(itemNum).getName());
 						return;	
 					} else if (objectType == 1) {
 						int weaponNum = i - storeInventory.getWeaponNum();
 						stat = userAccount.purchaseWeapon(  storeInventory.getWeapon(weaponNum) );
-						balanceDisplay.setText("Current Balance: " + userAccount.getBalance());
+						balanceDisplay.setText(s3 + userAccount.getBalance());
 						if (stat == 0) // bought
-							msg.setText("You just purchased " + storeInventory.getWeapon(weaponNum).getName());
+							msg.setText(s1 + storeInventory.getWeapon(weaponNum).getName());
 						else
-							msg.setText("You did not have enough for " + storeInventory.getWeapon(weaponNum).getName());
+							msg.setText(s2 + storeInventory.getWeapon(weaponNum).getName());
 						return;	
 					} else if (objectType == 2) {
 						int towerNum = i - storeInventory.getWeaponNum() - storeInventory.getItemNum();
 						stat = userAccount.purchaseTower(storeInventory.getTower(towerNum) );
-						balanceDisplay.setText("Current Balance: " + userAccount.getBalance());
+						balanceDisplay.setText(s3 + userAccount.getBalance());
 						if (stat == 0) // bought
-							msg.setText("You just purchased " + storeInventory.getTower(towerNum ).getName());
+							msg.setText(s1 + storeInventory.getTower(towerNum ).getName());
 						else
-							msg.setText("You did not have enough for " + storeInventory.getTower(towerNum).getName());
+							msg.setText(s2 + storeInventory.getTower(towerNum).getName());
 						return;	
 					}
 					

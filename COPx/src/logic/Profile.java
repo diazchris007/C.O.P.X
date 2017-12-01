@@ -7,14 +7,14 @@ public class Profile {
 	Loadout[] loadouts;
 	private int outsideGameBalance;
 	Inventory inv;
-	private final int numLoadouts = 3;
+	private static final int NUMLOADOUTS = 3;
 	
 	
 	public Profile() {
-		loadouts = new Loadout[numLoadouts];
+		loadouts = new Loadout[NUMLOADOUTS];
 		
 		List<String> towerNames = Arrays.asList("Rifle Tower", "Rocket Tower", "Swat Tower", "Heavy Tower");
-		for(int i = 0; i < numLoadouts; i++){
+		for(int i = 0; i < NUMLOADOUTS; i++){
 			loadouts[i] = new Loadout();
 			loadouts[i].setTower(0, TowerFactory.getTower(towerNames.get(0)));
 			loadouts[i].setTower(1, TowerFactory.getTower(towerNames.get(1)));
@@ -26,8 +26,8 @@ public class Profile {
 	}
 	
 	public Profile(List<String> initialItems, List<String> initialWeapons, List<String> initialTowers) {
-		loadouts = new Loadout[numLoadouts];
-		for(int i = 0; i < numLoadouts; i++){
+		loadouts = new Loadout[NUMLOADOUTS];
+		for(int i = 0; i < NUMLOADOUTS; i++){
 			loadouts[i] = new Loadout();
 			loadouts[i].setTower(0, new TowerRifle());
 			loadouts[i].setTower(1, new TowerRifle());
@@ -45,7 +45,7 @@ public class Profile {
 	}
 	
 	public Loadout getLoadout(int slot) {
-		// TODO Auto-generated method stub
+		
 		return loadouts[slot];
 	}
 	
@@ -58,7 +58,7 @@ public class Profile {
 		}
 		else
 		{
-			System.out.println("You cannot purchase " + item + "! :(");
+			
 			return 1;
 		}
 	}
@@ -72,7 +72,7 @@ public class Profile {
 		}
 		else
 		{
-			System.out.println("You cannot purchase " + item.getName() + "! :(");
+			
 			return 1;
 		}
 	}

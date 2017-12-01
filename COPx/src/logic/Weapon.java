@@ -14,7 +14,7 @@ public abstract class Weapon {
 	
 	public abstract void attack();
 	public Image getImg() {
-		// TODO Auto-generated method stub
+		
 		return currentImage;
 	}
 	

@@ -14,7 +14,7 @@ public class Loadout {
 		this.weapon = weapon;
 	}
 	public Tower getTower(int slot) {
-		// TODO Auto-generated method stub
+		
 		return towers[slot];
 	}
 

@@ -2,6 +2,7 @@ package logic;
 
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.List;
 import java.util.PriorityQueue;
 
 import javafx.scene.image.Image;
@@ -20,11 +21,11 @@ public abstract class Enemy extends Entity {
 	}
 	@Override
 	public Image getImg() {
-		// TODO Auto-generated method stub
+		
 		return currentImage;
 	}
 	public void setTarget(Entity target) {
-		// TODO Auto-generated method stub
+		
 		this.target = target;
 	}
 	public Entity getTarget() {
@@ -41,7 +42,7 @@ public abstract class Enemy extends Entity {
 		int targetY = targetLoc.getY();
 		if(targetX == currentX) {
 			if(((targetY - 1) == currentY) || ((targetY + 1) == currentY)) {
-				System.out.println("Target is infront");
+				
 			}
 			else if(targetY > currentY) {
 				return moveDown(board);
@@ -52,15 +53,14 @@ public abstract class Enemy extends Entity {
 			
 		}
 		else if(targetY == currentY) {
-			if(((targetX - 1) == currentX) || ((targetX + 1) == currentX)) {
-				System.out.println("Target is infront");
-			}
-			else if(targetX > currentX) {
+			
+			if(targetX > currentX) {
 				return moveRight(board);
 			}
-			else if(targetX < currentX) {
+			else {
 				return moveLeft(board);
 			}
+			
 
 		}
 		else {
@@ -74,25 +74,24 @@ public abstract class Enemy extends Entity {
 		
 		return board.getCells();
 	}
-	public ArrayList<Entity> getNearby(){
-		ArrayList<Cell> nearby =range.getNearby();
-		ArrayList<Entity> entities = new ArrayList<Entity>();
+	public List<Entity> getNearby(){
+		ArrayList<Cell> nearby =(ArrayList<Cell>) range.getNearby();
+		ArrayList<Entity> entities = new ArrayList<>();
 		for(Cell c : nearby){
 			Entity ent = c.getEntityInCell();
-			if(ent.getClass().getSuperclass().equals(Tower.class)){
+			if(ent.getClass().getSuperclass().equals(Tower.class) ||
+					c.getEntityInCell().getClass().equals(Player.class)){
 				entities.add(ent);
 			}
-			else if(c.getEntityInCell().getClass().equals(Player.class)){
-				entities.add(ent);
-			}
+			
 		}
 		return entities;
 	}
-	public ArrayList<Entity> attack(){
-		ArrayList<Entity> entities = getNearby();
-		ArrayList<Entity> deadEntities = new ArrayList<Entity>();
-		if(entities.size()>0){
-			System.out.println("Entity :" + entities.get(0));
+	public List<Entity> attack(){
+		ArrayList<Entity> entities = (ArrayList<Entity>) getNearby();
+		ArrayList<Entity> deadEntities = new ArrayList<>();
+		if(!entities.isEmpty()){
+			
 			PriorityQueue<Entity> queue = new PriorityQueue<>(entities.size(), new Comparator<Entity>(){
 	
 				@Override
@@ -117,7 +116,7 @@ public abstract class Enemy extends Entity {
 			else{
 				Entity ent = queue.poll();
 				ent.setHealth(ent.getHealth() - attackDamage);
-				System.out.println(ent.getClass() + " is now at " + ent.getHealth());
+				
 			}
 		}
 		return deadEntities;

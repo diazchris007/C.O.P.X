@@ -19,7 +19,7 @@ import javafx.geometry.Insets;
 
 public class ManageLoadoutMenu extends GridPane {
 
-	//Label storeTitleLbl;
+	
 	Label manageLoadoutLbl;
 	
 	Label lblTower1;
@@ -32,7 +32,7 @@ public class ManageLoadoutMenu extends GridPane {
 	Button menuBtn;
 	
 	
-	GridPane ManageLoadoutSceneGrid;
+	GridPane manageLoadoutSceneGrid;
 	List <Button> buttons;
 	
 	Stage stage;
@@ -54,39 +54,39 @@ public class ManageLoadoutMenu extends GridPane {
 		manageLoadoutLbl.setAlignment(Pos.CENTER);
 		
 		manageLoadoutExitBtn = new Button("Back to Start Screen");
-		//manageLoadoutExitBtn.setAlignment(Pos.CENTER);
+		
 	
 		
-		Label lblTower1 = new Label("Tower 1");
-		Label lblTower2 = new Label("Tower 2");
-		Label lblTower3 = new Label("Tower 3");
-		Label lblTower4 = new Label("Tower 4");
-		//Label lblLoadoutMenu = new Label("Select Loadout");
+		lblTower1 = new Label("Tower 1");
+		lblTower2 = new Label("Tower 2");
+		lblTower3 = new Label("Tower 3");
+		lblTower4 = new Label("Tower 4");
+		
 		
 		lblTower1.setPadding(new Insets(30,30,0,30));
 		lblTower2.setPadding(new Insets(30,30,0,30));
 		lblTower3.setPadding(new Insets(30,30,0,30));
 		lblTower4.setPadding(new Insets(30,30,0,30));
 	
-		
-		ChoiceBox<String> choiceBox1 = new ChoiceBox<String>();
+		String s = "Select";
+		ChoiceBox<String> choiceBox1 = new ChoiceBox<>();
 		choiceBox1.getItems().addAll(playerInventory.listWeaponInventory());
-		choiceBox1.setValue("Select");
+		choiceBox1.setValue(s);
 		
 		
-		ChoiceBox<String> choiceBox2 = new ChoiceBox<String>();
+		ChoiceBox<String> choiceBox2 = new ChoiceBox<>();
 		choiceBox2.getItems().addAll("Select", "U1", "U2", "U3");
-		choiceBox2.setValue("Select");
+		choiceBox2.setValue(s);
 		
-		ChoiceBox<String> choiceBox3 = new ChoiceBox<String>();
+		ChoiceBox<String> choiceBox3 = new ChoiceBox<>();
 		choiceBox3.getItems().addAll("Select", "U1", "U2", "U3");
-		choiceBox3.setValue("Select");
+		choiceBox3.setValue(s);
 		
-		ChoiceBox<String> choiceBox4 = new ChoiceBox<String>();
+		ChoiceBox<String> choiceBox4 = new ChoiceBox<>();
 		choiceBox4.getItems().addAll("Select", "U1", "U2", "U3");
-		choiceBox4.setValue("Select");
+		choiceBox4.setValue(s);
 		
-		ChoiceBox<String> loadoutMenu = new ChoiceBox<String>();
+		ChoiceBox<String> loadoutMenu = new ChoiceBox<>();
 		loadoutMenu.getItems().add("Select Loadout");
 		loadoutMenu.getItems().addAll("Loadout 1", "Loadout 2", "Loadout 3");
 		loadoutMenu.setValue("Select Loadout");
@@ -101,27 +101,26 @@ public class ManageLoadoutMenu extends GridPane {
 		
 		this.add(manageLoadoutLbl, 0, 0, 4, 10);
 		this.add(manageLoadoutExitBtn, 0, 40, 4, 1);
-		//this.add(menuBtn, 0, 10, 4, 7);
-		//this.add(manageLoadoutExitBtn, 0, 9);
+		
 		
 		this.add(lblTower1, 0, 30);
 		this.add(lblTower2, 1, 30);
 		this.add(lblTower3, 2, 30);
 		this.add(lblTower4, 3, 30);
-		//this.add(lblLoadoutMenu, 0, 7, 4, 7);
+		
 		
 		this.add(choiceBox1, 0, 31);
 	    this.add(choiceBox2, 1, 31);
 		this.add(choiceBox3, 2, 31);
 		this.add(choiceBox4, 3, 31);
-		//this.add(loadoutMenu, 10, 0);
+		
 		this.add(loadoutMenu, 0, 10, 4, 7);
 		
 		
 	}
 	
 	EventHandler<ActionEvent> changeScreens = new EventHandler<ActionEvent>() {
-		// handles all events
+		
 		public void handle(ActionEvent e) {
 			if (e.getSource() == manageLoadoutExitBtn) {
 				stage.setScene(startScene);

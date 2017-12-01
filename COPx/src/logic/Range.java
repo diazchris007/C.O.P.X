@@ -1,6 +1,7 @@
 package logic;
 
-import java.util.ArrayList;
+
+import java.util.List;
 
 public abstract class Range {
 	int maxDistance;
@@ -15,12 +16,12 @@ public abstract class Range {
 		}
 		this.maxDistance = maxDistance;
 	}
-	public abstract ArrayList<Cell> getNearby();
+	public abstract List<Cell> getNearby();
 	public void recalculate(Cell nextCell) {
-		// TODO Auto-generated method stub
-		Location loc = nextCell.getLocation();
-		this.currentX = loc.getX();
-		this.currentY = loc.getY();		
+		
+		Location locs = nextCell.getLocation();
+		this.currentX = locs.getX();
+		this.currentY = locs.getY();		
 		
 	}
 }

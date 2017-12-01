@@ -10,43 +10,17 @@ public class Inventory {
 	List <Weapon> weapons;
 	List <Item> items;
 	
-//	public Inventory() {
-//		List<String> listItems = Arrays.asList( "mana potion", "shield", "hp potion");
-//		items = new ArrayList<Item>();
-//		Item tempitem;
-//		for (int i = 0; i < listItems.size(); i++) {
-//			tempitem = ItemFactory.getItem( listItems.get(i) );			
-//			items.add(tempitem);
-//		}
-//		
-//		List<String> listWeapons = Arrays.asList("rocket Launcher", "mace", "Rifle");
-//		weapons = new ArrayList<Weapon>();
-//		Weapon tempWeapon;
-//		for (int i = 0; i < listWeapons.size(); i++) {
-//			tempWeapon = WeaponFactory.getWeapon( listWeapons.get(i) );
-//			weapons.add(tempWeapon);
-//		}
-//		
-//		List<String> listTowers = Arrays.asList("Rifle Tower", "Rocket Tower", "Heavy tower");
-//		towers = new ArrayList<Tower>();
-//		Tower tempTower;
-//		for (int i = 0; i < listTowers.size(); i++) {
-//			tempTower = TowerFactory.getTower( listTowers.get(i) );			
-//			towers.add(tempTower);
-//		}
-//	}
-	
-	
+
 	// empty default inventory
 	public Inventory() {
-		items = new ArrayList<Item>();
-		weapons = new ArrayList<Weapon>();
-		towers = new ArrayList<Tower>();
+		items = new ArrayList<>();
+		weapons = new ArrayList<>();
+		towers = new ArrayList<>();
 	}
 	
 	public Inventory(List<String> listItems, List<String> listWeapons, List<String> listTowers) {
 		
-		items = new ArrayList<Item>();
+		items = new ArrayList<>();
 		Item tempitem;
 		if (listItems != null) {
 			for (int i = 0; i < listItems.size(); i++) {
@@ -55,7 +29,7 @@ public class Inventory {
 			}
 		}
 		
-		weapons = new ArrayList<Weapon>();
+		weapons = new ArrayList<>();
 		Weapon tempWeapon;
 		if (listWeapons != null) {
 			for (int i = 0; i < listWeapons.size(); i++) {
@@ -64,7 +38,7 @@ public class Inventory {
 			}
 		}
 		
-		towers = new ArrayList<Tower>();
+		towers = new ArrayList<>();
 		Tower tempTower;
 		if (listTowers != null) {
 			for (int i = 0; i < listTowers.size(); i++) {
@@ -128,7 +102,7 @@ public class Inventory {
 	}
 	
 	public List<String> listItemInventory() {
-		List<String> temp = new ArrayList<String>();
+		List<String> temp = new ArrayList<>();
 		for (int i = 0; i < items.size(); i++) {
 			temp.add(items.get(i).getName());
 		}
@@ -136,7 +110,7 @@ public class Inventory {
 		return temp;
 	}
 	public List<String> listWeaponInventory() {
-		List<String> temp = new ArrayList<String>();
+		List<String> temp = new ArrayList<>();
 		for (int i = 0; i < weapons.size(); i++) {
 			temp.add(weapons.get(i).getName());
 		}

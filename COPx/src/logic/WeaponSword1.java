@@ -13,7 +13,7 @@ public class WeaponSword1 extends Weapon{
 
 	@Override
 	public void attack() {
-		// TODO Auto-generated method stub
+		return;
 		
 	}
 	

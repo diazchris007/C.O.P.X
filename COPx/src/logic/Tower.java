@@ -1,17 +1,18 @@
 package logic;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import javafx.scene.image.Image;
 
 public abstract class Tower extends Entity{
 	Image currentImage;
-	Cell currentCell;
+	
 	int strength;
 	int cost;
 	String description;
 	int price;
-	String name;
+	
 	
 	public Tower(int health, int attack){
 		super(health, attack);
@@ -27,39 +28,37 @@ public abstract class Tower extends Entity{
 		return description;
 	}
     
-	public Cell getCurrentCell(){
-        return this.currentCell;
-    }
+	@Override
 	public void setCurrentCell(Cell cell){
 		this.currentCell = cell;
 		cell.setEntityInCell(this);
 		range.recalculate(cell);
 	}
-	public abstract ArrayList<Entity> attack();
+	public abstract List<Entity> attack();
 	
 	@Override
 	public Image getImg() {
-		// TODO Auto-generated method stub
+		
 		return currentImage;
 	}
 
 	public int getCost() {
-		// TODO Auto-generated method stub
+		
 		return cost;
 	}
 
 	public int getPrice() {
 		return price;
 	}
-	
+	@Override
 	public String getName() {
 		return name;
 	}
 	
 	public abstract Tower getInstance();
-	public ArrayList<Entity> getNearby(){
-		ArrayList<Cell> nearby = range.getNearby();
-		ArrayList<Entity> entities = new ArrayList<Entity>();
+	public List<Entity> getNearby(){
+		ArrayList<Cell> nearby = (ArrayList<Cell>) range.getNearby();
+		ArrayList<Entity> entities = new ArrayList<>();
 		for(Cell c : nearby){
 			Entity ent = c.getEntityInCell();
 			if(ent.getClass().getSuperclass().equals(Enemy.class)){

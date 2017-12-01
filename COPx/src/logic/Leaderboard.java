@@ -16,7 +16,7 @@ public class Leaderboard extends GridPane{
 	Label lblEurope;
 	Label lblAsia;
 	
-	Button exitBtn_PlayGame;
+	Button exitBtnPlayGame;
 	
 	Scene startScene;
 	
@@ -26,7 +26,7 @@ public class Leaderboard extends GridPane{
 		// handles all events
 		public void handle(ActionEvent e) {
 			
-			if (e.getSource() == exitBtn_PlayGame) {
+			if (e.getSource() == exitBtnPlayGame) {
 				currentStage.setScene(startScene);
 				return;
 			}
@@ -34,7 +34,7 @@ public class Leaderboard extends GridPane{
 	};
 	
 	public Leaderboard() {
-		exitBtn_PlayGame = new Button("Back to Start Screen");
+		exitBtnPlayGame = new Button("Back to Start Screen");
 
 		
 		lblRegions = new Label("Select Region Below");
@@ -58,12 +58,12 @@ public class Leaderboard extends GridPane{
 		this.add(lblAmerica, 2, 2);
 		this.add(lblEurope, 4, 2);
 		this.add(lblAsia, 6, 2);
-		this.add(exitBtn_PlayGame, 0, 25);
+		this.add(exitBtnPlayGame, 0, 25);
 	}
 	
 	public void attachCode(Stage stage) {
 		currentStage = stage;
-		   exitBtn_PlayGame.setOnAction(changeScreens);
+		   exitBtnPlayGame.setOnAction(changeScreens);
 
 	}
 	
@@ -73,7 +73,7 @@ public class Leaderboard extends GridPane{
 	
 	public void setWidth() {
 		   lblRegions.setPrefWidth(150);
-		   exitBtn_PlayGame.setPrefWidth(150);
+		   exitBtnPlayGame.setPrefWidth(150);
 	}
 
 }

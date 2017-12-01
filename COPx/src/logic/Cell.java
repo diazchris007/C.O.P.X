@@ -28,10 +28,9 @@ public class Cell {
 		return location;
 	}
 	public boolean hasEntity() {
-		// TODO Auto-generated method stub
-		if(entityInCell == null)
-			return false;
-		return true;
+		
+		return entityInCell != null;
+		
 	}
 		
 }
