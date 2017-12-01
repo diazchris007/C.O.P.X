@@ -14,11 +14,14 @@ public abstract class Summoner {
 	List<Tower> towers;
 	Entity target;
 	Board board;
+	Boolean paused;
 	public Summoner(Entity target, Board board) {
-		enemies = new ArrayList<Enemy>();
-		towers = new ArrayList<Tower>();
+		enemies = new ArrayList<>();
+		towers = new ArrayList<>();
 		this.target = target;
 		this.board = board;
+		paused = true;
+		
 	}
 	public void addTower(Tower tower){
 		towers.add(tower);
@@ -31,24 +34,30 @@ public abstract class Summoner {
 			public void run() {
 				Platform.runLater(new Runnable() {
 					public void run() {
-						if(enemies.size() == 0){
+						if(enemies.isEmpty()){
 							return;
 						}
-						attackAll();
-						moveAll();
-						board.draw();
-						
+						if(paused)
+						{
+							return;
+						}
+						else
+						{
+							attackAll();
+							moveAll();
+							board.draw();
+						}
 					}
 				});
 			}
 			
 		};
-		timer.scheduleAtFixedRate(task, 0,1000);
+		timer.scheduleAtFixedRate(task, 0,500);
 	}
 	public void attackAll(){
 		for(Enemy e : enemies){
 			ArrayList<Entity> dead = e.attack();
-			if(dead.size()>0){
+			if(!dead.isEmpty()){
 				for(Entity ent : dead){
 					if(ent.getClass().equals(Player.class)){
 						System.out.println("over");
@@ -63,7 +72,7 @@ public abstract class Summoner {
 		}
 		for(Tower t : towers){
 			ArrayList<Entity> dead = t.attack();
-			if(dead.size() > 0 ){
+			if(!dead.isEmpty()){
 				for(Entity ent : dead){
 					enemies.remove(ent);
 					ent.getCurrentCell().clearEntityInCell();
@@ -75,5 +84,13 @@ public abstract class Summoner {
 		for(Enemy e : enemies) {
 			board.setCells(e.moveToTarget(board));
 		}
+	}
+	public void pause()
+	{
+		paused = true;
+	}
+	public void unPause()
+	{
+		paused = false;
 	}
 }

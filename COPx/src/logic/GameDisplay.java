@@ -24,14 +24,15 @@ public class GameDisplay extends Pane{
     private Player player;
     private Board board;
     private List<Tower> towers;
-    private Cell currentCell, nextCell;
-    private int x, y;
-    private final int numTowers = 4;
+    
+    
+    private final int numTowers;
     Summoner summoner;
 	
 	
 	public GameDisplay(Loadout loadout) throws Exception
 	{
+		numTowers = 4;
 		cells = new Cell[39][28];
 		for (int i = 0; i < cells.length; i++) {
             for(int j = 0 ; j < cells[i].length; j++)
@@ -48,11 +49,7 @@ public class GameDisplay extends Pane{
         BackgroundImage myBI= new BackgroundImage(new Image("file:./../images/Map027.png",39 * 30,29*30,false,true),
                 BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
                   BackgroundSize.DEFAULT);
-        /*
-        BackgroundImage myBI= new BackgroundImage(new Image("file:\\Users\\Christian\\Desktop\\jio\\stuff\\Workspace\\copx\\C.O.P.X\\trunk\\COPx\\images\\Map027.png",39 * 30,29*30,false,true),
-                BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
-                  BackgroundSize.DEFAULT);
-        */
+        
         pane.setBackground(new Background(myBI));
         towers = new LinkedList<Tower>();
         this.getChildren().add(pane);
@@ -64,6 +61,10 @@ public class GameDisplay extends Pane{
 	}
 	public void placeTower(int slot){
 
+		Cell currentCell; 
+	    Cell nextCell;
+	    int x;
+	    int y;
 		if(slot >numTowers)
 			return;
 		
@@ -251,12 +252,22 @@ public class GameDisplay extends Pane{
 	           			break;
 	           		case DIGIT1:
 	           			placeTower(0);
+	           			break;
 	           		case DIGIT2:
 	           			placeTower(1);
+	           			break;
 	           		case DIGIT3:
 	           			placeTower(2);
+	           			break;
 	           		case DIGIT4:
 	           			placeTower(3);
+	           			break;
+	           		case SPACE:
+	           			summoner.unPause();
+	           			break;
+	           		case P:
+	           			summoner.pause();
+	           			break;
 	           		default:
 	           			break;
 	           			
@@ -267,5 +278,5 @@ public class GameDisplay extends Pane{
             }
         });
     }
-
+    
 }
