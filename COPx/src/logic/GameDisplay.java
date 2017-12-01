@@ -3,8 +3,13 @@ package logic;
 import java.util.LinkedList;
 import java.util.List;
 
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Background;
@@ -14,6 +19,9 @@ import javafx.scene.layout.BackgroundRepeat;
 import javafx.scene.layout.BackgroundSize;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import logic.Board;
 import logic.Cell;
 import logic.Player;
@@ -28,6 +36,19 @@ public class GameDisplay extends Pane{
     
     private final int numTowers;
     Summoner summoner;
+    Button resumeBtn, restartBtn, saveBtn, exitBtn;
+	Stage pausePopup;
+	
+	EventHandler<ActionEvent> eventHandler = new EventHandler<ActionEvent>() {
+		
+		public void handle(ActionEvent e) {
+			if (e.getSource() == resumeBtn) {
+				pausePopup.close();
+				summoner.unPause();
+				return;
+			}
+		}
+	};
 	
 	
 	public GameDisplay(Loadout loadout) throws Exception
@@ -209,6 +230,35 @@ public class GameDisplay extends Pane{
     public Board getBoard(){
     	return board;
     }
+    
+    public void pauseMenu() {
+    	
+    	VBox pauseRoot = new VBox(20);
+    	pauseRoot.getChildren().add(new Label("PAUSED"));
+    	pauseRoot.setStyle("-fx-backround-color: rgba(255, 255, 255, 0.8);");
+    	pauseRoot.setAlignment(Pos.CENTER);
+    	pauseRoot.setPadding(new Insets(20));
+    	
+    	resumeBtn = new Button("RESUME");
+    	restartBtn = new Button("RESTART");
+    	saveBtn = new Button("SAVE GAME");
+    	exitBtn = new Button("EXIT TO MAIN MENU");
+    	pauseRoot.getChildren().add(resumeBtn);
+    	pauseRoot.getChildren().add(restartBtn);
+    	pauseRoot.getChildren().add(saveBtn);
+    	pauseRoot.getChildren().add(exitBtn);
+    	
+    	setHandler();
+    	
+    	pausePopup = new Stage(StageStyle.TRANSPARENT);
+    	pausePopup.setScene(new Scene(pauseRoot));
+    	pausePopup.show();
+    }
+    
+	public void setHandler() {
+		resumeBtn.setOnAction(eventHandler);
+	}
+    
     public void setupInput(Scene Gamescene)
     {
     	Gamescene.addEventFilter(KeyEvent.KEY_PRESSED, new EventHandler<KeyEvent>() {
@@ -248,7 +298,8 @@ public class GameDisplay extends Pane{
 	           			board.draw();
 	           			break;
 	           		case ESCAPE:
-	           			//TODO go to pause scene. . . 
+	           			summoner.pause();
+	           			pauseMenu();
 	           			break;
 	           		case DIGIT1:
 	           			placeTower(0);
