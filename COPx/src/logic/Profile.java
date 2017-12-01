@@ -86,7 +86,7 @@ public class Profile {
 		}
 		else
 		{
-			System.out.println("You cannot purchase " + weapon.getName() + "! :(");
+			
 			return 1;
 		}
 	}
@@ -100,7 +100,7 @@ public class Profile {
 		}
 		else
 		{
-			System.out.println("You cannot purchase " + tower.getName() + "! :(");
+			
 			return 1;
 		}
 	}

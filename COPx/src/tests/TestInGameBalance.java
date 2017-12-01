@@ -18,8 +18,11 @@ public class TestInGameBalance {
 	@BeforeClass
 	public static void initJFX() throws InterruptedException {
 	    Thread t = new Thread("JavaFX Dummy Thread") {
-	        public void run() {
-	            Application.launch(dummyApp.class, new String[0]);
+	        @Override
+	    	public void run() {
+	        	String[] x = new String[0];
+	        	
+	            Application.launch(dummyApp.class, x);
 	        }
 	    };
 	    t.setDaemon(true);
@@ -45,7 +48,7 @@ public class TestInGameBalance {
 			
 			d.placeTower(1);
 			
-			assertEquals(1000 - towerCost, pl.getBalance());
+			assertEquals((long)1000 - towerCost, pl.getBalance());
 		}
 	}
 

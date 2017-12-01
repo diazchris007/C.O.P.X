@@ -12,7 +12,7 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 
 import javafx.scene.layout.GridPane;
-//import javafx.scene.layout.HBox;
+
 import javafx.stage.Stage;
 
 import javafx.geometry.Insets;
@@ -75,15 +75,15 @@ public class ManageLoadoutMenu extends GridPane {
 		
 		
 		ChoiceBox<String> choiceBox2 = new ChoiceBox<>();
-		choiceBox2.getItems().addAll("Select", "U1", "U2", "U3");
+		choiceBox2.getItems().addAll(s, "U1", "U2", "U3");
 		choiceBox2.setValue(s);
 		
 		ChoiceBox<String> choiceBox3 = new ChoiceBox<>();
-		choiceBox3.getItems().addAll("Select", "U1", "U2", "U3");
+		choiceBox3.getItems().addAll(s, "U1", "U2", "U3");
 		choiceBox3.setValue(s);
 		
 		ChoiceBox<String> choiceBox4 = new ChoiceBox<>();
-		choiceBox4.getItems().addAll("Select", "U1", "U2", "U3");
+		choiceBox4.getItems().addAll(s, "U1", "U2", "U3");
 		choiceBox4.setValue(s);
 		
 		ChoiceBox<String> loadoutMenu = new ChoiceBox<>();

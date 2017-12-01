@@ -28,12 +28,11 @@ public class RifleTower extends Tower{
 		ArrayList<Entity> entities = new ArrayList<>();
 		for(Cell c : nearby){
 			Entity ent = c.getEntityInCell();
-			if(ent.getClass().getSuperclass().equals(Tower.class)){
+			if(ent.getClass().getSuperclass().equals(Tower.class) ||
+					c.getEntityInCell().getClass().equals(Player.class)){
 				entities.add(ent);
 			}
-			else if(c.getEntityInCell().getClass().equals(Player.class)){
-				entities.add(ent);
-			}
+			
 		}
 		return entities;
 	}

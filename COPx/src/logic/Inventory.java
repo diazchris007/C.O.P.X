@@ -1,7 +1,7 @@
 package logic;
 
 import java.util.ArrayList;
-//import java.util.Arrays;
+
 import java.util.List;
 
 public class Inventory {
@@ -71,7 +71,7 @@ public class Inventory {
 		} else {
 			return -1;
 		}
-	};
+	}
 	
 	public Item getItem(int i) {
 		return items.get(i);
