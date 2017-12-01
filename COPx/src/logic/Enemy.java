@@ -48,7 +48,7 @@ public abstract class Enemy extends Entity {
 				return moveDown(board);
 			}
 			else if(targetY < currentY) {
-				return moveUp(board);
+				return moveUp(board); 
 			}
 			
 		}

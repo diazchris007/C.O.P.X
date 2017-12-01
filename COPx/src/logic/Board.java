@@ -30,7 +30,7 @@ public class Board extends GridPane {
     }
     
     public void setCells(Cell[][] cells) {
-    	this.cells = cells;
+    	this.cells = cells; 
     }
 
     public void draw() {

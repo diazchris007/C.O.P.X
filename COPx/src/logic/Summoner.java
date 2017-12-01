@@ -20,7 +20,7 @@ public abstract class Summoner {
 		towers = new ArrayList<>();
 		this.target = target;
 		this.board = board;
-		paused = true;
+		paused = true; 
 		
 	}
 	public void addTower(Tower tower){

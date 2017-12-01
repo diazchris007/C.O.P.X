@@ -70,7 +70,7 @@ public class RifleTower extends Tower{
 				
 			}
 		}
-		return deadEntities;
+		return deadEntities; 
 	}
 
 }

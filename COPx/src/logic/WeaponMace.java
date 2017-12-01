@@ -13,6 +13,6 @@ public class WeaponMace extends Weapon{
 
 	@Override
 	public void attack() {
-		return;
+		return; 
 	}
 }

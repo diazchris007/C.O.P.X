@@ -48,7 +48,7 @@ public class TowerBlast extends Tower{
 			
 			for(Entity e : entities){
 				if(e.getClass() != Player.class)
-					queue.add(e);
+					queue.add(e); 
 			}
 			if(queue.peek().getHealth() <= attackDamage){
 				Entity ent = queue.poll();

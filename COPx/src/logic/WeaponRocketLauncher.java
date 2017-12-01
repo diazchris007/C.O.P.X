@@ -12,12 +12,14 @@ public class WeaponRocketLauncher extends Weapon {
 		icon = new Image("file:./../images/rocketLauncher.png");
 		description = "Rocket Launcher: destroys a wide range of targets but is slow...";
 	}
-	
+
 	@Override
 	public void attack() {
-		
+		return;
 		
 	}
+	
+	
 
 	
 

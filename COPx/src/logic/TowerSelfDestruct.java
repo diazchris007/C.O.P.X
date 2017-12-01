@@ -30,7 +30,7 @@ public class TowerSelfDestruct extends Tower{
 	public List<Entity> attack(){
 		ArrayList<Entity> entities = (ArrayList<Entity>) getNearby();
 		ArrayList<Entity> deadEntities = new ArrayList<Entity>();
-		if(!entities.isEmpty()){
+		if(!entities.isEmpty()){ 
 			
 			PriorityQueue<Entity> queue = new PriorityQueue<>(entities.size(), new Comparator<Entity>(){
 	

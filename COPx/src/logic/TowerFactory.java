@@ -9,7 +9,7 @@ public class TowerFactory {
 	public static Tower getTower(String tower) {
 		
 		if (tower == null) {
-			return null;
+			return null; 
 		}
 				
 		if (tower.equalsIgnoreCase("Rifle Tower")) {

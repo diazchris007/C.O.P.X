@@ -13,6 +13,6 @@ public class WeaponRifle extends Weapon{
 
 	@Override
 	public void attack() {
-		return;
+		return; 
 	}
 }

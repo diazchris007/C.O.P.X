@@ -17,7 +17,7 @@ public class Player extends Entity{
         this.dir = Direction.EAST;
         balance = 1000;
     }
-    @Override
+    @Override 
 	public Cell getCurrentCell(){
         return this.currentCell;
     }

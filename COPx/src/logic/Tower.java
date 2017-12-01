@@ -56,7 +56,7 @@ public abstract class Tower extends Entity{
 	}
 	
 	public abstract Tower getInstance();
-	public List<Entity> getNearby(){
+	public List<Entity> getNearby(){ 
 		ArrayList<Cell> nearby = (ArrayList<Cell>) range.getNearby();
 		ArrayList<Entity> entities = new ArrayList<>();
 		for(Cell c : nearby){

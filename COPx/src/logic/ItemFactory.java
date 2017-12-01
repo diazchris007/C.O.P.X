@@ -13,7 +13,7 @@ public class ItemFactory {
 		}
 				
 		if (item.equalsIgnoreCase("Sword5")) {
-			return new ItemSword5();
+			return new ItemSword5(); 
 		} else if (item.equalsIgnoreCase("Shield")) {
 			return new ItemShield();
 		} else if (item.equalsIgnoreCase("Green Potion")) {

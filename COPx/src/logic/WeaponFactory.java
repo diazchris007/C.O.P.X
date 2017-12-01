@@ -4,7 +4,7 @@ public class WeaponFactory {
 	private WeaponFactory()
 	{
 		
-	}
+	} 
 
 	
 	public static Weapon getWeapon(String weapon) {

@@ -121,7 +121,7 @@ public class ManageLoadoutMenu extends GridPane {
 	
 	EventHandler<ActionEvent> changeScreens = new EventHandler<ActionEvent>() {
 		
-		public void handle(ActionEvent e) {
+		public void handle(ActionEvent e) { 
 			if (e.getSource() == manageLoadoutExitBtn) {
 				stage.setScene(startScene);
 				return;

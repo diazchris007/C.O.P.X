@@ -22,6 +22,7 @@ public abstract class Entity{
 		this.attackDamage = attk;
 	}
 	public String getName() {
+		
 		return name;
 	}
 	/**

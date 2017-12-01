@@ -40,7 +40,7 @@ public class Profile {
 	}
 
 
-	public int getBalance() {
+	public int getBalance() { 
 		return outsideGameBalance;
 	}
 	

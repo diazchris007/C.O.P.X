@@ -41,7 +41,7 @@ public class RangeCircular extends Range {
 			}
 		}
 		nearby.remove(cells[currentX][currentY]);
-		return nearby;
+		return nearby; 
 	}
 
 }

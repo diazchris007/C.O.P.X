@@ -11,7 +11,7 @@ public class Loadout {
 		towers[slot] = tower;
 	}
 	public void setWeapon(Weapon weapon){
-		this.weapon = weapon;
+		this.weapon = weapon; 
 	}
 	public Tower getTower(int slot) {
 		

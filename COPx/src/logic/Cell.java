@@ -14,7 +14,7 @@ public class Cell {
         this.entityInCell = null;
     }
     public Entity getEntityInCell(){
-        return this.entityInCell;
+        return this.entityInCell; 
     }
 
     public Location getLocation() {

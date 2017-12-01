@@ -13,6 +13,6 @@ public class WeaponStaff extends Weapon{
 
 	@Override
 	public void attack() {
-		return;
+		return; 
 	}
 }

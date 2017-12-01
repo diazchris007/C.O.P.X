@@ -110,7 +110,7 @@ public class Inventory {
 		return temp;
 	}
 	public List<String> listWeaponInventory() {
-		List<String> temp = new ArrayList<>();
+		List<String> temp = new ArrayList<>(); 
 		for (int i = 0; i < weapons.size(); i++) {
 			temp.add(weapons.get(i).getName());
 		}

@@ -1,5 +1,7 @@
 package logic;
 
+
+
 import javafx.scene.image.Image;
 
 public class Lvl1Enemy extends Enemy{

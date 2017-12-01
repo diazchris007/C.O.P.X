@@ -20,7 +20,7 @@ public abstract class Range {
 	public void recalculate(Cell nextCell) {
 		
 		Location locs = nextCell.getLocation();
-		this.currentX = locs.getX();
+		this.currentX = locs.getX(); 
 		this.currentY = locs.getY();		
 		
 	}

@@ -62,7 +62,7 @@ public class Leaderboard extends GridPane{
 	}
 	
 	public void attachCode(Stage stage) {
-		currentStage = stage;
+		currentStage = stage; 
 		   exitBtnPlayGame.setOnAction(changeScreens);
 
 	}

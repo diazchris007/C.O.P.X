@@ -45,7 +45,7 @@ public class StoreMenu extends GridPane{
 		storeInventory = new Inventory(storeItems, storeWeapons, storeTowers);
 
 		buttons = new ArrayList<>();
-		String lbl;
+		String lbl; 
 		Image img;
 		ImageView icon;
 		String p = "\n Price: ";

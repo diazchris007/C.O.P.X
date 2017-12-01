@@ -28,7 +28,7 @@ public class TowerRifle extends Tower{
 	}
 
 
-	public List<Entity> attack(){
+	public List<Entity> attack(){ 
 		ArrayList<Entity> entities = (ArrayList<Entity>) getNearby();
 		ArrayList<Entity> deadEntities = new ArrayList<Entity>();
 		if(!entities.isEmpty()){
