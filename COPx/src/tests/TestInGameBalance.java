@@ -31,7 +31,7 @@ public class TestInGameBalance {
 	}
 		
 	@Test
-	public void MyTestPlayerInGameBalanceDecreaseWhenTowerPlaced(){
+	public void myTestPlayerInGameBalanceDecreaseWhenTowerPlaced(){
 		Profile p = new Profile();
 		GameDisplay d = null;
 		try {

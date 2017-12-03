@@ -31,26 +31,22 @@ public class TestInventoryFactory {
 
 		// list of items
 		List<String> test = new ArrayList<String>();
-		test.add("Sword1");
-		test.add("Sword2");
-		test.add("Sword4");
+		test.add("Green Potion");
+		test.add("Charge Potion");
+		test.add("HP Potion");
+		test.add("Green Potion");
+		test.add("Mana Potion");
 		test.add("Sword5");
-		test.add("Sword1");
-		test.add("Sword2");
-		test.add("Sword4");
-		test.add("Sword5");
-		
+		test.add("Shield");
+
 		Inventory inventory = null;
+		List<String> result;
 		try {
 			inventory = new Inventory(test, null, null);
+			result = inventory.listItemInventory();
+			assertEquals(result, test);
 		} catch (Exception e) {
 			e.printStackTrace();
-		} 
-		
-		List<String> result = inventory.listItemInventory();
-		
-		assertEquals(result, test);
-		
+		} 	
 	}
-
 }

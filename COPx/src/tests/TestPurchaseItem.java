@@ -9,6 +9,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import javafx.application.Application;
+import logic.ItemFactory;
 import logic.Profile;
 
 public class TestPurchaseItem {
@@ -30,14 +31,14 @@ public class TestPurchaseItem {
 	public void test() {
 		
 		List<String> real = new ArrayList<String>();
-		real.add("Sword3");
-		real.add("Sword2");
+		real.add("Shield");
+		real.add("Green Potion");
 		
 		List<String> initialItems =new ArrayList<String>();
 		Profile user = new Profile(initialItems, null, null);
 	
 		for (int i = 0; i < real.size(); i++) {
-			user.purchaseItem(real.get(i));
+			user.purchaseItem(ItemFactory.getItem(real.get(i)));
 		}
 
 		

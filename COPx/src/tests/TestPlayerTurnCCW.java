@@ -15,6 +15,7 @@ public class TestPlayerTurnCCW {
 	@BeforeClass
 	public static void initJFX() throws InterruptedException {
 	    Thread t = new Thread("JavaFX Dummy Thread") {
+	    		@Override
 	        public void run() {
 	            Application.launch(dummyApp.class, new String[0]);
 	        }
@@ -25,7 +26,7 @@ public class TestPlayerTurnCCW {
 	}
 	
 	@Test
-	public void MyTestTurnCCW() {
+	public void myTestTurnCCW() {
 		Player p = new Player(new Cell(new Location(0,0)), null);
 		p.turnCCW();
 		assertEquals(Direction.NORTHEAST, p.getDirection());
