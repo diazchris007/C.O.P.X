@@ -13,17 +13,18 @@ public class TowerRocket extends Tower{
 		super(200, 30);
 		cost = 30;
 		currentImage = new Image("file:./../images/rocketTower.png");
-		description = "A tower that launches rockets!";
+		description = "RocketTower";
 		price = 150;
 		name = "Rocket Tower";
 		this.range = new RangeCircular(currentCell,1);
 	}
 
 
-	public List<Entity> attack(){ 
+	public ArrayList<Enemy> attack(){
 		ArrayList<Entity> entities = (ArrayList<Entity>) getNearby();
-		ArrayList<Entity> deadEntities = new ArrayList<>();
+		ArrayList<Enemy> deadEntities = new ArrayList<>();
 		if(!entities.isEmpty()){
+			
 			PriorityQueue<Entity> queue = new PriorityQueue<>(entities.size(), new Comparator<Entity>(){
 	
 				@Override
@@ -44,7 +45,7 @@ public class TowerRocket extends Tower{
 			}
 			if(queue.peek().getHealth() <= attackDamage){
 				Entity ent = queue.poll();
-				deadEntities.add(ent);
+				deadEntities.add((Enemy)ent);
 			}
 			else{
 				Entity ent = queue.poll();
@@ -52,7 +53,7 @@ public class TowerRocket extends Tower{
 				
 			}
 		}
-		return deadEntities;
+		return deadEntities; 
 	}
 
 	@Override

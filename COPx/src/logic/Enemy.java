@@ -2,22 +2,26 @@ package logic;
 
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.Date;
 import java.util.List;
 import java.util.PriorityQueue;
 
 import javafx.scene.image.Image;
-//import javafx.scene.image.ImageView;
+import javafx.scene.image.ImageView;
 
 public abstract class Enemy extends Entity {
 	
     protected Image currentImage;
     protected Direction dir;
     protected Entity target;
-	public Enemy(int health,int attack, Cell startCell,Entity target){
+    protected int bounty;
+	public Enemy(int health,int attack, int bounty,Cell startCell,Entity target){
 		super(health, attack);
+		timeBetweenMove = 350;
 		currentImage = null;
 		this.currentCell = startCell;
 		this.target = target;
+		this.bounty = bounty;
 	}
 	@Override
 	public Image getImg() {
@@ -31,7 +35,7 @@ public abstract class Enemy extends Entity {
 	public Entity getTarget() {
 		return target;
 	}
-	public Cell[][] moveToTarget(Board board) {
+	public boolean moveToTarget() {
 		
 		Cell targetCell = target.getCurrentCell();
 		Location targetLoc = targetCell.getLocation();
@@ -45,34 +49,69 @@ public abstract class Enemy extends Entity {
 				
 			}
 			else if(targetY > currentY) {
-				return moveDown(board);
+				if(moveDown())
+					return true;
+				else {
+					//Find Alt path
+					return false;
+				}
 			}
 			else if(targetY < currentY) {
-				return moveUp(board); 
+				if(moveUp()) {
+					return true;
+				}
+				else {
+					return false;
+				}
 			}
-			
 		}
 		else if(targetY == currentY) {
 			
 			if(targetX > currentX) {
-				return moveRight(board);
+				if(moveRight())
+					return true;
+				else {
+					return false;
+				}
 			}
 			else {
-				return moveLeft(board);
+				if(moveLeft())
+					return true;
+				else {
+					return false;
+				}
 			}
-			
-
 		}
 		else {
-			if(targetX > currentX) {
-				return moveRight(board);
+
+			if(targetY > currentY) {
+				if(moveDown()) {
+					return true;
+				}
+				if(targetX > currentX) {
+					if(moveRight())
+						return true;
+					else {
+						return false;
+					}
+
+				}
 			}
-			else {
-				return moveLeft(board);
+			else{
+				if(moveUp()) {
+					return true;
+				}
+				if(targetX > currentX) {
+					if(moveRight())
+						return true;
+					else {
+						return false;
+					}
+				}
 			}
 		}
-		
-		return board.getCells();
+		return false;
+				
 	}
 	public List<Entity> getNearby(){
 		ArrayList<Cell> nearby =(ArrayList<Cell>) range.getNearby();
@@ -88,6 +127,12 @@ public abstract class Enemy extends Entity {
 		return entities;
 	}
 	public List<Entity> attack(){
+		long newTime = new Date().getTime();
+		long temp = newTime - lastAttacked;
+		if(temp < timeBetweenAttack){
+			return  new ArrayList<>();
+		}
+		lastAttacked = newTime;
 		ArrayList<Entity> entities = (ArrayList<Entity>) getNearby();
 		ArrayList<Entity> deadEntities = new ArrayList<>();
 		if(!entities.isEmpty()){
@@ -120,6 +165,11 @@ public abstract class Enemy extends Entity {
 			}
 		}
 		return deadEntities;
+	}
+	public void payOut() {
+		// TODO Auto-generated method stub
+		target.setBalance(target.getWealth() + bounty);
+		
 	}
 
 }

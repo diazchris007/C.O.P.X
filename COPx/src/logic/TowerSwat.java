@@ -13,7 +13,7 @@ public class TowerSwat extends Tower{
 		super(500, 100);
 		cost = 50;
 		currentImage = new Image("file:./../images/swatTower.png");
-		description = "A tower with the durability of a swat team.";
+		description = "SwatTower";
 		price = 230;
 		name = "Swat Tower";
 		this.range = new RangeCircular(currentCell,1);
@@ -28,10 +28,10 @@ public class TowerSwat extends Tower{
 
 
 
-	public List<Entity> attack(){
+	public ArrayList<Enemy> attack(){
 		ArrayList<Entity> entities = (ArrayList<Entity>) getNearby();
-		ArrayList<Entity> deadEntities = new ArrayList<Entity>();
-		if(!entities.isEmpty()){ 
+		ArrayList<Enemy> deadEntities = new ArrayList<>();
+		if(!entities.isEmpty()){
 			
 			PriorityQueue<Entity> queue = new PriorityQueue<>(entities.size(), new Comparator<Entity>(){
 	
@@ -53,7 +53,7 @@ public class TowerSwat extends Tower{
 			}
 			if(queue.peek().getHealth() <= attackDamage){
 				Entity ent = queue.poll();
-				deadEntities.add(ent);
+				deadEntities.add((Enemy)ent);
 			}
 			else{
 				Entity ent = queue.poll();
@@ -61,7 +61,7 @@ public class TowerSwat extends Tower{
 				
 			}
 		}
-		return deadEntities;
+		return deadEntities; 
 	}
 }
 

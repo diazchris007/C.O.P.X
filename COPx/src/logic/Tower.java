@@ -34,7 +34,7 @@ public abstract class Tower extends Entity{
 		cell.setEntityInCell(this);
 		range.recalculate(cell);
 	}
-	public abstract List<Entity> attack();
+	public abstract ArrayList<Enemy> attack();
 	
 	@Override
 	public Image getImg() {

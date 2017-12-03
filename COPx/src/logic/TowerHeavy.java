@@ -13,7 +13,7 @@ public class TowerHeavy extends Tower{
 		super(210, 80);
 		cost = 40;
 		currentImage = new Image("file:./../images/heavyTower.png");
-		description = "A very durable tower.";
+		description = "HeavyTower";
 		price = 210;
 		name = "Heavy Tower";
 		this.range = new RangeCircular(currentCell,1);
@@ -26,10 +26,10 @@ public class TowerHeavy extends Tower{
 		return new TowerHeavy();
 	}
 
-	public List<Entity> attack(){
+	public ArrayList<Enemy> attack(){
 		ArrayList<Entity> entities = (ArrayList<Entity>) getNearby();
-		ArrayList<Entity> deadEntities = new ArrayList<>();
-		if(!entities.isEmpty()){ 
+		ArrayList<Enemy> deadEntities = new ArrayList<>();
+		if(!entities.isEmpty()){
 			
 			PriorityQueue<Entity> queue = new PriorityQueue<>(entities.size(), new Comparator<Entity>(){
 	
@@ -51,7 +51,7 @@ public class TowerHeavy extends Tower{
 			}
 			if(queue.peek().getHealth() <= attackDamage){
 				Entity ent = queue.poll();
-				deadEntities.add(ent);
+				deadEntities.add((Enemy)ent);
 			}
 			else{
 				Entity ent = queue.poll();
@@ -59,7 +59,7 @@ public class TowerHeavy extends Tower{
 				
 			}
 		}
-		return deadEntities;
+		return deadEntities; 
 	}
 	
 }

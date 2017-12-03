@@ -36,9 +36,9 @@ public class RifleTower extends Tower{
 		}
 		return entities;
 	}
-	public List<Entity> attack(){
+	public ArrayList<Enemy> attack(){
 		ArrayList<Entity> entities = (ArrayList<Entity>) getNearby();
-		ArrayList<Entity> deadEntities = new ArrayList<>();
+		ArrayList<Enemy> deadEntities = new ArrayList<>();
 		if(!entities.isEmpty()){
 			
 			PriorityQueue<Entity> queue = new PriorityQueue<>(entities.size(), new Comparator<Entity>(){
@@ -61,7 +61,7 @@ public class RifleTower extends Tower{
 			}
 			if(queue.peek().getHealth() <= attackDamage){
 				Entity ent = queue.poll();
-				deadEntities.add(ent);
+				deadEntities.add((Enemy)ent);
 			}
 			else{
 				Entity ent = queue.poll();

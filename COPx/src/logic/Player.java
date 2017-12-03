@@ -37,31 +37,20 @@ public class Player extends Entity{
 	
 	public void turnCCW() {
 	    	switch(dir){
+
 	   		case NORTH:
-	   			dir = Direction.NORTHEAST;
-	   			break;
-	   		case NORTHEAST:
 	   			dir = Direction.EAST;
 	   	    		currentimg = rightFacingIMG;
 	   			break;
 	   		case EAST:
-	   			dir = Direction.SOUTHEAST;
-	   			break;
-	   		case SOUTHEAST:
 	   			dir = Direction.SOUTH;
 	   	    		currentimg = rearFacingIMG;
 	   			break;
 	   		case SOUTH:
-	   			dir = Direction.SOUTHWEST;
-	   			break;
-	   		case SOUTHWEST:
 	   			dir = Direction.WEST;
 	   	    		currentimg = leftFacingIMG;
 	   			break;
 	   		case WEST:
-	   			dir = Direction.NORTHWEST;
-	   			break;
-	   		case NORTHWEST:
 	   			dir = Direction.NORTH;
 	   	    		currentimg = frontFacingIMG;
 	   			break;	
@@ -71,31 +60,19 @@ public class Player extends Entity{
 	}
 	public void turnCW(){
 	   	switch(dir){
-	   		case NORTH:
-	   			dir = Direction.NORTHWEST;
-	   			break;
-	   		case NORTHEAST:
+	   		case EAST:
 	   			dir = Direction.NORTH;
 	   	    		currentimg = frontFacingIMG;
 	   			break;
-	   		case EAST:
-	   			dir = Direction.NORTHEAST;
-	   			break;
-	   		case SOUTHEAST:
+	   		case SOUTH:
 	   			dir = Direction.EAST;
 	   	    		currentimg = rightFacingIMG;
 	   			break;
-	   		case SOUTH:
-	   			dir = Direction.SOUTHEAST;
-	   			break;
-	   		case SOUTHWEST:
+	   		case WEST:
 	   			dir = Direction.SOUTH;
 	   			currentimg = rearFacingIMG;
 	   			break;
-	   		case WEST:
-	   			dir = Direction.SOUTHWEST;
-	   			break;
-	   		case NORTHWEST:
+	   		case NORTH:
 	   			dir = Direction.WEST;
 	   	    		currentimg = leftFacingIMG;
 	   			break;

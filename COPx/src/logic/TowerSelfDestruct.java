@@ -13,7 +13,7 @@ public class TowerSelfDestruct extends Tower{
 		super(200, 50);
 		cost = 50;
 		currentImage = new Image("file:./../images/selfDestructTower.png");
-		description = "A tower that self destructs when enemies approach it.";
+		description = "SelfDestructTower";
 		price = 290;
 		name = "Self Destruct Tower";
 		this.range = new RangeCircular(currentCell,1);
@@ -27,14 +27,12 @@ public class TowerSelfDestruct extends Tower{
 	}
 
 
-	public List<Entity> attack(){
+	public ArrayList<Enemy> attack(){
 		ArrayList<Entity> entities = (ArrayList<Entity>) getNearby();
-		ArrayList<Entity> deadEntities = new ArrayList<>();
-		if(!entities.isEmpty()){ 
+		ArrayList<Enemy> deadEntities = new ArrayList<>();
+		if(!entities.isEmpty()){
 			
-			PriorityQueue<Entity> queue = new PriorityQueue<>(entities.size(), 
-					
-			new Comparator<Entity>(){
+			PriorityQueue<Entity> queue = new PriorityQueue<>(entities.size(), new Comparator<Entity>(){
 	
 				@Override
 				public int compare(Entity arg0, Entity arg1) {
@@ -46,9 +44,7 @@ public class TowerSelfDestruct extends Tower{
 					
 				}
 				
-			}
-			
-			);
+			});
 			
 			for(Entity e : entities){
 				if(e.getClass() != Player.class)
@@ -56,7 +52,7 @@ public class TowerSelfDestruct extends Tower{
 			}
 			if(queue.peek().getHealth() <= attackDamage){
 				Entity ent = queue.poll();
-				deadEntities.add(ent);
+				deadEntities.add((Enemy)ent);
 			}
 			else{
 				Entity ent = queue.poll();
@@ -64,7 +60,7 @@ public class TowerSelfDestruct extends Tower{
 				
 			}
 		}
-		return deadEntities;
+		return deadEntities; 
 	}
 }
 

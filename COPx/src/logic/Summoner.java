@@ -9,19 +9,19 @@ import java.util.TimerTask;
 import javafx.application.Platform;
 
 public abstract class Summoner {
-	
-	List<Enemy> enemies;
 	List<Tower> towers;
+	ArrayList<ArrayList<Enemy>> enemies;
 	Entity target;
 	Board board;
 	Boolean paused;
-	public Summoner(Entity target, Board board) {
-		enemies = new ArrayList<>();
+	int wave;
+	public Summoner(Entity target) {
+		enemies = new ArrayList<ArrayList<Enemy>>();
 		towers = new ArrayList<>();
 		this.target = target;
-		this.board = board;
+		this.board = Board.getInstance();
 		paused = true; 
-		
+		wave = 0;
 	}
 	public void addTower(Tower tower){
 		towers.add(tower);
@@ -34,9 +34,7 @@ public abstract class Summoner {
 			public void run() {
 				Platform.runLater(new Runnable() {
 					public void run() {
-						if(enemies.isEmpty()){
-							return;
-						}
+
 						if(paused)
 						{
 							return;
@@ -52,34 +50,63 @@ public abstract class Summoner {
 			}
 			
 		};
-		timer.scheduleAtFixedRate(task, 0,500);
+		timer.scheduleAtFixedRate(task, 0,100);
 	}
 	public void attackAll(){
-		for(Enemy e : enemies){
-			ArrayList<Entity> dead = (ArrayList<Entity>) e.attack();
-			for(Entity ent : dead){
-					if(ent.getClass().equals(Player.class)){
-						paused = true;
-					}
-					else{
-						towers.remove(ent);
-						
-					}
-					ent.getCurrentCell().clearEntityInCell();
+		if(enemies.get(wave).size() != 0) {
+			for(Enemy e : enemies.get(wave)){
+				ArrayList<Entity> dead = (ArrayList<Entity>) e.attack();
+				for(Entity ent : dead){
+						if(ent.getClass().equals(Player.class)){
+							paused = true;
+						}
+						else{
+							towers.remove(ent);
+							
+						}
+						ent.getCurrentCell().clearEntityInCell();
+				}
 			}
-		}
-		for(Tower t : towers){
-			ArrayList<Entity> dead = (ArrayList<Entity>) t.attack();
-			for(Entity ent : dead){
-					enemies.remove(ent);
-					ent.getCurrentCell().clearEntityInCell();
+			for(Tower t : towers){
+				ArrayList<Enemy> dead = t.attack();
+				for(Enemy ent : dead){
+						ent.payOut();
+						enemies.get(wave).remove(ent);
+						ent.getCurrentCell().clearEntityInCell();
+				}
 			}
+			
 		}
+		else if(enemies.size()> wave+1) {
+			System.out.println("New Wave coming game paused");
+			paused = true;
+			wave++;
+		}
+		else {
+			paused = true;
+			return;
+		}
+
 	}
 	public void moveAll() {
-		for(Enemy e : enemies) {
-			board.setCells(e.moveToTarget(board));
+		if(enemies.get(wave).size() != 0) {
+
+			System.out.println("wave #:" + wave);
+			System.out.println("minions #:" + enemies.get(wave).size());
+			for(Enemy e : enemies.get(wave)) {
+				e.moveToTarget();
+			}
+			
 		}
+		else if(enemies.size()> wave+1) {
+			paused = true;
+			wave++;
+		}
+		else {
+			paused = true;
+			return;
+		}
+
 	}
 	public void pause()
 	{

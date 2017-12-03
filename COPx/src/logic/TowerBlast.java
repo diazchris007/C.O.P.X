@@ -13,7 +13,7 @@ public class TowerBlast extends Tower{
 		super(230, 20);
 		cost = 20;
 		currentImage = new Image("file:./../images/blastTower.png");
-		description = "A tower that will blast enemies surrounding it.";
+		description = "BlastTower";
 		price = 230;
 		name = "Blast Tower";
 		this.range = new RangeCircular(currentCell,1);
@@ -27,9 +27,9 @@ public class TowerBlast extends Tower{
 	}
 
 
-	public List<Entity> attack(){
+	public ArrayList<Enemy> attack(){
 		ArrayList<Entity> entities = (ArrayList<Entity>) getNearby();
-		ArrayList<Entity> deadEntities = new ArrayList<>();
+		ArrayList<Enemy> deadEntities = new ArrayList<>();
 		if(!entities.isEmpty()){
 			
 			PriorityQueue<Entity> queue = new PriorityQueue<>(entities.size(), new Comparator<Entity>(){
@@ -48,11 +48,11 @@ public class TowerBlast extends Tower{
 			
 			for(Entity e : entities){
 				if(e.getClass() != Player.class)
-					queue.add(e); 
+					queue.add(e);
 			}
 			if(queue.peek().getHealth() <= attackDamage){
 				Entity ent = queue.poll();
-				deadEntities.add(ent);
+				deadEntities.add((Enemy)ent);
 			}
 			else{
 				Entity ent = queue.poll();
@@ -60,7 +60,7 @@ public class TowerBlast extends Tower{
 				
 			}
 		}
-		return deadEntities;
+		return deadEntities; 
 	}
 	
 }

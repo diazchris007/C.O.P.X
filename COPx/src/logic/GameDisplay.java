@@ -69,7 +69,7 @@ public class GameDisplay extends Pane{
         this.board = Board.getInstance();
         this.board.setCells(cells);
         this.board.draw();
-        summoner = new Lvl1Summoner(player, board);
+        summoner = new Lvl1Summoner(player);
         
         BorderPane pane = new BorderPane();
         pane.setCenter(board);
@@ -138,7 +138,7 @@ public class GameDisplay extends Pane{
         logger.log(Level.FINE, message);
  		
 	   	switch(dir){
-	   		case NORTH:
+	   		case SOUTH:
 	   			placeTowerFunction((y-1 >= 0), x , y-1 , "Placing tower Above player",
 	   							  balanceString + player.getBalance() + towerCosts + towerCost, towerCost,  towerToPlace );
 
@@ -152,14 +152,14 @@ public class GameDisplay extends Pane{
 	   			message = "Need to be facing North/South/East/West";
 	   			logger.log(Level.FINE, message);
 	   			break;
-	   		case EAST:
+	   		case WEST:
 	   			
 	   			placeTowerFunction((x-1 >= 0),x -1 ,y,"Placing tower Right of the player" ,
 	   					(balanceString + player.getBalance() + towerCosts + towerCost), towerCost, towerToPlace );
 	
 	   	        board.draw();
 	   			break;
-	   		case SOUTH:
+	   		case NORTH:
 	   			placeTowerFunction(y+1 < cells[0].length, x, y+1 , "Placing tower Below player",
 	   						balanceString + player.getBalance() + towerCosts + towerCost,
 	   						 towerCost,  towerToPlace );
@@ -168,7 +168,7 @@ public class GameDisplay extends Pane{
 	   			
 	   			break;
 
-	   		case WEST:
+	   		case EAST:
 	   			
 	   			placeTowerFunction( (x+1 < cells.length), x+1, y,
 	   							 "Placing tower Left of the player" ,
@@ -182,20 +182,20 @@ public class GameDisplay extends Pane{
 	    	}		
 	}
 	public void moveDown(Entity ent) {
-		board.setCells(ent.moveDown(board));
-        board.draw();
+        if(ent.moveDown())
+        	board.draw();
     }
     public void moveUp(Entity ent) {
-    		board.setCells(ent.moveUp(board));
-        board.draw();
+        if(ent.moveUp())
+        	board.draw();
     }
     public void moveLeft(Entity ent) {
-    		board.setCells(ent.moveLeft(board));
-        board.draw();
+        if(ent.moveLeft())
+        	board.draw();
     }
     public void moveRight(Entity ent) {
-    		board.setCells(ent.moveRight(board));
-        board.draw();
+        if(ent.moveRight())
+        	board.draw();
     }
     public Board getBoard(){
     		return board;

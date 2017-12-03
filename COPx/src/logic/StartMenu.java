@@ -94,7 +94,7 @@ public class StartMenu extends Application {
 			if (e.getSource() == startGameBtn) {
 				
 				mediaPlayer.stop();
-				playMusic("./../music/Replicant_Police.mp3");
+				playMusic("file:./../music/Replicant_Police.mp3");
 				stage.setScene(startGameScene);
 				
 				return;
@@ -394,7 +394,7 @@ MediaPlayer mediaPlayer;
 	public void start(Stage stagep) throws Exception {
 //		String musicFile = "./music/GearworksFactory.mp3";     // For example
 //		playMusic("./music/GearworksFactory.mp3");
-		playMusic("./../music/GearworksFactory.mp3");
+		playMusic("file:./../music/GearworksFactory.mp3");
 
 		
 		stage = stagep;

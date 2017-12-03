@@ -1,6 +1,7 @@
 package logic;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javafx.scene.image.Image;
@@ -13,6 +14,11 @@ public abstract class Entity{
 	protected int maxHealth;
 	protected Range range;
 	protected int attackDamage;
+	protected long lastAttacked;
+	protected long timeBetweenAttack;
+	protected long lastMoved;
+	protected long timeBetweenMove;
+	protected Board board;
 	/**
 	 * @return the name
 	 */
@@ -20,6 +26,8 @@ public abstract class Entity{
 		this.currentHealth = health;
 		this.maxHealth = health;
 		this.attackDamage = attk;
+		this.board = Board.getInstance();
+		
 	}
 	public String getName() {
 		
@@ -57,9 +65,14 @@ public abstract class Entity{
 		this.currentCell = nextCell;
 		range.recalculate(nextCell);
 	}
-	
-	public Cell[][] moveDown(Board board) {
-		
+	public boolean moveDown( ) {
+		long newTime = new Date().getTime();
+		long temp = newTime - lastMoved;
+		System.out.println("trying to move down");
+		if(temp < timeBetweenMove) {
+			return false;
+		}
+		System.out.println("trying to move down");
         Cell nextCell = null;
         Cell[][] cells;
         cells = board.getCells();
@@ -67,11 +80,15 @@ public abstract class Entity{
         int y = currentCell.getLocation().getY();
         
         
-        //if not at the end of board
+        //if not at the end of 
         if (y+1 < cells[0].length){
 			
             nextCell = cells[x][y + 1];
-            if(nextCell.hasEntity()) return cells;
+            if(nextCell.hasEntity()) {
+
+    			System.out.println("move down didnt work");
+            	return false;
+            }
             cells[x][y].clearEntityInCell();
             
         	setCurrentCell(nextCell);
@@ -84,10 +101,18 @@ public abstract class Entity{
             cells[x][0].setEntityInCell(this);
             cells[x][y].clearEntityInCell();
         }
-        
-        return cells;
+
+		lastMoved = newTime;
+		board.setCells(cells);
+        return true;
 	}
-    public Cell[][] moveUp(Board board) {
+    public boolean moveUp( ) {
+		long newTime = new Date().getTime();
+		long temp = newTime - lastMoved;
+		if(temp < timeBetweenMove) {
+			return false;
+		}
+		
         Cell nextCell = null;
         Cell[][] cells;
         cells = board.getCells();
@@ -98,7 +123,7 @@ public abstract class Entity{
         if (y-1 >= 0){
 			
             nextCell = cells[x][y - 1];
-            if(nextCell.hasEntity()) return cells;
+            if(nextCell.hasEntity()) return false;
             cells[x][y].clearEntityInCell();
             
         	this.setCurrentCell(nextCell);
@@ -111,10 +136,17 @@ public abstract class Entity{
             cells[x][cells[0].length-1].setEntityInCell(this);
             cells[x][y].clearEntityInCell();
         }
-        return cells;
+		lastMoved = newTime;
+		board.setCells(cells);
+        return true;
     }
     
-    public Cell[][] moveLeft(Board board) {
+    public boolean moveLeft( ) {
+		long newTime = new Date().getTime();
+		long temp = newTime - lastMoved;
+		if(temp < timeBetweenMove) {
+			return false;
+		}
         Cell nextCell = null;
         Cell[][] cells;
         cells = board.getCells();
@@ -124,7 +156,7 @@ public abstract class Entity{
         if (x-1 >= 0){
 			
             nextCell = cells[x-1][y];
-            if(nextCell.hasEntity()) return cells;
+            if(nextCell.hasEntity()) return false;
             cells[x][y].clearEntityInCell();
             
         	this.setCurrentCell(nextCell);
@@ -138,10 +170,16 @@ public abstract class Entity{
             
             cells[x][y].clearEntityInCell();
         }
-        
-        return cells;
+		lastMoved = newTime;
+        board.setCells(cells);
+        return true;
     }
-    public Cell[][] moveRight(Board board) {
+    public boolean moveRight( ) {
+		long newTime = new Date().getTime();
+		long temp = newTime - lastMoved;
+		if(temp < timeBetweenMove) {
+			return false;
+		}
         Cell nextCell = null;
         Cell[][] cells;
         cells = board.getCells();
@@ -151,7 +189,8 @@ public abstract class Entity{
         if (x+1 < cells.length){
 			
             nextCell = cells[x+1][y];
-            if(nextCell.hasEntity()) return cells;
+            System.out.println(nextCell.hasEntity());
+            if(nextCell.hasEntity()) return false;
             cells[x][y].clearEntityInCell();
             
         	this.setCurrentCell(nextCell);
@@ -162,12 +201,14 @@ public abstract class Entity{
             cells[0][y].setEntityInCell(this);
             cells[x][y].clearEntityInCell();
         }
-        return cells;
+		lastMoved = newTime;
+		board.setCells(cells);
+        return true;
     }
 	public float getHeathPercent() {
 		return (float)currentHealth/(float)maxHealth;
 	}
-	public List<Entity> getNearbyEntities(Board board, int range){
+	public List<Entity> getNearbyEntities(  int range){
 		ArrayList<Entity> entites = new ArrayList<>();
 		Cell[][] cells = board.getCells();
 		Location loc = currentCell.getLocation();
@@ -177,6 +218,14 @@ public abstract class Entity{
 			cells[x][y].getEntityInCell();
 		}
 		return entites;
+	}
+	public int getWealth() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+	public void setBalance(int i) {
+		// TODO Auto-generated method stub
+		
 	}
 
     
