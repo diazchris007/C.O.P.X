@@ -15,7 +15,9 @@ public class Inventory {
 	public Inventory() {
 		items = new ArrayList<>();
 		weapons = new ArrayList<>();
+		weapons.add(WeaponFactory.getWeapon("Mace"));
 		towers = new ArrayList<>();
+		towers.add(TowerFactory.getTower("Rifle tower"));
 	}
 	
 	public Inventory(List<String> listItems, List<String> listWeapons, List<String> listTowers) {

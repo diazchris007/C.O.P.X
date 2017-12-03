@@ -108,8 +108,6 @@ public class StartMenu extends Application {
 			}
 			if (e.getSource() == storeBtn) {
 				stage.setScene(storeScene);
-				
-				
 				return;
 			}
 
@@ -119,6 +117,7 @@ public class StartMenu extends Application {
 			}
 			if (e.getSource() == manageLoadoutBtn)
 			{
+				((ManageLoadoutMenu) manageLoadoutScene).refreshInventory();
 				stage.setScene(manageLoadoutScene);
 				return;
 			}
@@ -275,9 +274,13 @@ public class StartMenu extends Application {
     		storeScene = storeMenu;
 	}
 	public void setUpManageLoadout(){
-		ManageLoadoutMenu manageLoadoutMenu = new ManageLoadoutMenu(stage, profile);
+		ManageLoadoutMenu manageLoadoutMenu = new ManageLoadoutMenu(stage, profile,  dimsW, dimsH);
 		manageLoadoutMenu.attachCode(startScene);
-		manageLoadoutScene = new Scene(manageLoadoutMenu, dimsW, dimsH);
+//		manageLoadoutScene = new Scene(manageLoadoutMenu, dimsW, dimsH);
+		
+		
+		manageLoadoutScene = manageLoadoutMenu;
+		
 	}
 	
 	public void setUpStartScreen() {

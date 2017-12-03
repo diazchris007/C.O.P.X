@@ -17,8 +17,8 @@ import javafx.stage.Stage;
 
 import javafx.geometry.Insets;
 
-public class ManageLoadoutMenu extends GridPane {
-
+public class ManageLoadoutMenu extends Scene {
+	static GridPane grid = new GridPane();
 	
 	Label manageLoadoutLbl;
 	
@@ -27,10 +27,8 @@ public class ManageLoadoutMenu extends GridPane {
 	Label lblTower3;
 	Label lblTower4;
 	
-
 	Button manageLoadoutExitBtn; 
 	Button menuBtn;
-	
 	
 	GridPane manageLoadoutSceneGrid;
 	List <Button> buttons;
@@ -40,13 +38,19 @@ public class ManageLoadoutMenu extends GridPane {
 	
 	Profile userAccount;
 	
-	Inventory playerInventory;
+	Profile profile;
 	List<String> storeItems;
 	
-	public ManageLoadoutMenu(Stage pStage, Profile user) 
+	ChoiceBox<String> choiceBox1;
+	ChoiceBox<String> choiceBox2;
+	ChoiceBox<String> choiceBox3;
+	ChoiceBox<String> choiceBox4;
+	
+	public ManageLoadoutMenu(Stage pStage, Profile user, int  dimsW, int dimsH) 
 	{
+		super(grid,  dimsW, dimsH);
 		stage = pStage;
-		playerInventory = user.getInventory();
+		profile = user;
 		
 		menuBtn = new Button("Choose Combo");
 		
@@ -54,8 +58,6 @@ public class ManageLoadoutMenu extends GridPane {
 		manageLoadoutLbl.setAlignment(Pos.CENTER);
 		
 		manageLoadoutExitBtn = new Button("Back to Start Screen");
-		
-	
 		
 		lblTower1 = new Label("Tower 1");
 		lblTower2 = new Label("Tower 2");
@@ -69,23 +71,24 @@ public class ManageLoadoutMenu extends GridPane {
 		lblTower4.setPadding(new Insets(30,30,0,30));
 	
 		String s = "Select";
-		ChoiceBox<String> choiceBox1 = new ChoiceBox<>();
-		List<String> current = playerInventory.listTowerInventory();
+		choiceBox1 = new ChoiceBox<>();
+		List<String> current = profile.getInventory().listTowerInventory();
 		current.add(s);
 		choiceBox1.getItems().addAll(current);
 		choiceBox1.setValue(s);
 		
 		
-		ChoiceBox<String> choiceBox2 = new ChoiceBox<>();
-		choiceBox2.getItems().addAll(s, "U1", "U2", "U3");
+		choiceBox2 = new ChoiceBox<>();
+		choiceBox2.getItems().addAll(current);
 		choiceBox2.setValue(s);
 		
-		ChoiceBox<String> choiceBox3 = new ChoiceBox<>();
-		choiceBox3.getItems().addAll(s, "U1", "U2", "U3");
+		choiceBox3 = new ChoiceBox<>();
+
+		choiceBox3.getItems().addAll(current);
 		choiceBox3.setValue(s);
 		
-		ChoiceBox<String> choiceBox4 = new ChoiceBox<>();
-		choiceBox4.getItems().addAll(s, "U1", "U2", "U3");
+		choiceBox4 = new ChoiceBox<>();
+		choiceBox4.getItems().addAll(current);
 		choiceBox4.setValue(s);
 		
 		ChoiceBox<String> loadoutMenu = new ChoiceBox<>();
@@ -95,40 +98,34 @@ public class ManageLoadoutMenu extends GridPane {
 		
         this.setWidths();
 		
-		this.setAlignment(Pos.TOP_CENTER);
-		this.setHgap(10);
-		this.setVgap(10); 
-		
-	    
-		
-		this.add(manageLoadoutLbl, 0, 0, 4, 10);
-		this.add(manageLoadoutExitBtn, 0, 40, 4, 1);
-		
-		
-		this.add(lblTower1, 0, 30);
-		this.add(lblTower2, 1, 30);
-		this.add(lblTower3, 2, 30);
-		this.add(lblTower4, 3, 30);
+		grid.setAlignment(Pos.TOP_CENTER);
+		grid.setHgap(10);
+		grid.setVgap(10); 
+
+		grid.add(manageLoadoutLbl, 0, 0, 4, 10);
+		grid.add(manageLoadoutExitBtn, 0, 40, 4, 1);
+
+		grid.add(lblTower1, 0, 30);
+		grid.add(lblTower2, 1, 30);
+		grid.add(lblTower3, 2, 30);
+		grid.add(lblTower4, 3, 30);
 		
 		
-		this.add(choiceBox1, 0, 31);
-	    this.add(choiceBox2, 1, 31);
-		this.add(choiceBox3, 2, 31);
-		this.add(choiceBox4, 3, 31);
+		grid.add(choiceBox1, 0, 31);
+	    grid.add(choiceBox2, 1, 31);
+		grid.add(choiceBox3, 2, 31);
+		grid.add(choiceBox4, 3, 31);
 		
-		this.add(loadoutMenu, 0, 10, 4, 7);
-		
+		grid.add(loadoutMenu, 0, 10, 4, 7);
 		
 	}
 	
 	EventHandler<ActionEvent> changeScreens = new EventHandler<ActionEvent>() {
-		
 		public void handle(ActionEvent e) { 
 			if (e.getSource() == manageLoadoutExitBtn) {
 				stage.setScene(startScene);
 				return;
 			}
-
 		}
 	};
 
@@ -139,11 +136,37 @@ public class ManageLoadoutMenu extends GridPane {
 	}
 	
 	private void setWidths() {
-		   manageLoadoutExitBtn.setPrefWidth(150);
-		   manageLoadoutLbl.setPrefWidth(470);
-		  
-		   
-		}
+		manageLoadoutExitBtn.setPrefWidth(150);
+		manageLoadoutLbl.setPrefWidth(470);
+	}
 	
+	public void refreshInventory () {
+		String s = "Select";
+		
+		List<String> current = profile.getInventory().listTowerInventory();
+		current.add(s);
+		
+		choiceBox1 = new ChoiceBox<>();
+		choiceBox1.getItems().addAll(current);
+		choiceBox1.setValue(s);
+		
+		
+		choiceBox2 = new ChoiceBox<>();
+		choiceBox2.getItems().addAll(current);
+		choiceBox2.setValue(s);
+		
+		choiceBox3 = new ChoiceBox<>();
+		choiceBox3.getItems().addAll(current);
+		choiceBox3.setValue(s);
+		
+		choiceBox4 = new ChoiceBox<>();
+		choiceBox4.getItems().addAll(current);
+		choiceBox4.setValue(s);
+		
+		grid.add(choiceBox1, 0, 31);
+		grid.add(choiceBox2, 1, 31);
+		grid.add(choiceBox3, 2, 31);
+		grid.add(choiceBox4, 3, 31);
+	}
 	
 }
