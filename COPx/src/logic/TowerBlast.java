@@ -13,7 +13,7 @@ public class TowerBlast extends Tower{
 		super(230, 20);
 		cost = 20;
 		currentImage = new Image("file:./../images/blastTower.png");
-		description = "BlastTower";
+		description = "A tower that will blast enemies surrounding it.";
 		price = 230;
 		name = "Blast Tower";
 		this.range = new RangeCircular(currentCell,1);

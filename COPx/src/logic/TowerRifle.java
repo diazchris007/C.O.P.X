@@ -13,7 +13,7 @@ public class TowerRifle extends Tower{
 		super(325, 10);
 		cost = 10;
 		currentImage = new Image("file:./../images/rifleTower.png");
-		description = "RifleTower";
+		description = "A tower that contains a guy with a rifle...";
 		price = 240;
 		name = "Rifle Tower";
 		this.range = new RangeCircular(currentCell,1);

@@ -9,6 +9,7 @@ public class WeaponSword2 extends Weapon{
 		price = 30;
 		attackStrength = (float)1.8;
 		icon = new Image("file:./../images/sword2.png");
+		description = "A more durable sword than a Sword1.";
 	}
 
 	@Override

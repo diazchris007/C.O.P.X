@@ -70,7 +70,9 @@ public class ManageLoadoutMenu extends GridPane {
 	
 		String s = "Select";
 		ChoiceBox<String> choiceBox1 = new ChoiceBox<>();
-		choiceBox1.getItems().addAll(playerInventory.listWeaponInventory());
+		List<String> current = playerInventory.listTowerInventory();
+		current.add(s);
+		choiceBox1.getItems().addAll(current);
 		choiceBox1.setValue(s);
 		
 		

@@ -9,6 +9,7 @@ public class WeaponMace extends Weapon{
 		price = 40;
 		attackStrength = (float)2.0;
 		icon = new Image("file:./../images/mace.png");
+		description = "A Mace to swing, not the spraying kind.";
 	}
 
 	@Override

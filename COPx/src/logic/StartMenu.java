@@ -13,15 +13,15 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.ScrollPane.ScrollBarPolicy;
+
 import javafx.scene.control.Slider;
-//import javafx.scene.control.TextField;
+
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
+
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import javafx.scene.image.Image;
@@ -38,7 +38,6 @@ public class StartMenu extends Application {
 	Button leaderboardExitBtn;
 	Button settingsExitBtn;
 	Button storeExitBtn;
-//	Button startGameExitBtn;
 	Button leaderboardBtn;
 	Button storeBtn;
 	Button buyGun;
@@ -54,7 +53,6 @@ public class StartMenu extends Application {
 	Button tbd2Btn;
 	
 	Button manageLoadoutBtn;
-	//Button manageLoadoutExitBtn;
 	
 	// scenes
 	Scene settingScene;
@@ -77,7 +75,6 @@ public class StartMenu extends Application {
 	GridPane storeGrid;
 	GridPane startSceneGrid;
 	GridPane leaderboardSceneGrid;
-//	GridPane startGameSceneGrid;
 	
 	// labels
 	Label lblSetting;
@@ -96,8 +93,8 @@ public class StartMenu extends Application {
 			}
 			if (e.getSource() == startGameBtn) {
 				
-//				mediaPlayer.stop();
-//				playMusic("File:./../music/Replicant_Police.mp3");
+				mediaPlayer.stop();
+				playMusic("./../music/Replicant_Police.mp3");
 				stage.setScene(startGameScene);
 				
 				return;
@@ -106,12 +103,13 @@ public class StartMenu extends Application {
 			if (e.getSource() == leaderboardExitBtn ||
 					e.getSource() == settingsExitBtn ||
 					e.getSource() == storeExitBtn ){
-//					e.getSource() == startGameExitBtn) {
 				stage.setScene(startScene);
 				return;
 			}
 			if (e.getSource() == storeBtn) {
 				stage.setScene(storeScene);
+				
+				
 				return;
 			}
 
@@ -271,28 +269,10 @@ public class StartMenu extends Application {
 	}
 	
 	public void setUpStorePage() {		
-		StoreMenu storeMenu = new StoreMenu(stage, profile); // needs to be after Profile set up
+		StoreMenu storeMenu = new StoreMenu(stage, profile, dimsW, dimsH); // needs to be after Profile set up
 		storeMenu.attachCode(startScene);
-		
-		
-		GridPane grid = new GridPane();
-		grid.setAlignment(Pos.CENTER);
-		grid.setHgap(10);
-		grid.setVgap(10);
-		
-		// set up scroll-ability 
-        ScrollPane sp = new ScrollPane();
-        sp.setContent(storeMenu);
-        sp.setFitToWidth(true);
-        sp.setPrefSize(dimsW, dimsH);
-        sp.setHbarPolicy(ScrollBarPolicy.AS_NEEDED);
-        sp.setVbarPolicy(ScrollBarPolicy.AS_NEEDED);
-        
-        grid.add(sp, 0, 1);
-//        grid.getStylesheets().addAll(getClass().getResource("file:./../css/app.css").toExternalForm());
 
-    		storeScene = new Scene(grid, dimsW, dimsH);
-
+    		storeScene = storeMenu;
 	}
 	public void setUpManageLoadout(){
 		ManageLoadoutMenu manageLoadoutMenu = new ManageLoadoutMenu(stage, profile);
@@ -378,8 +358,8 @@ public class StartMenu extends Application {
 		volumeSlider.setPrefWidth(70);
 		volumeSlider.setMaxWidth(Region.USE_PREF_SIZE);
 		volumeSlider.setMinWidth(30);
-		volumeSlider.setValue(80/2);
-//		mediaPlayer.setVolume(volumeSlider.getValue() / 100.0);
+		volumeSlider.setValue(20/2);
+		mediaPlayer.setVolume(volumeSlider.getValue() / 100.0);
 		
 		volumeSlider.valueProperty().addListener(new InvalidationListener() {
 			@Override
@@ -389,6 +369,7 @@ public class StartMenu extends Application {
 	       		}
 	    		}
 		});
+		
 		mediaBar.getChildren().add(volumeSlider);
 		
 		settingSceneGrid.add(mediaBar, 1, 5);
@@ -403,13 +384,14 @@ MediaPlayer mediaPlayer;
 		Media sound = new Media(new File(musicFile).toURI().toString());
 		mediaPlayer = new MediaPlayer(sound);
 		mediaPlayer.play();
+		
 	}
 	
 	@Override 
 	public void start(Stage stagep) throws Exception {
 //		String musicFile = "./music/GearworksFactory.mp3";     // For example
 //		playMusic("./music/GearworksFactory.mp3");
-//		playMusic("File:./../music/GearworksFactory.mp3");
+		playMusic("./../music/GearworksFactory.mp3");
 
 		
 		stage = stagep;

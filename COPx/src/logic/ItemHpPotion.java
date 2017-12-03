@@ -7,5 +7,7 @@ public class ItemHpPotion extends Item{
 		name = "HP Potion";
 		price = 20;
 		icon = new Image("file:./../images/hpPotion.png");
+		description = "A potion that will charge your HP.";
+		
 	}
 }

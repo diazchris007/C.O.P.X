@@ -13,7 +13,7 @@ public class TowerSwat extends Tower{
 		super(500, 100);
 		cost = 50;
 		currentImage = new Image("file:./../images/swatTower.png");
-		description = "SwatTower";
+		description = "A tower with the durability of a swat team.";
 		price = 230;
 		name = "Swat Tower";
 		this.range = new RangeCircular(currentCell,1);

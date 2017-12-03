@@ -6,6 +6,7 @@ public abstract class Item {
 	String name;
 	int price;
 	Image icon;
+	String description;
 	
 	public int getPrice() {
 		return price;
@@ -17,5 +18,9 @@ public abstract class Item {
 	
 	public Image getIcon() {
 		return icon;
+	}
+	
+	public String getDescription() {
+		return description;
 	}
 }

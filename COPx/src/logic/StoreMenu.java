@@ -13,14 +13,20 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.Tooltip;
+import javafx.scene.control.ScrollPane.ScrollBarPolicy;
 import javafx.scene.control.cell.TextFieldListCell;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
-public class StoreMenu extends GridPane{
+public class StoreMenu extends Scene {
+	GridPane btnDisplay = new GridPane();
+	
 	Label storeTitleLbl;
 	Label balanceDisplay;
 	Label msg;
@@ -58,6 +64,7 @@ public class StoreMenu extends GridPane{
 	}
 	
 	private void initializeButtons() {
+		String description = "Description: \n";
 		buttons = new ArrayList<>();
 		String lbl; 
 		Image img;
@@ -67,63 +74,82 @@ public class StoreMenu extends GridPane{
 			lbl = "Buy " + storeInventory.getItem(i).getName() + p + storeInventory.getItem(i).getPrice();
 			img = storeInventory.getItem(i).getIcon();
 			icon = new ImageView();
-			icon.setFitWidth(40);
-			icon.setFitHeight(40);
+			icon.setFitWidth(50);
+			icon.setFitHeight(50);
 			icon.setImage(img);
 			
-			buttons.add( new Button( lbl, icon ));
+			Button temp = new Button(lbl, icon);
+			temp.setTooltip(new Tooltip(description + storeInventory.getItem(i).getDescription() ));
+			
+			buttons.add( temp);
 		}
 		
 		for (int i = 0; i< storeInventory.getWeaponNum(); i++) {
 			lbl = "Buy " + storeInventory.getWeapon(i).getName() + p + storeInventory.getWeapon(i).getPrice();
 			img = storeInventory.getWeapon(i).getIcon();
 			icon = new ImageView();
-			icon.setFitWidth(40);
-			icon.setFitHeight(40);
+			icon.setFitWidth(60);
+			icon.setFitHeight(60);
 			icon.setImage(img);
 			
-			buttons.add( new Button( lbl, icon ));
+			Button temp = new Button(lbl, icon);
+			temp.setTooltip(new Tooltip(description + storeInventory.getWeapon(i).getDescription() ));
+			
+			buttons.add( temp);
 		}
 		
 		for (int i = 0; i< storeInventory.getTowerNum(); i++) {
 			lbl = "Buy " + storeInventory.getTower(i).getName() + p + storeInventory.getTower(i).getPrice();
 			img = storeInventory.getTower(i).getIcon();
 			icon = new ImageView();
-			icon.setFitWidth(40);
-			icon.setFitHeight(40);
+			icon.setFitWidth(50);
+			icon.setFitHeight(50);
 			icon.setImage(img);
 			
-			buttons.add( new Button( lbl, icon ));
+			Button temp = new Button(lbl, icon);
+			temp.setTooltip(new Tooltip(description + storeInventory.getTower(i).getDescription() ));
+
+			buttons.add( temp);
 		}
 	}
 	
-	public StoreMenu(Stage pStage, Profile user) {		
+	static GridPane totalDisplay = new GridPane();
+	
+	public StoreMenu(Stage pStage, Profile user, int dimsW, int dimsH) {	
+		super(totalDisplay, dimsW, dimsH);
+		
+		totalDisplay.setAlignment(Pos.CENTER);
+		totalDisplay.setHgap(10);
+		totalDisplay.setVgap(10);
 		stage = pStage;
 		userAccount = user;
 		
 		intializeStoreInv();
 		initializeButtons();
 		
+		
 		balanceDisplay = new Label ("Current Balance: " + userAccount.getBalance());
 		balanceDisplay.setStyle("-fx-border-color: #000; -fx-padding: 5px;");
+		balanceDisplay.setAlignment(Pos.CENTER);
 		
 		msg = new Label ("Hello!! What would you like to purchase?");
 		msg.setAlignment(Pos.CENTER);
 		
-		storeTitleLbl = new Label("Welcome to the store");
+		storeTitleLbl = new Label("Welcome to the Store!");
 		storeTitleLbl.setAlignment(Pos.CENTER);
 				
 		storeExitBtn = new Button("Back to Start Screen");
+		storeExitBtn.setAlignment(Pos.CENTER);
 		
 		this.setWidths();
 		
-		this.setAlignment(Pos.CENTER);
-		this.setHgap(10);
-		this.setVgap(10);
+		btnDisplay.setAlignment(Pos.CENTER);
+		btnDisplay.setHgap(10);
+		btnDisplay.setVgap(10);
 		
-		this.add(storeTitleLbl, 0, 0, 3, 1);
-		this.add(msg, 0, 1, 3, 1);
-		this.add(balanceDisplay, 0, 2, 3, 1);
+		totalDisplay.add(storeTitleLbl, 0, 0, 1, 1);
+		totalDisplay.add(msg, 0, 1, 1, 1);
+		totalDisplay.add(balanceDisplay, 0, 2, 1, 1);
 		
 		int j=3;
 		int numInv = storeInventory.getInventoryNum();
@@ -131,7 +157,7 @@ public class StoreMenu extends GridPane{
 		Label itemLbl = new Label("Items:");
 		Label weaponLbl = new Label("Weapons:");
 		Label towerLbl = new Label("Towers:");
-		this.add(itemLbl, 0, 3, 3, 1);
+		btnDisplay.add(itemLbl, 0, 3, 3, 1);
 		
 		for (int i = 0; i < numInv; i++) {
 			if (i %2  == 0)
@@ -139,17 +165,36 @@ public class StoreMenu extends GridPane{
 			
 			if (i == storeInventory.getItemNum()) {	
 				j++;
-				this.add(weaponLbl, 0, j++, 3, 1);
+				btnDisplay.add(weaponLbl, 0, j++, 3, 1);
 			} else if (i == (storeInventory.getItemNum() + storeInventory.getWeaponNum())) {
 				j++;
-				this.add(towerLbl, 0, j++, 3, 1);
+				btnDisplay.add(towerLbl, 0, j++, 3, 1);
 			}
-			this.add(buttons.get(i), i%2, j);
+			btnDisplay.add(buttons.get(i), i%2, j);
 		}
 		
 		j+=2;
-		this.add(storeExitBtn, 0,  j);
+		
 		setUpDisplayInv();
+		
+//		this.getChildren().add(grid);
+		
+		
+		
+
+		
+        ScrollPane sp = new ScrollPane();
+        sp.setContent(btnDisplay);
+        sp.setFitToWidth(true);
+        sp.setPrefSize(dimsW -40, dimsH - 40);
+        sp.setHbarPolicy(ScrollBarPolicy.AS_NEEDED);
+        sp.setVbarPolicy(ScrollBarPolicy.AS_NEEDED);
+        
+        totalDisplay.add(sp, 0, 3);
+        totalDisplay.add(storeExitBtn, 0,  4);
+//        storeScene = new Scene(grid, dimsW, dimsH);
+//        this.add(grid, columnIndex, rowIndex);
+		
 	}
 	
 	
@@ -185,9 +230,9 @@ public class StoreMenu extends GridPane{
         VBox wVbox = new VBox(w, weaponList);
         VBox tVbox = new VBox(t, towerList);
         
-        this.add(iVbox, 2, 4, 3, 3);
-        this.add(wVbox, 2, 9, 3, 3);
-        this.add(tVbox, 2, 14, 3, 3);
+        btnDisplay.add(iVbox, 2, 4, 3, 3);
+        btnDisplay.add(wVbox, 2, 9, 3, 3);
+        btnDisplay.add(tVbox, 2, 14, 3, 3);
 	}
 	
 
@@ -240,42 +285,56 @@ public class StoreMenu extends GridPane{
 					if (objectType == ITEM ) {
 						int itemNum = i;
 						
-						if (userAccount.itemInInv(storeInventory.getItem(itemNum).getName()))
+						if (userAccount.itemInInv(storeInventory.getItem(itemNum).getName())) {
 							msg.setText(s4 + storeInventory.getItem(itemNum).getName());
-						else {
+							msg.setTextFill(Color.RED);
+						} else {
 							stat = userAccount.purchaseItem(  storeInventory.getItem(itemNum) );
 							balanceDisplay.setText(s3 + userAccount.getBalance());
-							if (stat == 0) // bought
+							if (stat == 0) {// bought
 								msg.setText(s1 + storeInventory.getItem(itemNum).getName());
-							else
-								msg.setText(s2 + storeInventory.getItem(itemNum).getName());							
+								msg.setTextFill(Color.BLACK);
+							} else {
+								msg.setText(s2 + storeInventory.getItem(itemNum).getName());
+								msg.setTextFill(Color.RED);
+							}
+								
 						}
 
 					} else if (objectType == WEAPON) {
 						int weaponNum = i - storeInventory.getWeaponNum();
 
-						if (userAccount.weaponInInv(storeInventory.getWeapon(weaponNum).getName()))
+						if (userAccount.weaponInInv(storeInventory.getWeapon(weaponNum).getName())) {
 							msg.setText(s4 + storeInventory.getWeapon(weaponNum).getName());
-						else {
+							msg.setTextFill(Color.RED);
+						} else {
 							stat = userAccount.purchaseWeapon(  storeInventory.getWeapon(weaponNum) );
 							balanceDisplay.setText(s3 + userAccount.getBalance());
-							if (stat == 0) // bought
+							if (stat == 0) {// bought
 								msg.setText(s1 + storeInventory.getWeapon(weaponNum).getName());
-							else
+								msg.setTextFill(Color.BLACK);
+							} else {
 								msg.setText(s2 + storeInventory.getWeapon(weaponNum).getName());
+								msg.setTextFill(Color.RED);
+							}
+								
 						}
 					} else if (objectType == TOWER) {
 						int towerNum = i - storeInventory.getWeaponNum() - storeInventory.getItemNum();
 						
-						if (userAccount.towerInInv(storeInventory.getTower(towerNum).getName()))
+						if (userAccount.towerInInv(storeInventory.getTower(towerNum).getName())) {
 							msg.setText(s4 + storeInventory.getTower(towerNum).getName());
-						else {
+							msg.setTextFill(Color.RED);
+						} else {
 							stat = userAccount.purchaseTower(storeInventory.getTower(towerNum) );
 							balanceDisplay.setText(s3 + userAccount.getBalance());
-							if (stat == 0) // bought
+							if (stat == 0) {// bought
 								msg.setText(s1 + storeInventory.getTower(towerNum ).getName());
-							else
+								msg.setTextFill(Color.BLACK);
+							} else {
 								msg.setText(s2 + storeInventory.getTower(towerNum).getName());
+								msg.setTextFill(Color.RED);
+							}
 						}
 					}
 					

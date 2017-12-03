@@ -57,7 +57,7 @@ public class GameDisplay extends Pane{
 	};
 	
 	
-	public GameDisplay(Loadout loadout) throws Exception
+	public GameDisplay(Loadout loadout)
 	{
 		numTowers = 4;
 		cells = new Cell[39][28];
@@ -86,10 +86,33 @@ public class GameDisplay extends Pane{
 	{
 		return player;
 	}
+	
+	public void placeTowerFunction(Boolean test,int x,int y,String sucessMessage , String balanceMessage, int towerCost, Tower towerToPlace ) {
+		Cell nextCell;
+		if (test){
+	            nextCell = cells[x][y];
+
+	   			if(nextCell.hasEntity())
+	   				return;
+	   			logger.log(Level.FINE, sucessMessage);
+	            nextCell.setEntityInCell(towerToPlace);
+	            towerToPlace.setCurrentCell(nextCell);
+	            
+	            player.setBalance(player.getBalance() - towerCost);
+
+	            logger.log(Level.FINE, balanceMessage);
+			}
+	        //index was out of range, wrap around.
+	        else{
+	        		String errorDirMessage = "Can Not Place Tower There";
+	        		logger.log(Level.FINE, errorDirMessage );
+	        }
+	}
+		
 	public void placeTower(int slot){
 		String towerCosts = "\n tower costs: ";
+		String balanceString = "balance: ";
 		Cell currentCell; 
-	    Cell nextCell;
 	    int x;
 	    int y;
 		if(slot >numTowers)
@@ -99,116 +122,59 @@ public class GameDisplay extends Pane{
 		Tower towerToPlace = player.getLoadout().getTower(slot).getInstance();
 		int towerCost = towerToPlace.getCost();
 		
+		String message;
 		
 		if(towerCost > player.getBalance()) {
-			System.err.println("Not enough balance: " + player.getBalance() + towerCosts + towerCost);
+			 message = "Not enough balance: " + player.getBalance() + towerCosts + towerCost;
+		     logger.log(Level.FINE, message);
 			return;
 		}
 		towers.add(towerToPlace);
 		summoner.addTower(towerToPlace);
     		currentCell = player.getCurrentCell();
-        nextCell = null;
         x = currentCell.getLocation().getX();
         y = currentCell.getLocation().getY();
-        System.err.println("Player at" + x+ ", "+ y);
+        message = "Player at" + x + ", "+ y;
+        logger.log(Level.FINE, message);
  		
 	   	switch(dir){
 	   		case NORTH:
-	   			if (y-1 >= 0){
-	   	            nextCell = cells[x][y - 1];
-	
-	   	   			if(nextCell.hasEntity())
-	   	   				return;
-	   	   			logger.log(null, "Placeing tower Above player");
-	   	            nextCell.setEntityInCell(towerToPlace);
-	   	            towerToPlace.setCurrentCell(nextCell);
-	   	            
-	   	            player.setBalance(player.getBalance() - towerCost);
-	
-	   	            System.out.println("balance: " + player.getBalance() + towerCosts + towerCost);
-	        	}
-	
-	   			
-	   	        
-	   	        //index was out of range, wrap around.
-	   	        else{
-	   	        	System.out.println("Can Not Place Tower There");
-	   	        }
+	   			placeTowerFunction((y-1 >= 0), x , y-1 , "Placing tower Above player",
+	   							  balanceString + player.getBalance() + towerCosts + towerCost, towerCost,  towerToPlace );
+
 	   	        board.draw();
 	   			
 	   			break;
 	   		case NORTHEAST:
-	   			System.err.println("Need to be facing North/South/East/West");
+	   		case NORTHWEST:
+	   		case SOUTHEAST:
+	   		case SOUTHWEST:
+	   			message = "Need to be facing North/South/East/West";
+	   			logger.log(Level.FINE, message);
 	   			break;
 	   		case EAST:
-	   	        if (x-1 >= 0){
-	   	            nextCell = cells[x-1][y];
-	   	   			if(nextCell.hasEntity())
-	   	   				return;
-	   	            System.err.println("Placeing tower Right of the player");
-	   	            nextCell.setEntityInCell(towerToPlace);
-	   	            towerToPlace.setCurrentCell(nextCell);
-	   	            player.setBalance(player.getBalance() - towerCost);
-	
-	   	            System.err.println("balance: " + player.getBalance() + towerCosts + towerCost);
-	   			}
-	   	        //if index was out of range, what do we do now?
-	   	        else{
-	   	        	//Wrap around
-	
-	   	        	System.err.println("Can Not Place Tower There");
-	   	        }
+	   			
+	   			placeTowerFunction((x-1 >= 0),x -1 ,y,"Placing tower Right of the player" ,
+	   					(balanceString + player.getBalance() + towerCosts + towerCost), towerCost, towerToPlace );
 	
 	   	        board.draw();
 	   			break;
-	   		case SOUTHEAST:
-	   			System.err.println("Need to be facing North/South/East/West");
-	   			break;
 	   		case SOUTH:
-	   	        if (y+1 < cells[0].length){
-	   	            nextCell = cells[x][y + 1];
-	   	   			if(nextCell.hasEntity())
-	   	   				return;
-	   	            System.err.println("Placeing tower Below player");
-	   	            nextCell.setEntityInCell(towerToPlace);
-	   	            towerToPlace.setCurrentCell(nextCell);
-	   			}
-	   	        //if index was out of range, what do we do now?
-	   	        else{
-	   	        	//Wrap around
-	
-	   	        	System.err.println("Can Not Place Tower There");
-	   	        }
+	   			placeTowerFunction(y+1 < cells[0].length, x, y+1 , "Placing tower Below player",
+	   						balanceString + player.getBalance() + towerCosts + towerCost,
+	   						 towerCost,  towerToPlace );
+
 	   	        board.draw();
 	   			
 	   			break;
-	   		case SOUTHWEST:
-	   			System.err.println("Need to be facing North/South/East/West");
-	   			break;
+
 	   		case WEST:
-	   	       if (x+1 < cells.length){
-	                nextCell = cells[x+1][y];
-	   	   			if(nextCell.hasEntity())
-	   	   				return;
-	   	            System.err.println("Placeing tower Left of the player");
-	   	            nextCell.setEntityInCell(towerToPlace);
-	   	            towerToPlace.setCurrentCell(nextCell);
-	   	            player.setBalance(player.getBalance() - towerCost);
-	
-	   	            System.err.println("balance: " + player.getBalance() + towerCosts + towerCost);
-	   	            
-	   			}
-	   	        //if index was out of range, what do we do now?
-	   	        else{
-	   	        	//Wrap around
-	
-	   	        	System.err.println("Can Not Place Tower There");
-	   	        }
-	
+	   			
+	   			placeTowerFunction( (x+1 < cells.length), x+1, y,
+	   							 "Placing tower Left of the player" ,
+	   							(balanceString + player.getBalance() + towerCosts + towerCost),
+	   							 towerCost,  towerToPlace );
 	  	        board.draw();
-	   			break;
-	   		case NORTHWEST:
-	   			System.err.println("Need to be facing North/South/East/West");
 	   			break;
 	   			
 	   		default:
@@ -216,7 +182,6 @@ public class GameDisplay extends Pane{
 	    	}		
 	}
 	public void moveDown(Entity ent) {
-        
 		board.setCells(ent.moveDown(board));
         board.draw();
     }
@@ -237,7 +202,6 @@ public class GameDisplay extends Pane{
     }
     
     public void pauseMenu() {
-
 	    	VBox pauseRoot = new VBox(20);
 	    	pauseRoot.getChildren().add(new Label("PAUSED"));
 	    	pauseRoot.setStyle("-fx-backround-color: rgba(255, 255, 255, 0.8);");
@@ -264,33 +228,25 @@ public class GameDisplay extends Pane{
 		resumeBtn.setOnAction(eventHandler);
 	}
     
-    public void setupInput(Scene Gamescene)
+    public void setupInput(Scene gamescene)
     {
-    	Gamescene.addEventFilter(KeyEvent.KEY_PRESSED, new EventHandler<KeyEvent>() {
+    		gamescene.addEventFilter(KeyEvent.KEY_PRESSED, new EventHandler<KeyEvent>() {
             @Override
             public void handle(KeyEvent actionEvent) {
-            	switch(actionEvent.getCode()){
+            		switch(actionEvent.getCode()){
 	           		case S: 
-	           			moveDown(player);
-	           			break;
-	           		case W:
-	           			moveUp(player);
-	           			break;
-	           		case A:
-	           			moveLeft(player);
-	           			break;
-	           		case D:
-	           			moveRight(player);
-	           			break;
 	           		case DOWN: 
 	           			moveDown(player);
 	           			break;
+	           		case W:
 	           		case UP:
 	           			moveUp(player);
 	           			break;
+	           		case A:
 	           		case LEFT:
 	           			moveLeft(player);
 	           			break;
+	           		case D:
 	           		case RIGHT:
 	           			moveRight(player);
 	           			break;
@@ -303,6 +259,7 @@ public class GameDisplay extends Pane{
 	           			board.draw();
 	           			break;
 	           		case ESCAPE:
+	           		case P:
 	           			summoner.pause();
 	           			pauseMenu();
 	           			break;
@@ -321,16 +278,11 @@ public class GameDisplay extends Pane{
 	           		case SPACE:
 	           			summoner.unPause();
 	           			break;
-	           		case P:
-	           			summoner.pause();
-	           			break;
 	           		default:
 	           			break;
-	           			
-            	}
-            	System.out.println("Player now at: " + player.getCurrentCell().getLocation().toString());
-                	
-                
+            		}
+            		String message = "Player now at: " + player.getCurrentCell().getLocation().toString();
+            		logger.log(Level.FINE, message);
             }
         });
     }

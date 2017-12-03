@@ -9,6 +9,7 @@ public class WeaponRifle extends Weapon{
 		price = 20;
 		attackStrength = (float)1.4;
 		icon = new Image("file:./../images/rifle.png");
+		description = "A Rifle to hunt them ducks.";
 	}
 
 	@Override

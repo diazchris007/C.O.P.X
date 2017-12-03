@@ -64,15 +64,32 @@ public class Profile {
 		}
 	}
 	public boolean itemInInv(final String name){
-		    return inv.getItemsList().stream().filter(o -> o.getName().equals(name)).findFirst().isPresent();
+	    List<String> list = inv.listItemInventory();
+	    for (int i = 0; i < list.size(); i++) {
+	    		if (list.get(i).equalsIgnoreCase(name))
+	    			return true;
+	    }
+	    return false;
 	}
 	
 	public boolean weaponInInv(final String name){
-	    return inv.getWeaponsList().stream().filter(o -> o.getName().equals(name)).findFirst().isPresent();
+	    
+	    List<String> list = inv.listWeaponInventory();
+	    for (int i = 0; i < list.size(); i++) {
+	    		if (list.get(i).equalsIgnoreCase(name))
+	    			return true;
+	    }
+	    return false;
+	    
 	}
 	
 	public boolean towerInInv(final String name){
-	    return inv.getTowersList().stream().filter(o -> o.getName().equals(name)).findFirst().isPresent();
+	    List<String> list = inv.listTowerInventory();
+	    for (int i = 0; i < list.size(); i++) {
+	    		if (list.get(i).equalsIgnoreCase(name))
+	    			return true;
+	    }
+	    return false;
 	}
 	
 	

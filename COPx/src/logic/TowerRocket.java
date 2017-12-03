@@ -13,7 +13,7 @@ public class TowerRocket extends Tower{
 		super(200, 30);
 		cost = 30;
 		currentImage = new Image("file:./../images/rocketTower.png");
-		description = "RocketTower";
+		description = "A tower that launches rockets!";
 		price = 150;
 		name = "Rocket Tower";
 		this.range = new RangeCircular(currentCell,1);

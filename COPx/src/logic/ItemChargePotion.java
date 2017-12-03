@@ -7,5 +7,6 @@ public class ItemChargePotion extends Item{
 		name = "Charge Potion";
 		price = 20;
 		icon = new Image("file:./../images/chargePotion.png");
+		description = "A Magic potion that will charge energy.";
 	}
 }

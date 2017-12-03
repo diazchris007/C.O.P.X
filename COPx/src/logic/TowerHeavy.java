@@ -13,7 +13,7 @@ public class TowerHeavy extends Tower{
 		super(210, 80);
 		cost = 40;
 		currentImage = new Image("file:./../images/heavyTower.png");
-		description = "HeavyTower";
+		description = "A very durable tower.";
 		price = 210;
 		name = "Heavy Tower";
 		this.range = new RangeCircular(currentCell,1);

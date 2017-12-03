@@ -7,5 +7,6 @@ public class ItemManaPotion extends Item{
 		name = "Mana Potion";
 		price = 40;
 		icon = new Image("file:./../images/manaPotion.png");
+		description = "A potion that recharges your Mana! Whatever that is...";
 	}
 }

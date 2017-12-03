@@ -19,9 +19,9 @@ public class Board extends GridPane {
     }
     public static Board getInstance()
     {
-    	if(instance == null)
-    		instance = new Board();
-    	return instance;
+    		if(instance == null)
+    			instance = new Board();
+    		return instance;
     }
     
     
