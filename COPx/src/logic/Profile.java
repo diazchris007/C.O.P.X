@@ -48,6 +48,7 @@ public class Profile {
 		
 		return loadouts[slot];
 	}
+
 	
 	public int purchaseItem (String item) {
 		Item i = ItemFactory.getItem( item );
@@ -62,8 +63,21 @@ public class Profile {
 			return 1;
 		}
 	}
+	public boolean itemInInv(final String name){
+		    return inv.getItemsList().stream().filter(o -> o.getName().equals(name)).findFirst().isPresent();
+	}
 	
-	public int purchaseItem1(Item item ) {
+	public boolean weaponInInv(final String name){
+	    return inv.getWeaponsList().stream().filter(o -> o.getName().equals(name)).findFirst().isPresent();
+	}
+	
+	public boolean towerInInv(final String name){
+	    return inv.getTowersList().stream().filter(o -> o.getName().equals(name)).findFirst().isPresent();
+	}
+	
+	
+	
+	public int purchaseItem(Item item ) {
 		if (item.getPrice() <= outsideGameBalance) {
 			Item temp = ItemFactory.getItem( item.getName() ); // duplicate
 			outsideGameBalance = outsideGameBalance - item.getPrice();

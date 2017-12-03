@@ -96,8 +96,8 @@ public class StartMenu extends Application {
 			}
 			if (e.getSource() == startGameBtn) {
 				
-				mediaPlayer.stop();
-				playMusic("./music/Replicant_Police.mp3");
+//				mediaPlayer.stop();
+//				playMusic("File:./../music/Replicant_Police.mp3");
 				stage.setScene(startGameScene);
 				
 				return;
@@ -274,6 +274,7 @@ public class StartMenu extends Application {
 		StoreMenu storeMenu = new StoreMenu(stage, profile); // needs to be after Profile set up
 		storeMenu.attachCode(startScene);
 		
+		
 		GridPane grid = new GridPane();
 		grid.setAlignment(Pos.CENTER);
 		grid.setHgap(10);
@@ -288,7 +289,10 @@ public class StartMenu extends Application {
         sp.setVbarPolicy(ScrollBarPolicy.AS_NEEDED);
         
         grid.add(sp, 0, 1);
-		storeScene = new Scene(grid, dimsW, dimsH);
+//        grid.getStylesheets().addAll(getClass().getResource("file:./../css/app.css").toExternalForm());
+
+    		storeScene = new Scene(grid, dimsW, dimsH);
+
 	}
 	public void setUpManageLoadout(){
 		ManageLoadoutMenu manageLoadoutMenu = new ManageLoadoutMenu(stage, profile);
@@ -375,7 +379,7 @@ public class StartMenu extends Application {
 		volumeSlider.setMaxWidth(Region.USE_PREF_SIZE);
 		volumeSlider.setMinWidth(30);
 		volumeSlider.setValue(80/2);
-		mediaPlayer.setVolume(volumeSlider.getValue() / 100.0);
+//		mediaPlayer.setVolume(volumeSlider.getValue() / 100.0);
 		
 		volumeSlider.valueProperty().addListener(new InvalidationListener() {
 			@Override
@@ -405,7 +409,7 @@ MediaPlayer mediaPlayer;
 	public void start(Stage stagep) throws Exception {
 //		String musicFile = "./music/GearworksFactory.mp3";     // For example
 //		playMusic("./music/GearworksFactory.mp3");
-		playMusic("./music/GearworksFactory.mp3");
+//		playMusic("File:./../music/GearworksFactory.mp3");
 
 		
 		stage = stagep;
@@ -427,6 +431,8 @@ MediaPlayer mediaPlayer;
 		setUpLeaderboardStage();
 
 
+		
+		
 		setWidths();
 		attachCode();
 		 

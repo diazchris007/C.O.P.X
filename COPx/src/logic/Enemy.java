@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.PriorityQueue;
 
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
+//import javafx.scene.image.ImageView;
 
 public abstract class Enemy extends Entity {
 	

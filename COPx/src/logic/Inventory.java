@@ -101,6 +101,18 @@ public class Inventory {
 		return (towers.size() + weapons.size() + items.size());
 	}
 	
+	public List<Item> getItemsList() {
+		return items;
+	}
+	
+	public List<Weapon> getWeaponsList() {
+		return weapons;
+	}
+	
+	public List<Tower> getTowersList() {
+		return towers;
+	}
+	
 	public List<String> listItemInventory() {
 		List<String> temp = new ArrayList<>();
 		for (int i = 0; i < items.size(); i++) {
@@ -116,6 +128,29 @@ public class Inventory {
 		}
 		
 		return temp;
+	}
+	
+	public List<String> listTowerInventory() {
+		List<String> temp = new ArrayList<>(); 
+		for (int i = 0; i < towers.size(); i++) {
+			temp.add(towers.get(i).getName());
+		}
+		
+		return temp;
+	}
+	
+	public List<String> listAllInventory() {
+
+		List<String> itemList = this.listItemInventory();
+		List<String> weaponList = this.listWeaponInventory();
+		List<String> towerList = this.listTowerInventory();
+		
+		List<String> finalList = new ArrayList<> ();
+		finalList.addAll(itemList);
+		finalList.addAll(weaponList);
+		finalList.addAll(towerList);
+		
+		return finalList;
 	}
 
 	
