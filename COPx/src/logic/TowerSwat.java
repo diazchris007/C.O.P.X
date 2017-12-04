@@ -6,9 +6,8 @@ import javafx.scene.image.Image;
 public class TowerSwat extends Tower{
 
 	public TowerSwat(){
-		super(430, 10);
+		super(500, 100);
 		cost = 50;
-		timeBetweenAttack = 700;
 		currentImage = new Image("file:./../images/swatTower.png");
 		name = "Swat Tower";
 		price = 230;

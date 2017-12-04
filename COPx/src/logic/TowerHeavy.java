@@ -6,9 +6,8 @@ import javafx.scene.image.Image;
 public class TowerHeavy extends Tower{
 
 	public TowerHeavy(){
-		super(350, 10);
+		super(210, 80);
 		cost = 40;
-		timeBetweenAttack = 300;
 		currentImage = new Image("file:./../images/heavyTower.png");
 		name = "Heavy Tower";
 		price = 210;

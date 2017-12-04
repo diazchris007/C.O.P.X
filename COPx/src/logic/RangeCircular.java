@@ -20,12 +20,11 @@ public class RangeCircular extends Range {
 		int maxX = currentX + maxDistance;
 		int minX = currentX - maxDistance;
 		int minY = currentY - maxDistance;
-		System.out.println(maxX + " " + maxY + " " + minX + " " + minY);
-		if(maxY > cells[0].length){
-			maxY = cells[0].length - 1;
+		if(maxY > cells.length){
+			maxY = cells.length;
 		}
-		if(maxX> cells.length){
-			maxX = cells.length - 1;
+		if(maxX> cells[0].length){
+			maxX = cells[0].length;
 		}
 		if(minX<0){
 			minX = 0;
@@ -33,10 +32,8 @@ public class RangeCircular extends Range {
 		if(minY<0){
 			minY = 0;
 		}
-
-		System.out.println(maxX + " " + maxY + " " + minX + " " + minY);
-		for(int i = minX; i <maxX; i++){
-			for(int j = minY; j< maxY; j++){
+		for(int i = minX; i <=maxX; i++){
+			for(int j = minY; j<= maxY; j++){
 				
 				if(cells[i][j].hasEntity()){
 					nearby.add(cells[i][j]);

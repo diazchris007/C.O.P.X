@@ -6,9 +6,8 @@ import javafx.scene.image.Image;
 public class TowerBlast extends Tower{
 
 	public TowerBlast(){
-		super(150, 20);
-		cost = 40;
-		timeBetweenAttack = 1000;
+		super(230, 20);
+		cost = 20;
 		currentImage = new Image("file:./../images/blastTower.png");
 		name = "Blast Tower";
 		price = 230;
