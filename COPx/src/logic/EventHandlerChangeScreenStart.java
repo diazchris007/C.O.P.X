@@ -49,7 +49,13 @@ public class EventHandlerChangeScreenStart implements EventHandler<ActionEvent>{
 		if (e.getSource() == startGameBtn) {
 			
 			mediaPlayer.stop();
-			playMusic("file:./../music/Replicant_Police.mp3");
+			if(System.getProperty("os.name").contains("w")){
+				playMusic("File:./../music/Replicant_Police.mp3");
+			}
+			else{
+				playMusic("./../music/Replicant_Police.mp3");
+			}
+			
 			stage.setScene(startGameScene);
 			
 			return;
