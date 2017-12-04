@@ -117,7 +117,7 @@ public abstract class Enemy extends Entity {
 		long newTime = new Date().getTime();
 		long temp = newTime - lastAttacked;
 		if(temp < timeBetweenAttack){
-			return  new ArrayList<>();
+			return new ArrayList<>();
 		}
 		lastAttacked = newTime;
 		ArrayList<Entity> entities = (ArrayList<Entity>) getNearby();
