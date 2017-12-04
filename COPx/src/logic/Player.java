@@ -7,7 +7,7 @@ public class Player extends Entity{
     private Direction dir;
     private Loadout loadout;
     private int balance;
-        
+    private GameDisplay gd;
     private static final Image rightFacingIMG = new Image("file:./../images/RightFacing.png");
     private static final Image rearFacingIMG = new Image("file:./../images/RearFacing.png");
     private static final Image leftFacingIMG = new Image("file:./../images/LeftFacing.png");
@@ -21,6 +21,12 @@ public class Player extends Entity{
         this.loadout = loadout;
         this.dir = Direction.EAST;
         balance = 1000;
+    }
+    public void registerObserver(GameDisplay gd){
+    	this.gd = gd;
+    }
+    public void notifyObserver(int bal){
+    	gd.updateLabel(bal);
     }
     @Override 
 	public Cell getCurrentCell(){
@@ -94,6 +100,7 @@ public class Player extends Entity{
 
 	public void setBalance(int i) {
 		balance = i;
+		notifyObserver(balance);
 	}
     
 }

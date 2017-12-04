@@ -21,6 +21,8 @@ import javafx.scene.layout.BackgroundSize;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import logic.Board;
@@ -33,7 +35,7 @@ public class GameDisplay extends Pane{
     private Player player;
     private Board board;
     private List<Tower> towers;
-    
+    private Label balance;
     private static final Logger logger = Logger.getLogger(GameDisplay.class.getName());
     
     
@@ -66,13 +68,17 @@ public class GameDisplay extends Pane{
             	cells[i][j] = new Cell(new Location(i,j));
         }
 		this.player = new Player(cells[5][5],loadout);
+		player.registerObserver(this);
         this.board = Board.getInstance();
         this.board.setCells(cells);
         this.board.draw();
         summoner = new Lvl1Summoner(player);
-        
+        balance = new Label("Balance: $" + player.getBalance());
         BorderPane pane = new BorderPane();
         pane.setCenter(board);
+        balance.setTextFill(Color.WHITE);
+        balance.setFont(Font.font("Verdana", 20));
+        pane.setTop(balance);
         BackgroundImage myBI= new BackgroundImage(new Image("file:./../images/Map027.png",39 * 30,29*30,false,true),
                 BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
                   BackgroundSize.DEFAULT);
@@ -286,5 +292,9 @@ public class GameDisplay extends Pane{
             }
         });
     }
+	public void updateLabel(int bal) {
+		// TODO Auto-generated method stub
+		balance.setText("Balance $" + bal);
+	}
     
 }

@@ -168,7 +168,7 @@ public abstract class Enemy extends Entity {
 	}
 	public void payOut() {
 		// TODO Auto-generated method stub
-		target.setBalance(target.getWealth() + bounty);
+		target.setBalance(((Player) target).getBalance() + bounty);
 		
 	}
 
