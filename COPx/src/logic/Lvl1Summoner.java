@@ -12,7 +12,7 @@ public class Lvl1Summoner extends Summoner {
 		for(int i = 0; i < NUMWAVES; i++) { 
 			enemies.add(new ArrayList<Enemy>());
 			for(int j =0 ; j<NUMMINIONS;j++) {
-				enemies.get(i).add(new Lvl1Enemy(new Cell(new Location(0,0)), target));
+				enemies.get(i).add(new Lvl1Enemy(new Cell(new Location(0,20)), target));
 			}
 		}
 		System.out.println(enemies.size() + " waves");

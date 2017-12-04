@@ -97,7 +97,7 @@ public class GameDisplay extends Pane{
 	   			logger.log(Level.FINE, sucessMessage);
 	            nextCell.setEntityInCell(towerToPlace);
 	            towerToPlace.setCurrentCell(nextCell);
-	            
+	            towerToPlace.getRange().recalculate(nextCell);
 	            player.setBalance(player.getBalance() - towerCost);
 
 	            logger.log(Level.FINE, balanceMessage);
