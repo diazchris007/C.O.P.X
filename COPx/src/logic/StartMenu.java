@@ -137,7 +137,7 @@ public class StartMenu extends Application {
 	public void setUpGameStage() throws Exception {
 		profile = new Profile();
 		
-		GameDisplay gameDisplay = new GameDisplay(profile.getLoadout(0));
+		GameDisplay gameDisplay = new GameDisplay(profile.getLoadout(0), this);
 		startGameScene = new Scene(gameDisplay);
 		gameDisplay.setupInput(startGameScene);
 	}
@@ -301,5 +301,25 @@ MediaPlayer mediaPlayer;
 		stage.setScene(startScene);
 		stage.setTitle("COPX");
 		stage.show();
+	}
+	
+	public void setStartScene() {
+		stage.setScene(startScene);
+		try {
+			setUpGameStage();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	public void restartGame() {
+		try {
+			setUpGameStage();
+			stage.setScene(startGameScene);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 }

@@ -46,6 +46,7 @@ public class GameDisplay extends Pane{
     Button saveBtn;
     Button exitBtn;
 	Stage pausePopup;
+	StartMenu mainMenu;
 	
 	EventHandler<ActionEvent> eventHandler = new EventHandler<ActionEvent>() {
 		
@@ -55,12 +56,23 @@ public class GameDisplay extends Pane{
 				summoner.unPause();
 				return;
 			}
+			
+			if (e.getSource() == restartBtn) {
+				mainMenu.restartGame();
+				pausePopup.close();
+			}
+			
+			if (e.getSource() == exitBtn) {
+				pausePopup.close();
+				mainMenu.setStartScene();
+			}
 		}
 	};
 	
 	
-	public GameDisplay(Loadout loadout)
+	public GameDisplay(Loadout loadout, StartMenu mainMenu)
 	{
+		this.mainMenu = mainMenu;
 		numTowers = 4;
 		cells = new Cell[39][28];
 		for (int i = 0; i < cells.length; i++) {
@@ -232,6 +244,8 @@ public class GameDisplay extends Pane{
     
 	public void setHandler() {
 		resumeBtn.setOnAction(eventHandler);
+		restartBtn.setOnAction(eventHandler);
+		exitBtn.setOnAction(eventHandler);
 	}
     
     public void setupInput(Scene gamescene)
