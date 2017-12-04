@@ -66,7 +66,7 @@ public abstract class Tower extends Entity{
 		}
 		return entities;
 	}
-	public ArrayList<Enemy> attack(){
+	public List<Enemy> attack(){
 		ArrayList<Entity> entities = (ArrayList<Entity>) getNearby();
 		ArrayList<Enemy> deadEntities = new ArrayList<>();
 		if(!entities.isEmpty()){
@@ -91,7 +91,6 @@ public abstract class Tower extends Entity{
 	}
 
 	public Range getRange() {
-		// TODO Auto-generated method stub
 		return range;
 	}
 }

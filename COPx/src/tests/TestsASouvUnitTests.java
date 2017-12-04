@@ -5,7 +5,7 @@ import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
 
 @RunWith(Suite.class)
-@SuiteClasses({ TestInventoryFactory.class, TestPurchaseItem.class })
+@SuiteClasses({ TestUnitInventoryFactory.class, TestIntegrationInitializeItems.class })
 public class TestsASouvUnitTests {
 
 }

@@ -38,33 +38,41 @@ public abstract class Summoner {
 		};
 		timer.scheduleAtFixedRate(task, 0,100);
 	}
+	
+	public void clearCells(Enemy e) {
+		ArrayList<Entity> dead = (ArrayList<Entity>) e.attack();
+		for(Entity ent : dead){
+			if(ent.getClass().equals(Player.class)){
+				paused = true;
+			}
+			else{
+				towers.remove(ent);
+				
+			}
+			ent.getCurrentCell().clearEntityInCell();
+		}
+	}
+	
+	public void payOut(Tower t) {
+		ArrayList<Enemy> dead = (ArrayList<Enemy>) t.attack();
+		for(Enemy ent : dead){
+				ent.payOut();
+				enemies.get(wave).remove(ent);
+				ent.getCurrentCell().clearEntityInCell();
+		}
+	}
+	
 	public void attackAll(){
 		if(!enemies.get(wave).isEmpty()) {
 			for(Enemy e : enemies.get(wave)){
-				ArrayList<Entity> dead = (ArrayList<Entity>) e.attack();
-				for(Entity ent : dead){
-						if(ent.getClass().equals(Player.class)){
-							paused = true;
-						}
-						else{
-							towers.remove(ent);
-							
-						}
-						ent.getCurrentCell().clearEntityInCell();
-				}
+				clearCells(e);
 			}
 			for(Tower t : towers){
-				ArrayList<Enemy> dead = t.attack();
-				for(Enemy ent : dead){
-						ent.payOut();
-						enemies.get(wave).remove(ent);
-						ent.getCurrentCell().clearEntityInCell();
-				}
+				payOut(t);
 			}
 			
 		}
 		else if(enemies.size()> wave+1) {
-			System.out.println("New Wave coming game paused");
 			paused = true;
 			wave++;
 		}
@@ -76,9 +84,6 @@ public abstract class Summoner {
 	}
 	public void moveAll() {
 		if(!enemies.get(wave).isEmpty()) {
-
-			System.out.println("wave #:" + wave);
-			System.out.println("minions #:" + enemies.get(wave).size());
 			for(Enemy e : enemies.get(wave)) {
 				e.moveToTarget();
 			}

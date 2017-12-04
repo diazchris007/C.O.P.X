@@ -100,7 +100,6 @@ public class StartMenu extends Application {
 		GameDisplay gameDisplay = new GameDisplay(profile.getLoadout(0), this);
 		startGameScene = new Scene(gameDisplay);
 		gameDisplay.setupInput(startGameScene);
-		System.out.println("Done resetting");
 	}
 	
 	public void setUpLeaderboard() {		

@@ -41,8 +41,8 @@ public class Leaderboard extends GridPane{
 	GridPane leaderboardSceneGrid;
 	GridPane localLeaderboardGrid;
 	
-	ListView<String> leaderboard;
-	List<String> profilesAndScores = Arrays.asList("User: dfalessi\t\t\t\t\t\t\tScore: 1010", "User: lebronJames\t\t\t\t\t\tScore: 918", "User: stephCurry\t\t\t\t\t\tScore: 857", "User: leoMessi\t\t\t\t\t\t\tScore: 712", "User: stevenVong\t\t\t\t\t\tScore: 555");
+	ListView<String> leaderboardListview;
+	List<String> profilesAndScores = Arrays.asList("User: dfalessi\t\t\t\t\t\t\tScore: 1010", "User: lebronJames\t\t\t\t\t\tScore: 918", "User: stephCurry\t\t\t\t\t\tScore: 857", "User: leoMessi\t\t\t\t\t\tScore: 712", "User: stevenVong\t\t\t\t\t\tScore: 555");
 	
 	EventHandler<ActionEvent> changeScreens = new EventHandler<ActionEvent>(){
 		// handles all events
@@ -72,11 +72,11 @@ public class Leaderboard extends GridPane{
 		lblLeaderboardType = new Label("Select Section Below");
 		lblLeaderboardType.setAlignment(Pos.CENTER);
 		
-		Image localLeaderboard = new Image("File:./../images/local.png");
+		Image localLeaderboardImage = new Image("File:./../images/local.png");
 		ImageView localLeaderboardIM = new ImageView();
 		localLeaderboardIM.setFitWidth(75);
 		localLeaderboardIM.setFitHeight(75);
-		localLeaderboardIM.setImage(localLeaderboard);
+		localLeaderboardIM.setImage(localLeaderboardImage);
 
 		Image globalLeaderboard = new Image("File:./../images/global.png");
 		ImageView globalLeaderboardIM = new ImageView();
@@ -150,11 +150,10 @@ public class Leaderboard extends GridPane{
 	}
 	
 	public void setupLeaderboardTable() {
-		Label LocalLeaderboard = new Label("Local Leaderboard");
+		Label localLeaderboardLbl = new Label("Local Leaderboard");
 		
-		leaderboard = setListView(profilesAndScores);
-		
-		VBox pBox = new VBox(LocalLeaderboard, leaderboard);
+		leaderboardListview = setListView(profilesAndScores);
+		VBox pBox = new VBox(localLeaderboardLbl, leaderboardListview);
 		
 		localLeaderboardGrid.add(pBox, 0, 0, 3, 3);
 	}

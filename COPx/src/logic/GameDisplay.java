@@ -49,6 +49,7 @@ public class GameDisplay extends Pane{
 	StartMenu mainMenu;
 	
 	EventHandler<ActionEvent> eventHandler = new PauseModeHandler();
+	
 	class PauseModeHandler implements EventHandler<ActionEvent>{
 		public void handle(ActionEvent e) {
 			

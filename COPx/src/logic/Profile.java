@@ -25,6 +25,7 @@ public class Profile {
  		inv = new Inventory();
 	}
 	
+	// need to add a parameter for current balance
 	public Profile(List<String> initialItems, List<String> initialWeapons, List<String> initialTowers) {
 		loadouts = new Loadout[NUMLOADOUTS];
 		for(int i = 0; i < NUMLOADOUTS; i++){
@@ -34,7 +35,7 @@ public class Profile {
 			loadouts[i].setTower(2, new TowerRifle());
 			loadouts[i].setTower(3, new TowerRifle());
 		}
-		outsideGameBalance = 200;
+		outsideGameBalance = 10000;
 		
 		inv = new Inventory(initialItems, initialWeapons, initialTowers);
 	}
