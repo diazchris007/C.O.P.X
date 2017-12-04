@@ -17,8 +17,6 @@ public class TowerHeavy extends Tower{
 
 	@Override
 	public Tower getInstance() {
-		
-		
 		return new TowerHeavy();
 	}
 

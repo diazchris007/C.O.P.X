@@ -30,9 +30,7 @@ public class TestItemFactory {
 		}
 		
 	@Test
-	public void testGetItemSword5() {
-		ItemSword5 s= new ItemSword5();
-		
+	public void testGetItemSword5() {		
 		assertTrue(ItemFactory.getItem("Sword5") instanceof ItemSword5);
 	}
 	@Test

@@ -6,13 +6,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import javafx.application.Application;
-import logic.ItemChargePotion;
-import logic.ItemFactory;
-import logic.ItemGreenPotion;
-import logic.ItemHpPotion;
-import logic.ItemManaPotion;
-import logic.ItemShield;
-import logic.ItemSword5;
+
 import logic.WeaponFactory;
 import logic.WeaponMace;
 import logic.WeaponRifle;
@@ -37,9 +31,7 @@ public class TestWeaponFactory {
 			}
 			
 		@Test
-		public void testGet() {
-			ItemSword5 s= new ItemSword5();
-			
+		public void testGet() {			
 			assertTrue(WeaponFactory.getWeapon("Rocket Launcher") instanceof WeaponRocketLauncher);
 		}
 		@Test

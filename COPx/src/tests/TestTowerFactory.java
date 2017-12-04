@@ -6,8 +6,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import javafx.application.Application;
-import logic.ItemSword5;
-import logic.RifleTower;
+
 import logic.TowerBlast;
 import logic.TowerFactory;
 import logic.TowerHeavy;
@@ -15,13 +14,7 @@ import logic.TowerRifle;
 import logic.TowerRocket;
 import logic.TowerSelfDestruct;
 import logic.TowerSwat;
-import logic.WeaponFactory;
-import logic.WeaponMace;
-import logic.WeaponRifle;
-import logic.WeaponRocketLauncher;
-import logic.WeaponStaff;
-import logic.WeaponSword1;
-import logic.WeaponSword2;
+
 
 public class TestTowerFactory {
 

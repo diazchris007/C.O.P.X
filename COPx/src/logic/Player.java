@@ -98,6 +98,10 @@ public class Player extends Entity{
 		return balance;
 	}
 
+	public void setBalanceNoNotify(int i) {
+		balance = i;
+	}
+	
 	@Override
 	public void setBalance(int i) {
 		balance = i;

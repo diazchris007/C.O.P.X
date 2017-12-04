@@ -13,13 +13,10 @@ public class TowerRifle extends Tower{
 		price = 240;
 		description = "A tower with a guy with a rifle in it.";
 		this.range = new RangeCircular(currentCell,1);
-		
 	}
 
 	@Override
 	public Tower getInstance() {
-		
-		
 		return new TowerRifle();
 	}
 
