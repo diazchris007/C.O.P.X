@@ -81,7 +81,7 @@ public class StoreMenu extends Scene {
 			Button temp = new Button(lbl, icon);
 			temp.setTooltip(new Tooltip(description + storeInventory.getItem(i).getDescription() ));
 			
-			buttons.add( temp);
+			buttons.add(temp);
 		}
 		
 		for (int i = 0; i< storeInventory.getWeaponNum(); i++) {

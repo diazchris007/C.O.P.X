@@ -1,6 +1,5 @@
 package logic;
 
-
 import java.io.File;
 
 import javafx.application.Application;
@@ -33,24 +32,12 @@ public class StartMenu extends Application {
 	
 	// buttons
 	Button settingBtn;
-	Button wrenchBtn;
 	Button startGameBtn;
-	Button leaderboardExitBtn;
 	Button settingsExitBtn;
-	Button storeExitBtn;
 	Button leaderboardBtn;
 	Button storeBtn;
-	Button buyGun;
-	Button buyShield;
-	Button buyItem;
-	Button americasRegion;
-	Button europeRegion;
-	Button asiaRegion;
-	Button oceaniaRegion;
-	Button africaRegion;
 	Button accountBtn;
 	Button tbd1Btn;
-	Button tbd2Btn;
 	
 	Button manageLoadoutBtn;
 	
@@ -61,11 +48,6 @@ public class StartMenu extends Application {
 	Scene leaderboardScene;
 	Scene storeScene;
 	Scene manageLoadoutScene;
-	Scene americasScene;
-	Scene europeScene;
-	Scene asiaScene;
-	Scene oceaniaScene;
-	Scene africaScene;
 	
 	// stage
 	Stage stage;
@@ -78,8 +60,6 @@ public class StartMenu extends Application {
 	
 	// labels
 	Label lblSetting;
-	Label storeTitleLbl;
-	Label lblRegions;
 	
 	Profile profile;
 	
@@ -94,15 +74,12 @@ public class StartMenu extends Application {
 			if (e.getSource() == startGameBtn) {
 				
 				mediaPlayer.stop();
-				playMusic("file:./../music/Replicant_Police.mp3");
+				playMusic("File:./../music/Replicant_Police.mp3");
 				stage.setScene(startGameScene);
 				
 				return;
 			}
-		
-			if (e.getSource() == leaderboardExitBtn ||
-					e.getSource() == settingsExitBtn ||
-					e.getSource() == storeExitBtn ){
+			if (e.getSource() == settingsExitBtn) {
 				stage.setScene(startScene);
 				return;
 			}
@@ -110,7 +87,6 @@ public class StartMenu extends Application {
 				stage.setScene(storeScene);
 				return;
 			}
-
 			if (e.getSource() == leaderboardBtn) {
 				stage.setScene(leaderboardScene);
 				return;
@@ -123,38 +99,6 @@ public class StartMenu extends Application {
 			}
 		}
 	};
-	
-	/*
-	 ********************* 
-	 ********TO-DO******** 
-	 *********************
-	EventHandler<ActionEvent> changeLeaderboardRegions = new EventHandler<ActionEvent>() {
-		// handles all events
-		public void handle(ActionEvent e) {
-			if (e.getSource() == americasRegion) {
-				stage.setScene(americasScene);
-				return;
-			}
-			if (e.getSource() == africaRegion) {
-				stage.setScene(africaScene);
-				
-				return;
-			}
-			if (e.getSource() == asiaRegion) {
-				stage.setScene(asiaScene);
-				return;
-			}
-			if (e.getSource() == europeRegion) {
-				stage.setScene(europeScene);
-				return;
-			}
-
-			if (e.getSource() == oceaniaRegion) {
-				stage.setScene(oceaniaScene);
-				return;
-			}
-		}
-	}; */
 
 	public static void main( String[] args) {
 		launch(args);
@@ -164,9 +108,7 @@ public class StartMenu extends Application {
 	   startGameBtn.setPrefWidth(150);
 
 	   // leaderboard
-	   lblRegions.setPrefWidth(150);
 	   leaderboardBtn.setPrefWidth(150);
-	   leaderboardExitBtn.setPrefWidth(150);
 	   
 	   // settings
 	   lblSetting.setPrefWidth(150);
@@ -176,7 +118,7 @@ public class StartMenu extends Application {
 	   // store
 	   storeBtn.setPrefWidth(150);
 	   
-	   
+	   // loadout
 	   manageLoadoutBtn.setPrefWidth(150);
 
 	}
@@ -186,20 +128,10 @@ public class StartMenu extends Application {
 	   //have each button run changeScreens when clicked
 	   settingBtn.setOnAction(changeScreens);
 	   startGameBtn.setOnAction(changeScreens);
-	   leaderboardExitBtn.setOnAction(changeScreens);
 	   settingsExitBtn.setOnAction(changeScreens);
 	   storeBtn.setOnAction(changeScreens);
 	   leaderboardBtn.setOnAction(changeScreens);
 	   manageLoadoutBtn.setOnAction(changeScreens);
-	   
-	   // have each button run changeLeaderboardRegion when clicked
-/*
-	   americasRegion.setOnAction(changeLeaderboardRegions);
-	   europeRegion.setOnAction(changeLeaderboardRegions);
-	   asiaRegion.setOnAction(changeLeaderboardRegions);
-	   oceaniaRegion.setOnAction(changeLeaderboardRegions);
-	   africaRegion.setOnAction(changeLeaderboardRegions);
-*/ // IMPLEMENT ... TO-DO
 	}
 	
 	public void setUpGameStage() throws Exception {
@@ -210,68 +142,18 @@ public class StartMenu extends Application {
 		gameDisplay.setupInput(startGameScene);
 	}
 	
-	public void setUpLeaderboardStage() {		
-		lblRegions = new Label("Select Region Below");
-		lblRegions.setAlignment(Pos.CENTER);
+	public void setUpLeaderboard() {		
+		Leaderboard leaderboard = new Leaderboard(stage);
+		leaderboard.attachCode(startScene);
 		
-		Image americas = new Image("File:./../images/americasRegion.png");
-		ImageView americasIM = new ImageView();
-		americasIM.setFitWidth(75);
-		americasIM.setFitHeight(75);
-		americasIM.setImage(americas);
-
-		Image europe = new Image("File:./../images/europeRegion.png");
-		ImageView europeIM = new ImageView();
-		europeIM.setFitWidth(75);
-		europeIM.setFitHeight(75);
-		europeIM.setImage(europe);
-		
-		Image africa = new Image("File:./../images/africaRegion.png");
-		ImageView africaIM = new ImageView();
-		africaIM.setFitWidth(75);
-		africaIM.setFitHeight(75);
-		africaIM.setImage(africa);
-		
-		Image asia = new Image("File:./../images/asiaRegion.png");
-		ImageView asiaIM = new ImageView();
-		asiaIM.setFitWidth(100);
-		asiaIM.setFitHeight(75);
-		asiaIM.setImage(asia);
-		
-		Image oceania = new Image("File:./../images/oceaniaRegion.png");
-		ImageView oceaniaIM = new ImageView();
-		oceaniaIM.setFitWidth(75);
-		oceaniaIM.setFitHeight(75);
-		oceaniaIM.setImage(oceania);
-
-		americasRegion = new Button("Americas", americasIM);
-		africaRegion = new Button("Africa", africaIM);
-		europeRegion = new Button("Europe", europeIM);
-		asiaRegion = new Button("Asia", asiaIM);
-		oceaniaRegion = new Button("Oceania", oceaniaIM);
-		leaderboardExitBtn = new Button("Back to Start Screen");
-		
-		leaderboardSceneGrid = new GridPane();
-		leaderboardSceneGrid.setAlignment(Pos.CENTER);
-		leaderboardSceneGrid.setHgap(10);
-		leaderboardSceneGrid.setVgap(10);
-		
-		leaderboardSceneGrid.add(lblRegions, 2, 0);
-		leaderboardSceneGrid.add(americasRegion, 0, 1);
-		leaderboardSceneGrid.add(europeRegion, 1, 1);
-		leaderboardSceneGrid.add(africaRegion, 2, 1);
-		leaderboardSceneGrid.add(asiaRegion, 3, 1);
-		leaderboardSceneGrid.add(oceaniaRegion, 4, 1);
-		leaderboardSceneGrid.add(leaderboardExitBtn, 2, 5);
-		
-		leaderboardScene = new Scene(leaderboardSceneGrid, dimsW, dimsH);
+		leaderboardScene = new Scene(leaderboard, dimsW, dimsH);
 	}
 	
 	public void setUpStorePage() {		
 		StoreMenu storeMenu = new StoreMenu(stage, profile, dimsW, dimsH); // needs to be after Profile set up
 		storeMenu.attachCode(startScene);
 
-    		storeScene = storeMenu;
+    	storeScene = storeMenu;
 	}
 	public void setUpManageLoadout(){
 		ManageLoadoutMenu manageLoadoutMenu = new ManageLoadoutMenu(stage, profile,  dimsW, dimsH);
@@ -337,7 +219,6 @@ public class StartMenu extends Application {
 		
 		accountBtn = new Button("My Account", accountIM);
 		tbd1Btn = new Button("tbd1", tbd1IM);
-		tbd2Btn = new Button("tbd2", tbd2IM);
 		settingsExitBtn = new Button("Back to Start Screen");
 		
 		settingSceneGrid = new GridPane(); 
@@ -348,7 +229,6 @@ public class StartMenu extends Application {
 		settingSceneGrid.add(lblSetting, 1, 0);
 		settingSceneGrid.add(accountBtn, 0, 1);
 		settingSceneGrid.add(tbd1Btn, 1, 1);
-		settingSceneGrid.add(tbd2Btn, 2, 1);
 		settingSceneGrid.add(settingsExitBtn, 1,4);
 		
 		HBox mediaBar = new HBox();
@@ -394,7 +274,7 @@ MediaPlayer mediaPlayer;
 	public void start(Stage stagep) throws Exception {
 //		String musicFile = "./music/GearworksFactory.mp3";     // For example
 //		playMusic("./music/GearworksFactory.mp3");
-		playMusic("file:./../music/GearworksFactory.mp3");
+		playMusic("File:./../music/GearworksFactory.mp3");
 
 		
 		stage = stagep;
@@ -402,21 +282,18 @@ MediaPlayer mediaPlayer;
 
 			@Override
 			public void handle(WindowEvent arg0) {
-				// TODO Auto-generated method stub
 				Platform.exit();
 				System.exit(0);
 			}
 			
 		});
+		
 		setUpStartScreen();
 		setUpSettingPage();
 		setUpGameStage();
 		setUpStorePage();
+		setUpLeaderboard();
 		setUpManageLoadout();
-		setUpLeaderboardStage();
-
-
-		
 		
 		setWidths();
 		attachCode();

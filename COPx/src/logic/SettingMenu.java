@@ -21,5 +21,4 @@ public class SettingMenu extends GridPane {
 		this.setHgap(10);
 		this.setVgap(10);
 	}
-	
 }
