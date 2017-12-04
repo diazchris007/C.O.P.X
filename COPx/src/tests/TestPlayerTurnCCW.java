@@ -12,19 +12,19 @@ import logic.Player;
 //tmgerrit@calpoly.edu
 public class TestPlayerTurnCCW {
 	//This code needed since the player constructor tries to initialize an Image object 
-	@BeforeClass
-	public static void initJFX() throws InterruptedException {
-	    Thread t = new Thread("JavaFX Dummy Thread") {
-	    		@Override
-	        public void run() {
-	            Application.launch(DummyApp.class, new String[0]);
-	        }
-	    };
-	    t.setDaemon(true);
-	    t.start();
-	    Thread.sleep(1000);
-	}
-	
+		@BeforeClass
+		public static void initJFX() throws InterruptedException {
+		    Thread t = new Thread("JavaFX Dummy Thread") {
+		    		@Override
+		        public void run() {
+		            Application.launch(DummyApp.class, new String[0]);
+		        }
+		    };
+		    t.setDaemon(true);
+		    t.start();
+		    Thread.sleep(1000);
+		}
+		
 	@Test
 	public void myTestTurnCCW() {
 		Player p = new Player(new Cell(new Location(0,0)), null);
