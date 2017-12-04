@@ -48,8 +48,8 @@ public class GameDisplay extends Pane{
 	Stage pausePopup;
 	StartMenu mainMenu;
 	
-	EventHandler<ActionEvent> eventHandler = new EventHandler<ActionEvent>() {
-		
+	EventHandler<ActionEvent> eventHandler = new PauseModeHandler();
+	class PauseModeHandler implements EventHandler<ActionEvent>{
 		public void handle(ActionEvent e) {
 			if (e.getSource() == resumeBtn) {
 				pausePopup.close();
@@ -69,8 +69,7 @@ public class GameDisplay extends Pane{
 				mainMenu.setStartScene();
 			}
 		}
-	};
-	
+	}
 	
 	public GameDisplay(Loadout loadout, StartMenu mainMenu)
 	{
@@ -252,64 +251,67 @@ public class GameDisplay extends Pane{
     
     public void setupInput(Scene gamescene)
     {
-    		gamescene.addEventFilter(KeyEvent.KEY_PRESSED, new EventHandler<KeyEvent>() {
-            @Override
-            public void handle(KeyEvent actionEvent) {
-            		switch(actionEvent.getCode()){
-	           		case S: 
-	           		case DOWN: 
-	           			moveDown(player);
-	           			break;
-	           		case W:
-	           		case UP:
-	           			moveUp(player);
-	           			break;
-	           		case A:
-	           		case LEFT:
-	           			moveLeft(player);
-	           			break;
-	           		case D:
-	           		case RIGHT:
-	           			moveRight(player);
-	           			break;
-	           		case Q:
-	           			player.turnCCW();
-	           			board.draw();
-	           			break;
-	           		case E:
-	           			player.turnCW();
-	           			board.draw();
-	           			break;
-	           		case ESCAPE:
-	           		case P:
-	           			summoner.pause();
-	           			pauseMenu();
-	           			break;
-	           		case DIGIT1:
-	           			placeTower(0);
-	           			break;
-	           		case DIGIT2:
-	           			placeTower(1);
-	           			break;
-	           		case DIGIT3:
-	           			placeTower(2);
-	           			break;
-	           		case DIGIT4:
-	           			placeTower(3);
-	           			break;
-	           		case SPACE:
-	           			summoner.unPause();
-	           			break;
-	           		default:
-	           			break;
-            		}
-            		String message = "Player now at: " + player.getCurrentCell().getLocation().toString();
-            		logger.log(Level.FINE, message);
-            }
-        });
+    		gamescene.addEventFilter(KeyEvent.KEY_PRESSED, new KeyPressHandler());
     }
 	public void updateLabel(int bal) {
 		balance.setText("Balance $" + bal);
 	}
-    
+    class KeyPressHandler implements EventHandler<KeyEvent>{
+
+    	@Override
+        public void handle(KeyEvent actionEvent) {
+        		switch(actionEvent.getCode()){
+           		case S: 
+           		case DOWN: 
+           			moveDown(player);
+           			break;
+           		case W:
+           		case UP:
+           			moveUp(player);
+           			break;
+           		case A:
+           		case LEFT:
+           			moveLeft(player);
+           			break;
+           		case D:
+           		case RIGHT:
+           			moveRight(player);
+           			break;
+           		case Q:
+           			player.turnCCW();
+           			board.draw();
+           			break;
+           		case E:
+           			player.turnCW();
+           			board.draw();
+           			break;
+           		case ESCAPE:
+           		case P:
+           			summoner.pause();
+           			pauseMenu();
+           			break;
+           		case DIGIT1:
+           			placeTower(0);
+           			break;
+           		case DIGIT2:
+           			placeTower(1);
+           			break;
+           		case DIGIT3:
+           			placeTower(2);
+           			break;
+           		case DIGIT4:
+           			placeTower(3);
+           			break;
+           		case SPACE:
+           			summoner.unPause();
+           			break;
+           		default:
+           			break;
+        		}
+        		String message = "Player now at: " + player.getCurrentCell().getLocation().toString();
+        		logger.log(Level.FINE, message);
+        }
+    	
+    }
+	
 }
