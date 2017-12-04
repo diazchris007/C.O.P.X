@@ -3,8 +3,8 @@ package logic;
 import java.io.File;
 
 import javafx.application.Application;
-
-
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -100,6 +100,7 @@ public class StartMenu extends Application {
 		GameDisplay gameDisplay = new GameDisplay(profile.getLoadout(0), this);
 		startGameScene = new Scene(gameDisplay);
 		gameDisplay.setupInput(startGameScene);
+		System.out.println("Done resetting");
 	}
 	
 	public void setUpLeaderboard() {		
@@ -234,7 +235,7 @@ public class StartMenu extends Application {
 		setUpLeaderboard();
 		setUpManageLoadout();
 		
-		changeScreens = new EventHandlerChangeScreenStart(mediaPlayer, stage);
+		changeScreens = new EventHandlerChangeScreenStart();
 		setUpEventHandler();
 		
 		setWidths();
@@ -246,6 +247,7 @@ public class StartMenu extends Application {
 	}
 	
 	public void setStartScene() {
+		
 		stage.setScene(startScene);
 		setUpGameStage();
 		// catch when needed?
@@ -264,5 +266,90 @@ public class StartMenu extends Application {
 		changeScreens.setUpStoreEvent(storeBtn ,  storeScene );
 		changeScreens.setUpManageLoadoutEvent(manageLoadoutBtn ,  manageLoadoutScene );
 		changeScreens.setUpSettingExitEvent(settingsExitBtn, startScene );
+	}
+	class EventHandlerChangeScreenStart implements EventHandler<ActionEvent>{
+		
+		
+		
+		
+		
+		public void playMusic(String musicFile) {
+			Media sound = new Media(new File(musicFile).toURI().toString());
+			mediaPlayer = new MediaPlayer(sound);
+			mediaPlayer.play();
+		}
+		
+		
+		public void handle(ActionEvent e) {
+			if (e.getSource() == settingBtn) {
+				stage.setScene(settingScene);
+				return;
+			}
+			if (e.getSource() == startGameBtn) {
+				
+				mediaPlayer.stop();
+				if(System.getProperty("os.name").contains("w")){
+					playMusic("File:./../music/Replicant_Police.mp3");
+					stage.setScene(startGameScene);
+				}
+				else{
+					playMusic("./../music/Replicant_Police.mp3");
+					stage.setScene(startGameScene);
+				}
+				
+				
+				
+				return;
+			}
+			if (e.getSource() == settingsExitBtn) {
+				stage.setScene(startScene);
+				return;
+			}
+			if (e.getSource() == storeBtn) {
+				stage.setScene(storeScene);
+				return;
+			}
+			if (e.getSource() == leaderboardBtn) {
+				stage.setScene(leaderboardScene);
+				return;
+			}
+			if (e.getSource() == manageLoadoutBtn)
+			{
+				((ManageLoadoutMenu) manageLoadoutScene).refreshInventory();
+				stage.setScene(manageLoadoutScene);
+				return;
+			}
+		}
+		
+		public void setUpSettingEvent(Button btn, Scene setting ) {
+			settingBtn = btn;
+			settingScene = setting;
+		}
+		
+		public void setUpStartGameEvent(Button btn, Scene scene ) {
+			startGameBtn = btn;
+			startGameScene = scene;
+		}
+
+		public void setUpLeaderboardEvent(Button btn, Scene scene ) {
+			leaderboardBtn = btn;
+			leaderboardScene = scene;
+		}
+		
+		public void setUpStoreEvent(Button btn, Scene scene ) {
+			storeBtn = btn;
+			storeScene = scene;
+		}
+		
+		public void setUpManageLoadoutEvent(Button btn, Scene scene ) {
+			manageLoadoutBtn = btn;
+			manageLoadoutScene = scene;
+		}
+
+		public void setUpSettingExitEvent(Button btn, Scene scene ) {
+			settingsExitBtn = btn;
+			startScene = scene;
+		}
+		
 	}
 }

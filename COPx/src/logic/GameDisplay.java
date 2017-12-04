@@ -51,13 +51,11 @@ public class GameDisplay extends Pane{
 	EventHandler<ActionEvent> eventHandler = new PauseModeHandler();
 	class PauseModeHandler implements EventHandler<ActionEvent>{
 		public void handle(ActionEvent e) {
+			
 			if (e.getSource() == resumeBtn) {
 				pausePopup.close();
 				summoner.unPause();
-				return;
-			} else if (e.getSource() == exitBtn) {
-				return;
-			}
+			} 
 			
 			if (e.getSource() == restartBtn) {
 				mainMenu.restartGame();
@@ -65,7 +63,9 @@ public class GameDisplay extends Pane{
 			}
 			
 			if (e.getSource() == exitBtn) {
+				
 				pausePopup.close();
+				
 				mainMenu.setStartScene();
 			}
 		}
