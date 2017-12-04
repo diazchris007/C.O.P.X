@@ -82,7 +82,7 @@ public class StartMenu extends Application {
 	   manageLoadoutBtn.setPrefWidth(150);
 
 	}
-	 
+	
 	// sets handler
 	public void attachCode() {
 	   //have each button run changeScreens when clicked
@@ -108,6 +108,8 @@ public class StartMenu extends Application {
 		leaderboard.attachCode(startScene);
 		
 		leaderboardScene = new Scene(leaderboard, dimsW, dimsH);
+		
+		leaderboard.pushLeaderboardScene(leaderboardScene);
 	}
 	
 	public void setUpStorePage() {		
@@ -144,7 +146,7 @@ public class StartMenu extends Application {
 		pic.setFitHeight(130);
 		pic.setImage(logo);
 		
-		startSceneGrid.add(pic, 0,0, 4, 1 );
+		startSceneGrid.add(pic, 0, 0, 4, 1 );
 		startSceneGrid.add(storeBtn, 1, 1);
 		startSceneGrid.add(startGameBtn, 0, 1);
 		startSceneGrid.add(settingBtn, 1, 2);
