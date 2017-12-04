@@ -70,26 +70,7 @@ public class ManageLoadoutMenu extends Scene {
 		lblTower3.setPadding(new Insets(30,30,0,30));
 		lblTower4.setPadding(new Insets(30,30,0,30));
 	
-		String s = "Select";
-		choiceBox1 = new ChoiceBox<>();
-		List<String> current = profile.getInventory().listTowerInventory();
-		current.add(s);
-		choiceBox1.getItems().addAll(current);
-		choiceBox1.setValue(s);
-		
-		
-		choiceBox2 = new ChoiceBox<>();
-		choiceBox2.getItems().addAll(current);
-		choiceBox2.setValue(s);
-		
-		choiceBox3 = new ChoiceBox<>();
-
-		choiceBox3.getItems().addAll(current);
-		choiceBox3.setValue(s);
-		
-		choiceBox4 = new ChoiceBox<>();
-		choiceBox4.getItems().addAll(current);
-		choiceBox4.setValue(s);
+		refreshInventory();
 		
 		ChoiceBox<String> loadoutMenu = new ChoiceBox<>();
 		loadoutMenu.getItems().add("Select Loadout");
@@ -110,11 +91,6 @@ public class ManageLoadoutMenu extends Scene {
 		grid.add(lblTower3, 2, 30);
 		grid.add(lblTower4, 3, 30);
 		
-		
-		grid.add(choiceBox1, 0, 31);
-	    grid.add(choiceBox2, 1, 31);
-		grid.add(choiceBox3, 2, 31);
-		grid.add(choiceBox4, 3, 31);
 		
 		grid.add(loadoutMenu, 0, 10, 4, 7);
 		
@@ -141,32 +117,43 @@ public class ManageLoadoutMenu extends Scene {
 	}
 	
 	public void refreshInventory () {
-		String s = "Select";
 		
 		List<String> current = profile.getInventory().listTowerInventory();
 		current.add(s);
-		
-		choiceBox1 = new ChoiceBox<>();
-		choiceBox1.getItems().addAll(current);
-		choiceBox1.setValue(s);
-		
-		
-		choiceBox2 = new ChoiceBox<>();
-		choiceBox2.getItems().addAll(current);
-		choiceBox2.setValue(s);
-		
-		choiceBox3 = new ChoiceBox<>();
-		choiceBox3.getItems().addAll(current);
-		choiceBox3.setValue(s);
-		
-		choiceBox4 = new ChoiceBox<>();
-		choiceBox4.getItems().addAll(current);
-		choiceBox4.setValue(s);
+
+		refreshChoice1(current);
+		refreshChoice2(current);
+		refreshChoice3(current);
+		refreshChoice4(current);
 		
 		grid.add(choiceBox1, 0, 31);
 		grid.add(choiceBox2, 1, 31);
 		grid.add(choiceBox3, 2, 31);
 		grid.add(choiceBox4, 3, 31);
 	}
+	String s = "Select";
+	private void refreshChoice1(List<String> current) {
+		choiceBox1 = new ChoiceBox<>();
+		choiceBox1.getItems().addAll(current);
+		choiceBox1.setValue(s);
+	}
 	
+	private void refreshChoice2( List<String> current ) {		
+		choiceBox2 = new ChoiceBox<>();
+		choiceBox2.getItems().addAll(current);
+		choiceBox2.setValue(s);
+	}
+	
+	private void refreshChoice3(List<String> current) {
+		choiceBox3 = new ChoiceBox<>();
+		choiceBox3.getItems().addAll(current);
+		choiceBox3.setValue(s);
+	}
+	
+	private void refreshChoice4(List<String> current) {
+		choiceBox4 = new ChoiceBox<>();
+		choiceBox4.getItems().addAll(current);
+		choiceBox4.setValue(s);
+	}
+
 }

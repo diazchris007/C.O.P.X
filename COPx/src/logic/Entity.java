@@ -68,11 +68,9 @@ public abstract class Entity{
 	public boolean moveDown( ) {
 		long newTime = new Date().getTime();
 		long temp = newTime - lastMoved;
-		System.out.println("trying to move down");
 		if(temp < timeBetweenMove) {
 			return false;
 		}
-		System.out.println("trying to move down");
         Cell nextCell = null;
         Cell[][] cells;
         cells = board.getCells();
@@ -85,9 +83,7 @@ public abstract class Entity{
 			
             nextCell = cells[x][y + 1];
             if(nextCell.hasEntity()) {
-
-    			System.out.println("move down didnt work");
-            	return false;
+            		return false;
             }
             cells[x][y].clearEntityInCell();
             
@@ -189,7 +185,6 @@ public abstract class Entity{
         if (x+1 < cells.length){
 			
             nextCell = cells[x+1][y];
-            System.out.println(nextCell.hasEntity());
             if(nextCell.hasEntity()) return false;
             cells[x][y].clearEntityInCell();
             
@@ -219,12 +214,8 @@ public abstract class Entity{
 		}
 		return entites;
 	}
-	public int getWealth() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
+
 	public void setBalance(int i) {
-		// TODO Auto-generated method stub
 		
 	}
 

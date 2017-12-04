@@ -1,7 +1,6 @@
 package logic;
 
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
 import java.util.PriorityQueue;
 
@@ -71,20 +70,8 @@ public abstract class Tower extends Entity{
 		ArrayList<Entity> entities = (ArrayList<Entity>) getNearby();
 		ArrayList<Enemy> deadEntities = new ArrayList<>();
 		if(!entities.isEmpty()){
-			
-			PriorityQueue<Entity> queue = new PriorityQueue<>(entities.size(), new Comparator<Entity>(){
-	
-				@Override
-				public int compare(Entity arg0, Entity arg1) {
-					if(arg0.getHeathPercent() > arg1.getHeathPercent())
-						return 1;
-					if(arg0.getHeathPercent() < arg1.getHeathPercent())
-						return -1;
-					return 0;
 					
-				}
-				
-			});
+			PriorityQueue<Entity> queue = new PriorityQueue<>(entities.size(), new ComparatorAttack());
 			
 			for(Entity e : entities){
 				if(e.getClass() != Player.class)

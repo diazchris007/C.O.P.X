@@ -6,7 +6,7 @@ public class Lvl1Summoner extends Summoner {
 
 	private static final int NUMMINIONS = 3;
 	private static final int NUMWAVES = 4;
-	public Lvl1Summoner(Entity target) {
+	public Lvl1Summoner(Player target) {
 		super(target);
 
 		for(int i = 0; i < NUMWAVES; i++) { 
@@ -15,10 +15,6 @@ public class Lvl1Summoner extends Summoner {
 				enemies.get(i).add(new Lvl1Enemy(new Cell(new Location(0,20)), target));
 			}
 		}
-		System.out.println(enemies.size() + " waves");
-		System.out.println(enemies.get(0).size() + " minions");
-		
 	}
-	
 
 }

@@ -18,8 +18,9 @@ public class TestPurchaseItem {
 	@BeforeClass
 	public static void initJFX() throws InterruptedException {
 	    Thread t = new Thread("JavaFX Dummy Thread") {
+	    		@Override
 	        public void run() {
-	            Application.launch(dummyApp.class, new String[0]);
+	            Application.launch(DummyApp.class, new String[0]);
 	        }
 	    };
 	    t.setDaemon(true);
@@ -30,18 +31,17 @@ public class TestPurchaseItem {
 	@Test
 	public void test() {
 		
-		List<String> real = new ArrayList<String>();
+		List<String> real = new ArrayList<>();
 		real.add("Shield");
 		real.add("Green Potion");
 		
-		List<String> initialItems =new ArrayList<String>();
+		List<String> initialItems =new ArrayList<>();
 		Profile user = new Profile(initialItems, null, null);
 	
 		for (int i = 0; i < real.size(); i++) {
 			user.purchaseItem(ItemFactory.getItem(real.get(i)));
 		}
 
-		
 		List<String> result = user.getInventory().listItemInventory();
 		
 		assertEquals(result, real);

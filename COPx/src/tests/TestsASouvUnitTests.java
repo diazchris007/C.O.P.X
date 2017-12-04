@@ -6,6 +6,6 @@ import org.junit.runners.Suite.SuiteClasses;
 
 @RunWith(Suite.class)
 @SuiteClasses({ TestInventoryFactory.class, TestPurchaseItem.class })
-public class Tests_Inventory_PurchaseItem {
+public class TestsASouvUnitTests {
 
 }

@@ -4,27 +4,24 @@ import javafx.scene.control.ListCell;
 import javafx.scene.image.ImageView;
 
 class ListCellTowers extends ListCell<String> {
-    private ImageView imageView = new ImageView();
+    private ImageView imageVi = new ImageView();
 
-    
-    
     @Override
     protected void updateItem(String item, boolean empty) {
         super.updateItem(item, empty);
 
-        imageView.setFitWidth(30);
-		imageView.setFitHeight(30);
+        imageVi.setFitWidth(30);
+        imageVi.setFitHeight(30);
         if (empty || item == null) {
         	
-            imageView.setImage(null);
-
+        	imageVi.setImage(null);
             setGraphic(null);
             setText(null);
         } else {
-            imageView.setImage(TowerFactory.getTower(item).getIcon());
+        		imageVi.setImage(TowerFactory.getTower(item).getIcon());
        
             setText(item);
-            setGraphic(imageView);
+            setGraphic(imageVi);
         }
     }
 }

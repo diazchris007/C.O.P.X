@@ -1,21 +1,19 @@
 package logic;
 
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 import java.util.PriorityQueue;
 
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 
 public abstract class Enemy extends Entity {
 	
     protected Image currentImage;
     protected Direction dir;
-    protected Entity target;
+    protected Player target;
     protected int bounty;
-	public Enemy(int health,int attack, int bounty,Cell startCell,Entity target){
+	public Enemy(int health,int attack, int bounty,Cell startCell, Player target){
 		super(health, attack);
 		timeBetweenMove = 350;
 		currentImage = null;
@@ -28,7 +26,7 @@ public abstract class Enemy extends Entity {
 		
 		return currentImage;
 	}
-	public void setTarget(Entity target) {
+	public void setTarget(Player target) {
 		
 		this.target = target;
 	}
@@ -45,74 +43,62 @@ public abstract class Enemy extends Entity {
 		int targetX = targetLoc.getX();
 		int targetY = targetLoc.getY();
 		if(targetX == currentX) {
-			if(((targetY - 1) == currentY) || ((targetY + 1) == currentY)) {
-				
-			}
-			else if(targetY > currentY) {
-				if(moveDown())
-					return true;
-				else {
-					//Find Alt path
-					return false;
-				}
-			}
-			else if(targetY < currentY) {
-				if(moveUp()) {
-					return true;
-				}
-				else {
-					return false;
-				}
-			}
+			moveDownOrUp(targetY, currentY);
 		}
 		else if(targetY == currentY) {
-			
-			if(targetX > currentX) {
-				if(moveRight())
-					return true;
-				else {
-					return false;
-				}
-			}
-			else {
-				if(moveLeft())
-					return true;
-				else {
-					return false;
-				}
-			}
+			return moveRightOrLeft(targetX, currentX);
 		}
 		else {
-
-			if(targetY > currentY) {
-				if(moveDown()) {
-					return true;
-				}
-				if(targetX > currentX) {
-					if(moveRight())
-						return true;
-					else {
-						return false;
-					}
-
-				}
-			}
-			else{
-				if(moveUp()) {
-					return true;
-				}
-				if(targetX > currentX) {
-					if(moveRight())
-						return true;
-					else {
-						return false;
-					}
-				}
-			}
+			return moveUpOrRight( targetY,  currentY,  targetX,  currentX);
 		}
 		return false;
 				
 	}
+	
+	private Boolean moveDownOrUp(int targetY, int currentY) {
+		if(((targetY - 1) == currentY) || ((targetY + 1) == currentY)) {
+			return false;
+		}
+		else if(targetY > currentY) {
+			return moveDown(); //false = find alt path
+
+		}
+		else if(targetY < currentY) {
+			return moveUp();
+		}
+		return false;
+	}
+	
+	private Boolean moveRightOrLeft(int targetX, int currentX) {
+		if(targetX > currentX) {
+			return moveRight();
+		}
+		else {
+			return moveLeft();
+		}
+	}
+	
+	private Boolean moveUpOrRight(int targetY, int currentY, int targetX, int currentX ) {
+		if(targetY > currentY) {
+			if(moveDown()) {
+				return true;
+			}
+			
+			if(targetX > currentX) {
+				return moveRight();
+			}
+		}
+		else{
+			if(moveUp()) {
+				return true;
+			}
+			if(targetX > currentX) {
+				return moveRight();
+			}
+		}
+		return false;
+	}
+	
 	public List<Entity> getNearby(){
 		ArrayList<Cell> nearby =(ArrayList<Cell>) range.getNearby();
 		ArrayList<Entity> entities = new ArrayList<>();
@@ -137,19 +123,7 @@ public abstract class Enemy extends Entity {
 		ArrayList<Entity> deadEntities = new ArrayList<>();
 		if(!entities.isEmpty()){
 			
-			PriorityQueue<Entity> queue = new PriorityQueue<>(entities.size(), new Comparator<Entity>(){
-	
-				@Override
-				public int compare(Entity arg0, Entity arg1) {
-					if(arg0.getHeathPercent() > arg1.getHeathPercent())
-						return 1;
-					if(arg0.getHeathPercent() < arg1.getHeathPercent())
-						return -1;
-					return 0;
-					
-				}
-				
-			});
+			PriorityQueue<Entity> queue = new PriorityQueue<>(entities.size(), new ComparatorAttack());
 			
 			for(Entity e : entities){
 				queue.add(e);
@@ -167,9 +141,7 @@ public abstract class Enemy extends Entity {
 		return deadEntities;
 	}
 	public void payOut() {
-		// TODO Auto-generated method stub
 		target.setBalance(((Player) target).getBalance() + bounty);
-		
 	}
 
 }

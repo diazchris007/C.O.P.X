@@ -55,6 +55,8 @@ public class GameDisplay extends Pane{
 				pausePopup.close();
 				summoner.unPause();
 				return;
+			} else if (e.getSource() == exitBtn) {
+				return;
 			}
 			
 			if (e.getSource() == restartBtn) {
@@ -307,7 +309,6 @@ public class GameDisplay extends Pane{
         });
     }
 	public void updateLabel(int bal) {
-		// TODO Auto-generated method stub
 		balance.setText("Balance $" + bal);
 	}
     

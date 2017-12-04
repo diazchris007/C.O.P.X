@@ -1,9 +1,5 @@
 package logic;
 
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
-import java.util.PriorityQueue;
 
 import javafx.scene.image.Image;
 
@@ -13,9 +9,9 @@ public class TowerSwat extends Tower{
 		super(500, 100);
 		cost = 50;
 		currentImage = new Image("file:./../images/swatTower.png");
-		description = "SwatTower";
-		price = 230;
 		name = "Swat Tower";
+		price = 230;
+		description = "A tower with the durability of a S.W.A.T. team.";
 		this.range = new RangeCircular(currentCell,1);
 	}
 

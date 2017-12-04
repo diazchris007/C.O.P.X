@@ -3,11 +3,8 @@ package logic;
 import java.io.File;
 
 import javafx.application.Application;
-import javafx.application.Platform;
-import javafx.beans.InvalidationListener;
-import javafx.beans.Observable;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
+
+
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -22,7 +19,6 @@ import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 
 import javafx.stage.Stage;
-import javafx.stage.WindowEvent;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
@@ -62,43 +58,7 @@ public class StartMenu extends Application {
 	Label lblSetting;
 	
 	Profile profile;
-	
-	EventHandler<ActionEvent> changeScreens = new EventHandler<ActionEvent>() {
-		// handles all events
-		public void handle(ActionEvent e) {
-			
-			if (e.getSource() == settingBtn) {
-				stage.setScene(settingScene);
-				return;
-			}
-			if (e.getSource() == startGameBtn) {
-				
-				mediaPlayer.stop();
-				playMusic("File:./../music/Replicant_Police.mp3");
-				stage.setScene(startGameScene);
-				
-				return;
-			}
-			if (e.getSource() == settingsExitBtn) {
-				stage.setScene(startScene);
-				return;
-			}
-			if (e.getSource() == storeBtn) {
-				stage.setScene(storeScene);
-				return;
-			}
-			if (e.getSource() == leaderboardBtn) {
-				stage.setScene(leaderboardScene);
-				return;
-			}
-			if (e.getSource() == manageLoadoutBtn)
-			{
-				((ManageLoadoutMenu) manageLoadoutScene).refreshInventory();
-				stage.setScene(manageLoadoutScene);
-				return;
-			}
-		}
-	};
+	EventHandlerChangeScreenStart changeScreens;
 
 	public static void main( String[] args) {
 		launch(args);
@@ -134,7 +94,7 @@ public class StartMenu extends Application {
 	   manageLoadoutBtn.setOnAction(changeScreens);
 	}
 	
-	public void setUpGameStage() throws Exception {
+	public void setUpGameStage() {
 		profile = new Profile();
 		
 		GameDisplay gameDisplay = new GameDisplay(profile.getLoadout(0), this);
@@ -158,9 +118,7 @@ public class StartMenu extends Application {
 	public void setUpManageLoadout(){
 		ManageLoadoutMenu manageLoadoutMenu = new ManageLoadoutMenu(stage, profile,  dimsW, dimsH);
 		manageLoadoutMenu.attachCode(startScene);
-//		manageLoadoutScene = new Scene(manageLoadoutMenu, dimsW, dimsH);
-		
-		
+				
 		manageLoadoutScene = manageLoadoutMenu;
 		
 	}
@@ -244,49 +202,25 @@ public class StartMenu extends Application {
 		volumeSlider.setValue(20/2);
 		mediaPlayer.setVolume(volumeSlider.getValue() / 100.0);
 		
-		volumeSlider.valueProperty().addListener(new InvalidationListener() {
-			@Override
-			public void invalidated(Observable ov) {
-	    			if (volumeSlider.isValueChanging()) {
-	    				mediaPlayer.setVolume(volumeSlider.getValue() / 100.0);
-	       		}
-	    		}
-		});
-		
+		volumeSlider.valueProperty().addListener(new EventHandlerListenerMainVolume(volumeSlider, mediaPlayer));
 		mediaBar.getChildren().add(volumeSlider);
-		
 		settingSceneGrid.add(mediaBar, 1, 5);
-		
 		settingScene = new Scene(settingSceneGrid, dimsW, dimsH);
 	}
 	
-
-	
-MediaPlayer mediaPlayer;
+	MediaPlayer mediaPlayer;
 	public void playMusic(String musicFile) {
 		Media sound = new Media(new File(musicFile).toURI().toString());
 		mediaPlayer = new MediaPlayer(sound);
 		mediaPlayer.play();
-		
 	}
 	
 	@Override 
 	public void start(Stage stagep) throws Exception {
-//		String musicFile = "./music/GearworksFactory.mp3";     // For example
-//		playMusic("./music/GearworksFactory.mp3");
-		playMusic("File:./../music/GearworksFactory.mp3");
+		playMusic("./../music/GearworksFactory.mp3");
 
-		
 		stage = stagep;
-		stagep.setOnCloseRequest(new EventHandler<WindowEvent>(){
-
-			@Override
-			public void handle(WindowEvent arg0) {
-				Platform.exit();
-				System.exit(0);
-			}
-			
-		});
+		stagep.setOnCloseRequest(new EventHandlerExitApp());
 		
 		setUpStartScreen();
 		setUpSettingPage();
@@ -295,9 +229,12 @@ MediaPlayer mediaPlayer;
 		setUpLeaderboard();
 		setUpManageLoadout();
 		
+		changeScreens = new EventHandlerChangeScreenStart(mediaPlayer, stage);
+		setUpEventHandler();
+		
 		setWidths();
 		attachCode();
-		 
+		
 		stage.setScene(startScene);
 		stage.setTitle("COPX");
 		stage.show();
@@ -305,21 +242,22 @@ MediaPlayer mediaPlayer;
 	
 	public void setStartScene() {
 		stage.setScene(startScene);
-		try {
-			setUpGameStage();
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		setUpGameStage();
+		// catch when needed?
 	}
 	
 	public void restartGame() {
-		try {
-			setUpGameStage();
-			stage.setScene(startGameScene);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		setUpGameStage();
+		stage.setScene(startGameScene);
+		// catch when needed?
+	}
+	
+	public void setUpEventHandler() {
+		changeScreens.setUpSettingEvent( settingBtn, settingScene );
+		changeScreens.setUpStartGameEvent( startGameBtn,  startGameScene );
+		changeScreens.setUpLeaderboardEvent( leaderboardBtn,  leaderboardScene );
+		changeScreens.setUpStoreEvent(storeBtn ,  storeScene );
+		changeScreens.setUpManageLoadoutEvent(manageLoadoutBtn ,  manageLoadoutScene );
+		changeScreens.setUpSettingExitEvent(settingsExitBtn, startScene );
 	}
 }

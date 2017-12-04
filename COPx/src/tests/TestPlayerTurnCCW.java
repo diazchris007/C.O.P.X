@@ -17,7 +17,7 @@ public class TestPlayerTurnCCW {
 	    Thread t = new Thread("JavaFX Dummy Thread") {
 	    		@Override
 	        public void run() {
-	            Application.launch(dummyApp.class, new String[0]);
+	            Application.launch(DummyApp.class, new String[0]);
 	        }
 	    };
 	    t.setDaemon(true);

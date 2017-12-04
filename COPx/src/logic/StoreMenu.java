@@ -177,10 +177,6 @@ public class StoreMenu extends Scene {
 		
 		setUpDisplayInv();
 		
-//		this.getChildren().add(grid);
-		
-		
-		
 
 		
         ScrollPane sp = new ScrollPane();
@@ -192,24 +188,11 @@ public class StoreMenu extends Scene {
         
         totalDisplay.add(sp, 0, 3);
         totalDisplay.add(storeExitBtn, 0,  4);
-//        storeScene = new Scene(grid, dimsW, dimsH);
-//        this.add(grid, columnIndex, rowIndex);
 		
 	}
 	
 	
-	private void refreshInvList(int catergory) {
-		if (catergory == ITEM) {
-			itemList.getItems().removeAll(itemList.getItems());
-			itemList.getItems().addAll( userAccount.getInventory().listItemInventory());
-		} else if (catergory == WEAPON) {
-			weaponList.getItems().removeAll(weaponList.getItems());
-			weaponList.getItems().addAll(userAccount.getInventory().listWeaponInventory());
-		} else if (catergory == TOWER) {
-			towerList.getItems().removeAll(towerList.getItems());
-			towerList.getItems().addAll(userAccount.getInventory().listTowerInventory());
-		}
-	}
+	
 	
 	private void setUpDisplayInv() {
 		Label i = new Label("Items in Inventory:");
@@ -255,87 +238,35 @@ public class StoreMenu extends Scene {
         return list;
 	}
 	
+	EventHandlerChangeScreen changeScreens = new EventHandlerChangeScreen();	
 	
-	
-	EventHandler<ActionEvent> changeScreens = new EventHandler<ActionEvent>() {
-		// handles all events
+	public class EventHandlerChangeScreen implements EventHandler<ActionEvent> {
 		public void handle(ActionEvent e) {
 			if (e.getSource() == storeExitBtn) {
 				stage.setScene(startScene);
 				return;
 			}
 		}
-	};
+	}
 	
-	EventHandler<ActionEvent> purchaseItem = new EventHandler<ActionEvent>() {
-		// handles all events
-		public void handle(ActionEvent e) {
-			int stat = -1;
-			String s1 = "You just purchased ";
-			String s2 = "You did not have enough for ";
-			String s3 = "Current Balance: ";
-			String s4 = "You already have ";
+	
+	EventHandlerPurchaseItem purchaseItem  = new EventHandlerPurchaseItem();
 
-			
+	public class EventHandlerPurchaseItem implements EventHandler<ActionEvent> {
+
+		@Override
+		public void handle(ActionEvent e) {			
 			for (int i = 0; i < storeInventory.getInventoryNum(); i++) {
 				
 				if (e.getSource() == buttons.get(i)) {
 					int objectType = storeInventory.getIWT(i);
 					
 					if (objectType == ITEM ) {
-						int itemNum = i;
-						
-						if (userAccount.itemInInv(storeInventory.getItem(itemNum).getName())) {
-							msg.setText(s4 + storeInventory.getItem(itemNum).getName());
-							msg.setTextFill(Color.RED);
-						} else {
-							stat = userAccount.purchaseItem(  storeInventory.getItem(itemNum) );
-							balanceDisplay.setText(s3 + userAccount.getBalance());
-							if (stat == 0) {// bought
-								msg.setText(s1 + storeInventory.getItem(itemNum).getName());
-								msg.setTextFill(Color.BLACK);
-							} else {
-								msg.setText(s2 + storeInventory.getItem(itemNum).getName());
-								msg.setTextFill(Color.RED);
-							}
-								
-						}
-
+						purchaseItem (i);
 					} else if (objectType == WEAPON) {
-						int weaponNum = i - storeInventory.getWeaponNum();
-
-						if (userAccount.weaponInInv(storeInventory.getWeapon(weaponNum).getName())) {
-							msg.setText(s4 + storeInventory.getWeapon(weaponNum).getName());
-							msg.setTextFill(Color.RED);
-						} else {
-							stat = userAccount.purchaseWeapon(  storeInventory.getWeapon(weaponNum) );
-							balanceDisplay.setText(s3 + userAccount.getBalance());
-							if (stat == 0) {// bought
-								msg.setText(s1 + storeInventory.getWeapon(weaponNum).getName());
-								msg.setTextFill(Color.BLACK);
-							} else {
-								msg.setText(s2 + storeInventory.getWeapon(weaponNum).getName());
-								msg.setTextFill(Color.RED);
-							}
-								
-						}
+						purchaseWeapon(i - storeInventory.getWeaponNum());
 					} else if (objectType == TOWER) {
-						int towerNum = i - storeInventory.getWeaponNum() - storeInventory.getItemNum();
-						
-						if (userAccount.towerInInv(storeInventory.getTower(towerNum).getName())) {
-							msg.setText(s4 + storeInventory.getTower(towerNum).getName());
-							msg.setTextFill(Color.RED);
-						} else {
-							stat = userAccount.purchaseTower(storeInventory.getTower(towerNum) );
-							balanceDisplay.setText(s3 + userAccount.getBalance());
-							if (stat == 0) {// bought
-								msg.setText(s1 + storeInventory.getTower(towerNum ).getName());
-								msg.setTextFill(Color.BLACK);
-							} else {
-								msg.setText(s2 + storeInventory.getTower(towerNum).getName());
-								msg.setTextFill(Color.RED);
-							}
-						}
+						purchaseTower(i - storeInventory.getWeaponNum() - storeInventory.getItemNum());
 					}
 					
 					refreshInvList(objectType);
@@ -343,7 +274,80 @@ public class StoreMenu extends Scene {
 				}
 			}	
 		}
-	};
+		
+		String s1 = "You just purchased ";
+		String s2 = "You did not have enough for ";
+		String s3 = "Current Balance: ";
+		String s4 = "You already have ";
+		int stat = -1;
+
+		
+		private void purchaseItem(int itemNum) {			
+			
+			if (userAccount.itemInInv(storeInventory.getItem(itemNum).getName())) {
+				msg.setText(s4 + storeInventory.getItem(itemNum).getName());
+				msg.setTextFill(Color.RED);
+			} else {
+				stat = userAccount.purchaseItem(  storeInventory.getItem(itemNum) );
+				balanceDisplay.setText(s3 + userAccount.getBalance());
+				if (stat == 0) {// bought
+					msg.setText(s1 + storeInventory.getItem(itemNum).getName());
+					msg.setTextFill(Color.BLACK);
+				} else {
+					msg.setText(s2 + storeInventory.getItem(itemNum).getName());
+					msg.setTextFill(Color.RED);
+				}	
+			}
+		}
+		
+		private void purchaseWeapon(int weaponNum) {			
+			if (userAccount.weaponInInv(storeInventory.getWeapon(weaponNum).getName())) {
+				msg.setText(s4 + storeInventory.getWeapon(weaponNum).getName());
+				msg.setTextFill(Color.RED);
+			} else {
+				stat = userAccount.purchaseWeapon( storeInventory.getWeapon(weaponNum) );
+				balanceDisplay.setText(s3 + userAccount.getBalance());
+				if (stat == 0) {// bought
+					msg.setText(s1 + storeInventory.getWeapon(weaponNum).getName());
+					msg.setTextFill(Color.BLACK);
+				} else {
+					msg.setText(s2 + storeInventory.getWeapon(weaponNum).getName());
+					msg.setTextFill(Color.RED);
+				}		
+			}
+		}
+		
+		private void purchaseTower(int towerNum) {
+			
+			if (userAccount.towerInInv(storeInventory.getTower(towerNum).getName())) {
+				msg.setText(s4 + storeInventory.getTower(towerNum).getName());
+				msg.setTextFill(Color.RED);
+			} else {
+				stat = userAccount.purchaseTower(storeInventory.getTower(towerNum) );
+				balanceDisplay.setText(s3 + userAccount.getBalance());
+				if (stat == 0) {// bought
+					msg.setText(s1 + storeInventory.getTower(towerNum ).getName());
+					msg.setTextFill(Color.BLACK);
+				} else {
+					msg.setText(s2 + storeInventory.getTower(towerNum).getName());
+					msg.setTextFill(Color.RED);
+				}
+			}
+		}
+		
+		private void refreshInvList(int catergory) {
+			if (catergory == ITEM) {
+				itemList.getItems().removeAll(itemList.getItems());
+				itemList.getItems().addAll( userAccount.getInventory().listItemInventory());
+			} else if (catergory == WEAPON) {
+				weaponList.getItems().removeAll(weaponList.getItems());
+				weaponList.getItems().addAll(userAccount.getInventory().listWeaponInventory());
+			} else if (catergory == TOWER) {
+				towerList.getItems().removeAll(towerList.getItems());
+				towerList.getItems().addAll(userAccount.getInventory().listTowerInventory());
+			}
+		}
+	}
 	
 	public void attachCode(Scene startScreen) {
 		startScene = startScreen;

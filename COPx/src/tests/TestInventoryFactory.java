@@ -9,7 +9,6 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import javafx.application.Application;
-//import logic.GameDisplay;
 import logic.Inventory;
 
 public class TestInventoryFactory {
@@ -17,8 +16,9 @@ public class TestInventoryFactory {
 	@BeforeClass
 	public static void initJFX() throws InterruptedException {
 	    Thread t = new Thread("JavaFX Dummy Thread") {
+	    		@Override
 	        public void run() {
-	            Application.launch(dummyApp.class, new String[0]);
+	            Application.launch(DummyApp.class, new String[0]);
 	        }
 	    };
 	    t.setDaemon(true);
@@ -30,7 +30,7 @@ public class TestInventoryFactory {
 	public void test() {
 
 		// list of items
-		List<String> test = new ArrayList<String>();
+		List<String> test = new ArrayList<>();
 		test.add("Green Potion");
 		test.add("Charge Potion");
 		test.add("HP Potion");
@@ -41,12 +41,10 @@ public class TestInventoryFactory {
 
 		Inventory inventory = null;
 		List<String> result;
-		try {
-			inventory = new Inventory(test, null, null);
-			result = inventory.listItemInventory();
-			assertEquals(result, test);
-		} catch (Exception e) {
-			e.printStackTrace();
-		} 	
+		
+		inventory = new Inventory(test, null, null);
+		result = inventory.listItemInventory();
+		assertEquals(result, test);
+		 	
 	}
 }

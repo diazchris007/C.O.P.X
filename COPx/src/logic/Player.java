@@ -19,7 +19,7 @@ public class Player extends Entity{
         this.currentCell = cell;
         cell.setEntityInCell(this);
         this.loadout = loadout;
-        this.dir = Direction.EAST;
+        this.dir = Direction.WEST;
         balance = 1000;
     }
     public void registerObserver(GameDisplay gd){
@@ -98,6 +98,7 @@ public class Player extends Entity{
 		return balance;
 	}
 
+	@Override
 	public void setBalance(int i) {
 		balance = i;
 		notifyObserver(balance);
