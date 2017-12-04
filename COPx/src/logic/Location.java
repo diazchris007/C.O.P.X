@@ -33,13 +33,7 @@ public class Location {
 	public void setY(int y) {
 		this.y = y;
 	}
-	public boolean equals(Object other)
-	{
-		if(other instanceof Location)
-			if(this.x== ((Location) other).getX() && this.y ==((Location) other).getY())
-				return true;
-		return false;
-	}
+
 	public String toString()
 	{
 		return "("+ x + ", " + y + ")"; 
