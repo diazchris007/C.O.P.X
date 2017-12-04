@@ -29,7 +29,7 @@ public class TestPlayerTurnCCW {
 	public void myTestTurnCCW() {
 		Player p = new Player(new Cell(new Location(0,0)), null);
 		p.turnCCW();
-		assertEquals(Direction.NORTHEAST, p.getDirection());
+		assertEquals(Direction.NORTH, p.getDirection());
 	}
 
 	
