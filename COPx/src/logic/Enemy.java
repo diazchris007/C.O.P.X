@@ -87,6 +87,7 @@ public abstract class Enemy extends Entity {
 			if(targetX > currentX) {
 				return moveRight();
 			}
+			return moveLeft();
 		}
 		else{
 			if(moveUp()) {
@@ -95,8 +96,8 @@ public abstract class Enemy extends Entity {
 			if(targetX > currentX) {
 				return moveRight();
 			}
+			return moveLeft();
 		}
-		return false;
 	}
 	
 	public List<Entity> getNearby(){

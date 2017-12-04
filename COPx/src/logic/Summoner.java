@@ -1,7 +1,7 @@
 package logic;
 
 import java.util.ArrayList;
-
+import java.util.HashMap;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -10,13 +10,13 @@ import javafx.application.Platform;
 
 public abstract class Summoner {
 	List<Tower> towers;
-	ArrayList<ArrayList<Enemy>> enemies;
+	HashMap<Integer, List<Enemy>> enemies;
 	Entity target;
 	Board board;
 	Boolean paused;
 	int wave;
 	public Summoner(Entity target) {
-		enemies = new ArrayList<ArrayList<Enemy>>();
+		enemies = new HashMap<>();
 		towers = new ArrayList<>();
 		this.target = target;
 		this.board = Board.getInstance();
@@ -32,28 +32,14 @@ public abstract class Summoner {
 
 			@Override
 			public void run() {
-				Platform.runLater(new Runnable() {
-					public void run() {
-
-						if(paused)
-						{
-							return;
-						}
-						else
-						{
-							attackAll();
-							moveAll();
-							board.draw();
-						}
-					}
-				});
+				Platform.runLater(new SummonerRunner());
 			}
 			
 		};
 		timer.scheduleAtFixedRate(task, 0,100);
 	}
 	public void attackAll(){
-		if(enemies.get(wave).size() != 0) {
+		if(!enemies.get(wave).isEmpty()) {
 			for(Enemy e : enemies.get(wave)){
 				ArrayList<Entity> dead = (ArrayList<Entity>) e.attack();
 				for(Entity ent : dead){
@@ -89,7 +75,7 @@ public abstract class Summoner {
 
 	}
 	public void moveAll() {
-		if(enemies.get(wave).size() != 0) {
+		if(!enemies.get(wave).isEmpty()) {
 
 			System.out.println("wave #:" + wave);
 			System.out.println("minions #:" + enemies.get(wave).size());
@@ -116,4 +102,24 @@ public abstract class Summoner {
 	{
 		paused = false;
 	}
+
+	public class SummonerRunner implements Runnable{
+		@Override
+		public void run() {
+			if(paused)
+			{
+				return;
+			}
+			else
+			{
+				attackAll();
+				moveAll();
+				board.draw();
+			}
+		}
+			
+	}
+		
+	
 }
+

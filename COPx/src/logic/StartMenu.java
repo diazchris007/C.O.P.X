@@ -217,7 +217,7 @@ public class StartMenu extends Application {
 	
 	@Override 
 	public void start(Stage stagep) throws Exception {
-		playMusic("./../music/GearworksFactory.mp3");
+		playMusic("file:./../music/GearworksFactory.mp3");
 
 		stage = stagep;
 		stagep.setOnCloseRequest(new EventHandlerExitApp());
